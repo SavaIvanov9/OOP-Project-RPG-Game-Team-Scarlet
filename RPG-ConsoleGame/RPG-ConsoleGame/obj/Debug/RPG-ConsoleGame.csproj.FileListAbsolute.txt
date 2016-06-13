@@ -1,2 +1,7 @@
 C:\Users\vivacom.bg\Desktop\Telerik\OOP-Teamwork\RPG-ConsoleGame\RPG-ConsoleGame\bin\Debug\RPG-ConsoleGame.exe.config
 C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\bin\Debug\RPG-ConsoleGame.exe.config
+C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\obj\Debug\RPG-ConsoleGame.csprojResolveAssemblyReference.cache
+C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\bin\Debug\RPG-ConsoleGame.exe
+C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\bin\Debug\RPG-ConsoleGame.pdb
+C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\obj\Debug\RPG-ConsoleGame.exe
+C:\Users\vivacom.bg\Desktop\Telerik\Telerik-OOP-TeamSkarlet\RPG-ConsoleGame\RPG-ConsoleGame\obj\Debug\RPG-ConsoleGame.pdb

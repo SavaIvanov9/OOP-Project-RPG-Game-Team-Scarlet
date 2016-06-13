@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPG_ConsoleGame.UserInterface
 {
-    class ConsoleInputReader
+    using Interfaces;
+    public class ConsoleInputReader : IInputReader
     {
+        public string ReadLine()
+        {
+            return Console.ReadLine();
+        }
     }
 }

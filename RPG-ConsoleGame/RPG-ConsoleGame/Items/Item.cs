@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG_ConsoleGame.Items
 {
-    class Item
+    public class Item
     {
     }
 }

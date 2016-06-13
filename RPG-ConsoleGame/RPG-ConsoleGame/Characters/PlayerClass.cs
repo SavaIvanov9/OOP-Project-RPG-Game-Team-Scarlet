@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace RPG_ConsoleGame.Characters
 {
-    class PlayerClass
+    public enum PlayerClass
     {
+        Mage = 1,
+        Warrior = 2,
+        Archer = 3,
+        Rogue = 4
     }
 }
