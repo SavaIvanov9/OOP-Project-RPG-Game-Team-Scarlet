@@ -47,6 +47,14 @@
     <Compile Include="Characters\Player.cs" />
     <Compile Include="Characters\PlayerClass.cs" />
     <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="Interfaces\IAttack.cs" />
+    <Compile Include="Interfaces\ICharacter.cs" />
+    <Compile Include="Interfaces\ICollect.cs" />
+    <Compile Include="Interfaces\IDestroyable.cs" />
+    <Compile Include="Interfaces\IInputReader.cs" />
+    <Compile Include="Interfaces\IMoveable.cs" />
+    <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Interfaces\IRender.cs" />
     <Compile Include="Items\GameObject.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Launcher.cs" />
@@ -61,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
