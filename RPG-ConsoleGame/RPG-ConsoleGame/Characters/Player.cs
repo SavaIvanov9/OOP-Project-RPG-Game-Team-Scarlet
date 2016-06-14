@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RPG_ConsoleGame.Map;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Characters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Map;
     using Interfaces;
     using Items;
+
     public class Player : Character, IPlayer
     {
         private readonly List<Item> inventory;
@@ -59,9 +57,6 @@ namespace RPG_ConsoleGame.Characters
 
                         map[currentRow, currentCol - 1] = previousPosition;
                         currentCol--;
-
-
-
                     }
 
                 }
@@ -76,9 +71,6 @@ namespace RPG_ConsoleGame.Characters
 
                         map[currentRow, currentCol + 1] = previousPosition;
                         currentCol++;
-
-
-
                     }
 
                 }
@@ -94,9 +86,6 @@ namespace RPG_ConsoleGame.Characters
 
                         map[currentRow + 1, currentCol] = previousPosition;
                         currentRow++;
-
-
-
                     }
                 }
                 if (keyPressed.Key == ConsoleKey.UpArrow)
@@ -110,8 +99,6 @@ namespace RPG_ConsoleGame.Characters
 
                         map[currentRow - 1, currentCol] = previousPosition;
                         currentRow--;
-
-
                     }
                 }
             }

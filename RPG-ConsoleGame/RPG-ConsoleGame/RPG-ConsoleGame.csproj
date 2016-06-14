@@ -44,13 +44,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\Character.cs" />
+    <Compile Include="Characters\Bot.cs" />
     <Compile Include="Characters\Player.cs" />
     <Compile Include="Characters\PlayerClass.cs" />
-    <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="Core\Factories\BotFactory.cs" />
+    <Compile Include="Core\Factories\ItemFactory.cs" />
+    <Compile Include="Core\Factories\PlayerFactory.cs" />
+    <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Interfaces\IAttack.cs" />
+    <Compile Include="Interfaces\IBotFactory.cs" />
     <Compile Include="Interfaces\ICharacter.cs" />
     <Compile Include="Interfaces\ICollect.cs" />
+    <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IDestroyable.cs" />
+    <Compile Include="Interfaces\IPlayerFactory.cs" />
     <Compile Include="Interfaces\IInputReader.cs" />
     <Compile Include="Interfaces\IMoveable.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />

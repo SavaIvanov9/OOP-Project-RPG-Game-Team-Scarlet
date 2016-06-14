@@ -12,6 +12,9 @@ namespace RPG_ConsoleGame.Engine
 {
     public class GameEngine
     {
+        private static readonly IInputReader Reader = new ConsoleInputReader();
+        private static readonly IRender render = new ConsoleRender();
+
         public bool IsRunning { get; private set; }
 
         static Map.Map mapMatrix = new Map.Map();
@@ -31,19 +34,9 @@ namespace RPG_ConsoleGame.Engine
         //    //this.items = new List<GameObject>();
         //}
 
-        private static readonly IInputReader Reader = new ConsoleInputReader();
-        private static readonly IRender render = new ConsoleRender();
-
         private static GameEngine instance;
 
         //Singleton patern
-        //private GameEngine(IInputReader reader, IRender render)
-        //{
-        //    this.reader = reader;
-        //    this.render = render;
-        //    //this.characters = new List<GameObject>();
-        //    //this.items = new List<GameObject>();
-        //}
         public static GameEngine Instance
         {
             get
@@ -64,8 +57,6 @@ namespace RPG_ConsoleGame.Engine
 
             Player newPlayer = new Player(plPos, 'P', playerName, race);
 
-
-
             this.IsRunning = true;
             while (this.IsRunning)
             {
@@ -73,12 +64,9 @@ namespace RPG_ConsoleGame.Engine
                 {
                     Console.Clear();
 
-
                     newPlayer.Move(map);
 
                     PrintMap(map, plPos.X, plPos.Y);
-
-                    //Console.Clear();
                 }
             }
         }
