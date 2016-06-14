@@ -15,12 +15,14 @@ namespace RPG_ConsoleGame
         {
             Console.CursorVisible = false;
 
-            IRender render = new ConsoleRender();
-            IInputReader reader = new ConsoleInputReader();
+            //IRender render = new ConsoleRender();
+            //IInputReader reader = new ConsoleInputReader();
 
-            GameEngine engine = new GameEngine(reader, render);
+            //GameEngine engine = new GameEngine(reader, render);
 
-            engine.Run();
+            //engine.Run();
+
+            GameEngine.Instance.Run();
         }
     }
 }

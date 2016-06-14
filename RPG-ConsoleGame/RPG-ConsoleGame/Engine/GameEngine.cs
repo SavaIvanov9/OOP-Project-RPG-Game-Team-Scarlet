@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RPG_ConsoleGame.Characters;
 using RPG_ConsoleGame.Interfaces;
 using RPG_ConsoleGame.Map;
+using RPG_ConsoleGame.UserInterface;
 
 namespace RPG_ConsoleGame.Engine
 {
@@ -19,15 +20,41 @@ namespace RPG_ConsoleGame.Engine
 
         static Position plPos = new Position();
 
-        private IInputReader reader;
-        private IRender render;
+        //private IInputReader reader;
+        //private IRender render;
 
-        public GameEngine(IInputReader reader, IRender render)
+        //public GameEngine(IInputReader reader, IRender render)
+        //{
+        //    this.reader = reader;
+        //    this.render = render;
+        //    //this.characters = new List<GameObject>();
+        //    //this.items = new List<GameObject>();
+        //}
+
+        private static readonly IInputReader Reader = new ConsoleInputReader();
+        private static readonly IRender render = new ConsoleRender();
+
+        private static GameEngine instance;
+
+        //Singleton patern
+        //private GameEngine(IInputReader reader, IRender render)
+        //{
+        //    this.reader = reader;
+        //    this.render = render;
+        //    //this.characters = new List<GameObject>();
+        //    //this.items = new List<GameObject>();
+        //}
+        public static GameEngine Instance
         {
-            this.reader = reader;
-            this.render = render;
-            //this.characters = new List<GameObject>();
-            //this.items = new List<GameObject>();
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameEngine();
+                }
+
+                return instance;
+            }
         }
 
         public void Run()
@@ -132,8 +159,6 @@ namespace RPG_ConsoleGame.Engine
                     {
                         Console.Write("{0} ", matrix[row, col]);
                     }
-
-
                 }
 
                 Console.WriteLine();
@@ -142,20 +167,20 @@ namespace RPG_ConsoleGame.Engine
 
         private PlayerClass GetPlayerRace()
         {
-            this.render.WriteLine("Choose a race:");
-            this.render.WriteLine("1. Mage (damage: 50, health: 100)");
-            this.render.WriteLine("2. Warrior (damage: 20, health: 300)");
-            this.render.WriteLine("3. Archer (damage: 40, health: 150)");
-            this.render.WriteLine("4. Rogue (damage: 30, health: 200)");
+            GameEngine.render.WriteLine("Choose a race:");
+            GameEngine.render.WriteLine("1. Mage (damage: 50, health: 100)");
+            render.WriteLine("2. Warrior (damage: 20, health: 300)");
+            render.WriteLine("3. Archer (damage: 40, health: 150)");
+            render.WriteLine("4. Rogue (damage: 30, health: 200)");
 
-            string choice = this.reader.ReadLine();
+            string choice = Reader.ReadLine();
 
             string[] validChoises = { "1", "2", "3", "4" };
 
             while (!validChoises.Contains(choice))
             {
-                this.render.WriteLine("Invalid choice of race, please re-enter.");
-                choice = this.reader.ReadLine();
+                render.WriteLine("Invalid choice of race, please re-enter.");
+                choice = Reader.ReadLine();
             }
 
             PlayerClass race = (PlayerClass)int.Parse(choice);
@@ -164,13 +189,13 @@ namespace RPG_ConsoleGame.Engine
         }
         private string GetPlayerName()
         {
-            this.render.WriteLine("Please enter your name:");
+            render.WriteLine("Please enter your name:");
 
-            string playerName = this.reader.ReadLine();
+            string playerName = Reader.ReadLine();
             while (string.IsNullOrWhiteSpace(playerName))
             {
-                this.render.WriteLine("Player name cannot be empty. Please re-enter.");
-                playerName = this.reader.ReadLine();
+                render.WriteLine("Player name cannot be empty. Please re-enter.");
+                playerName = Reader.ReadLine();
             }
 
             return playerName;
