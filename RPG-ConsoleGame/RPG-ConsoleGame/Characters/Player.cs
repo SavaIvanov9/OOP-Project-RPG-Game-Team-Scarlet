@@ -50,70 +50,19 @@
                 }
                 if (keyPressed.Key == ConsoleKey.LeftArrow)
                 {
-                    if ((map[currentRow, currentCol - 1] != '.') &&
-                        (map[currentRow, currentCol - 1] != 'w'))
-                    {
-                        char previousPosition = 'P';
-
-                        map[currentRow, currentCol] = ' ';
-
-                        map[currentRow, currentCol - 1] = previousPosition;
-                        currentCol--;
-
-                        position.X = currentRow;
-                        position.Y = currentCol;
-                    }
-
+                    MoveLeft(map);
                 }
                 if (keyPressed.Key == ConsoleKey.RightArrow)
                 {
-                    if ((map[currentRow, currentCol + 1] != '.') &&
-                        (map[currentRow, currentCol + 1] != 'w'))
-                    {
-                        char previousPosition = 'P';
-
-                        map[currentRow, currentCol] = ' ';
-
-                        map[currentRow, currentCol + 1] = previousPosition;
-                        currentCol++;
-
-                        position.X = currentRow;
-                        position.Y = currentCol;
-                    }
-
+                    MoveRight(map);
                 }
                 if (keyPressed.Key == ConsoleKey.DownArrow)
                 {
-                    if ((map[currentRow + 1, currentCol] != 'w') &&
-                        map[currentRow + 1, currentCol] != '.')
-                    {
-                        char previousPosition = 'P';
-
-                        map[currentRow, currentCol] = ' ';
-
-                        map[currentRow + 1, currentCol] = previousPosition;
-                        currentRow++;
-
-                        position.X = currentRow;
-                        position.Y = currentCol;
-                    }
+                    MoveDown(map);
                 }
                 if (keyPressed.Key == ConsoleKey.UpArrow)
                 {
-                    if ((map[currentRow - 1, currentCol] != 'w') &&
-                        ((currentRow - 1) > 0))
-                    {
-                        char previousPosition = 'P';
-
-                        map[currentRow, currentCol] = ' ';
-
-                        map[currentRow - 1, currentCol] = previousPosition;
-                        currentRow--;
-
-                        position.X = currentRow;
-                        position.Y = currentCol;
-                        //Position = new Position(CurrentRow, currentCol);
-                    }
+                    MoveUp(map);
                 }
             }
         }
@@ -148,7 +97,7 @@
                     break;
                 default:
                     throw new ArgumentException("ItemCollect Method error!");
-                    
+
             }
         }
 
@@ -203,6 +152,71 @@
                     break;
                 default:
                     throw new ArgumentException("Unknown player race.");
+            }
+        }
+        private void MoveLeft(char[,] map)
+        {
+            if ((map[currentRow, currentCol - 1] != '.') &&
+                            (map[currentRow, currentCol - 1] != 'w'))
+            {
+                char previousPosition = 'P';
+
+                map[currentRow, currentCol] = ' ';
+
+                map[currentRow, currentCol - 1] = previousPosition;
+                currentCol--;
+
+                position.X = currentRow;
+                position.Y = currentCol;
+            }
+        }
+        private void MoveRight(char[,] map)
+        {
+            if ((map[currentRow, currentCol + 1] != '.') &&
+                            (map[currentRow, currentCol + 1] != 'w'))
+            {
+                char previousPosition = 'P';
+
+                map[currentRow, currentCol] = ' ';
+
+                map[currentRow, currentCol + 1] = previousPosition;
+                currentCol++;
+
+                position.X = currentRow;
+                position.Y = currentCol;
+            }
+        }
+        private void MoveUp(char[,] map)
+        {
+            if ((map[currentRow - 1, currentCol] != 'w') &&
+                            ((currentRow - 1) > 0))
+            {
+                char previousPosition = 'P';
+
+                map[currentRow, currentCol] = ' ';
+
+                map[currentRow - 1, currentCol] = previousPosition;
+                currentRow--;
+
+                position.X = currentRow;
+                position.Y = currentCol;
+                //Position = new Position(CurrentRow, currentCol);
+            }
+        }
+        private void MoveDown(char[,] map)
+        {
+            if ((map[currentRow + 1, currentCol] != 'w') &&
+                            map[currentRow + 1, currentCol] != '.')
+            {
+                char previousPosition = 'P';
+
+                map[currentRow, currentCol] = ' ';
+
+                map[currentRow + 1, currentCol] = previousPosition;
+                currentRow++;
+
+                position.X = currentRow;
+                position.Y = currentCol;
             }
         }
         private void ItemsStatsToPlayerStat()
