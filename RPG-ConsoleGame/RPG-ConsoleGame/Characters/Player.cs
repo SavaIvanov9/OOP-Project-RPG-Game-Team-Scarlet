@@ -119,9 +119,38 @@
             }
         }
 
-        public void AddItemToInventory(Item item)
+        public void ItemCollect(Item item)
         {
-            this.inventory.Add(item);
+           
+                switch (item.itemposition)
+                {
+                    case Itempossition.helmet:
+                        ///Adding the item to helmet possition
+                        this.bodyItems[0] = item;
+                        break;
+                    case Itempossition.chest:
+                        ///Adding the item to chest possition
+                        this.bodyItems[1] = item;
+                        break;
+                    case Itempossition.hands:
+                        ///Adding the item to hand possition
+                        this.bodyItems[2] = item;
+                        break;
+                    case Itempossition.weapon:
+                        ///Adding the item to WEAPON possition
+                        this.bodyItems[3] = item;
+                        break;
+                    case Itempossition.boots:
+                        ///Adding the item to boots
+                        this.bodyItems[4] = item;
+                        break;
+                    case Itempossition.inventory:
+                        this.inventory.Add(item);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         //public void Heal()
