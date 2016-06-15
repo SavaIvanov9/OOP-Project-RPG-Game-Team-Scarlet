@@ -49,7 +49,6 @@ namespace RPG_ConsoleGame.Characters
                     else
                     {
                         this.defence = value;
-
                     }
                 }
             }
