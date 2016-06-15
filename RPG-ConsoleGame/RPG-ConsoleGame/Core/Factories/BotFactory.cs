@@ -6,7 +6,7 @@
 
     public class BotFactory : IBotFactory
     {
-        public IBot CreateBot(Position position, char objectSymbol, string name, PlayerClass race)
+        public IBot CreateBot(Position position, char objectSymbol, string name, PlayerRace race)
         {
             var bot = new Bot(position, objectSymbol, name, race);
 

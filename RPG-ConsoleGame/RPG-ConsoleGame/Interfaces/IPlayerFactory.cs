@@ -10,6 +10,6 @@ namespace RPG_ConsoleGame.Interfaces
 {
     interface IPlayerFactory
     {
-        IPlayer CreateHuman(Position position, char objectSymbol, string name, PlayerClass race);
+        IPlayer CreateHuman(Position position, char objectSymbol, string name, PlayerRace race);
     }
 }

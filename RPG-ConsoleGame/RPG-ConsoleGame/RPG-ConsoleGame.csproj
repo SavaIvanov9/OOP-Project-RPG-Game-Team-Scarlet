@@ -46,7 +46,7 @@
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\Bot.cs" />
     <Compile Include="Characters\Player.cs" />
-    <Compile Include="Characters\PlayerClass.cs" />
+    <Compile Include="Characters\PlayerRace.cs" />
     <Compile Include="Core\Factories\BotFactory.cs" />
     <Compile Include="Core\Factories\ItemFactory.cs" />
     <Compile Include="Core\Factories\PlayerFactory.cs" />
@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />

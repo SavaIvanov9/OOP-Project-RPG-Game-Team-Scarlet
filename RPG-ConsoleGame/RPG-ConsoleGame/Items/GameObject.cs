@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RPG_ConsoleGame.Map;
-
-namespace RPG_ConsoleGame.Items
+﻿namespace RPG_ConsoleGame.Items
 {
+    using System;
+    using Map;
     
-    using Engine;
     public abstract class GameObject
     {
-        private Position position;
+        protected Position position;
         private char objectSymbol;
 
         protected GameObject(Position position, char objectSymbol)

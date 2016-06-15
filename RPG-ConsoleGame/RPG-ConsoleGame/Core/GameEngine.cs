@@ -59,12 +59,12 @@ namespace RPG_ConsoleGame.Engine
         public void Run()
         {
             var playerName = this.GetPlayerName();
-            PlayerClass race = this.GetPlayerRace();
+            PlayerRace race = this.GetPlayerRace();
             Player newPlayer = new Player(plPos, 'P', playerName, race);
 
             database.Players.Add(newPlayer);
 
-            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerClass.Warrior));
+            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Warrior));
 
             this.IsRunning = true;
             while (this.IsRunning)
@@ -73,12 +73,12 @@ namespace RPG_ConsoleGame.Engine
                 {
                     Console.Clear();
                   
-                    newPlayer.Move(map);
+                    database.Players[0].Move(map);
+
+                    CheckForBattle(database.Players[0], database.Bots[0]);
 
                     PrintMap(map, plPos.X, plPos.Y);
                     PrintPlayerStats(database.Players[0]);
-
-                    CheckForBattle(database.Players[0], database.Bots[0]);
                 }
             }
         }
@@ -112,7 +112,6 @@ namespace RPG_ConsoleGame.Engine
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
-                //Thread.Sleep();
                 render.Clear();
                 render.WriteLine("Start battle");
             }
@@ -176,7 +175,7 @@ namespace RPG_ConsoleGame.Engine
             render.WriteLine(player.ToString());
         }
 
-        private PlayerClass GetPlayerRace()
+        private PlayerRace GetPlayerRace()
         {
             render.WriteLine("Choose a race:");
             render.WriteLine("1. Mage (damage: 50, health: 100)");
@@ -194,7 +193,7 @@ namespace RPG_ConsoleGame.Engine
                 choice = reader.ReadLine();
             }
 
-            PlayerClass race = (PlayerClass)int.Parse(choice);
+            PlayerRace race = (PlayerRace)int.Parse(choice);
 
             return race;
         }

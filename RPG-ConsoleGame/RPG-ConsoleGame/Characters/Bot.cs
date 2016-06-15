@@ -16,20 +16,21 @@ namespace RPG_ConsoleGame.Characters
         public int currentRow = 1;
         public int currentCol = 1;
 
-        public Bot(Position position, char objectSymbol, string name, PlayerClass race)
+        public Bot(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0)
         {
             this.Race = race;
             this.inventory = new List<Item>();
             this.SetPlayerStats();
-            this.CurrentCol = currentCol;
-            this.CurrentRow = currentRow;
+            //this.CurrentCol = currentCol;
+            //this.CurrentRow = currentRow;
+
         }
 
-        public int CurrentCol { get; set; }
-        public int CurrentRow { get; set; }
+        //public int CurrentCol { get; set; }
+        //public int CurrentRow { get; set; }
 
-        public PlayerClass Race { get; private set; }
+        public PlayerRace Race { get; private set; }
 
         public IEnumerable<Item> Inventory
         {
@@ -72,19 +73,19 @@ namespace RPG_ConsoleGame.Characters
         {
             switch (this.Race)
             {
-                case PlayerClass.Mage:
+                case PlayerRace.Mage:
                     this.Damage = 50;
                     this.Health = 100;
                     break;
-                case PlayerClass.Warrior:
+                case PlayerRace.Warrior:
                     this.Damage = 20;
                     this.Health = 300;
                     break;
-                case PlayerClass.Archer:
+                case PlayerRace.Archer:
                     this.Damage = 40;
                     this.Health = 150;
                     break;
-                case PlayerClass.Rogue:
+                case PlayerRace.Rogue:
                     this.Damage = 30;
                     this.Health = 200;
                     break;
