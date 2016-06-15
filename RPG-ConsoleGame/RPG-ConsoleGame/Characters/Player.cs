@@ -9,7 +9,8 @@
 
     public class Player : Character, IPlayer
     {
-        private readonly List<Item> inventory;
+        private List<Item> inventory;
+        private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
         private int currentCol = 1;
