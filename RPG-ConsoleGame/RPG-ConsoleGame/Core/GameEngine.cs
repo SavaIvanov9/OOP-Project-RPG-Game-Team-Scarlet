@@ -69,10 +69,11 @@ namespace RPG_ConsoleGame.Engine
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-
+                  
                     newPlayer.Move(map);
 
                     PrintMap(map, plPos.X, plPos.Y);
+                    PrintPlayerStats(database.Players[0]);
                 }
             }
         }
@@ -159,6 +160,12 @@ namespace RPG_ConsoleGame.Engine
             }
         }
 
+        private void PrintPlayerStats(IPlayer player)
+        {
+            render.WriteLine("");
+            render.WriteLine(player.ToString());
+        }
+
         private PlayerClass GetPlayerRace()
         {
             render.WriteLine("Choose a race:");
@@ -181,6 +188,7 @@ namespace RPG_ConsoleGame.Engine
 
             return race;
         }
+
         private string GetPlayerName()
         {
             render.WriteLine("Please enter your name:");
