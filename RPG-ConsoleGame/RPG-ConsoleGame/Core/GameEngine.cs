@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RPG_ConsoleGame.Characters;
+using RPG_ConsoleGame.Core;
+using RPG_ConsoleGame.Core.Factories;
 using RPG_ConsoleGame.Interfaces;
 using RPG_ConsoleGame.Map;
 using RPG_ConsoleGame.UserInterface;
@@ -12,8 +14,11 @@ namespace RPG_ConsoleGame.Engine
 {
     public class GameEngine
     {
-        private static readonly IInputReader Reader = new ConsoleInputReader();
-        private static readonly IRender render = new ConsoleRender();
+        private readonly IInputReader reader = new ConsoleInputReader();
+        private readonly IRender render = new ConsoleRender();
+        private readonly IPlayerFactory playerFactory = new PlayerFactory();
+        private readonly IBotFactory botFactory = new BotFactory();
+        private readonly IGameDatabase database = new GameDatabase();
 
         public bool IsRunning { get; private set; }
 
@@ -54,8 +59,9 @@ namespace RPG_ConsoleGame.Engine
         {
             var playerName = this.GetPlayerName();
             PlayerClass race = this.GetPlayerRace();
-
             Player newPlayer = new Player(plPos, 'P', playerName, race);
+
+            database.Players.Add(newPlayer);
 
             this.IsRunning = true;
             while (this.IsRunning)
@@ -155,20 +161,20 @@ namespace RPG_ConsoleGame.Engine
 
         private PlayerClass GetPlayerRace()
         {
-            GameEngine.render.WriteLine("Choose a race:");
-            GameEngine.render.WriteLine("1. Mage (damage: 50, health: 100)");
+            render.WriteLine("Choose a race:");
+            render.WriteLine("1. Mage (damage: 50, health: 100)");
             render.WriteLine("2. Warrior (damage: 20, health: 300)");
             render.WriteLine("3. Archer (damage: 40, health: 150)");
             render.WriteLine("4. Rogue (damage: 30, health: 200)");
 
-            string choice = Reader.ReadLine();
+            string choice = reader.ReadLine();
 
             string[] validChoises = { "1", "2", "3", "4" };
 
             while (!validChoises.Contains(choice))
             {
                 render.WriteLine("Invalid choice of race, please re-enter.");
-                choice = Reader.ReadLine();
+                choice = reader.ReadLine();
             }
 
             PlayerClass race = (PlayerClass)int.Parse(choice);
@@ -179,11 +185,11 @@ namespace RPG_ConsoleGame.Engine
         {
             render.WriteLine("Please enter your name:");
 
-            string playerName = Reader.ReadLine();
+            string playerName = reader.ReadLine();
             while (string.IsNullOrWhiteSpace(playerName))
             {
                 render.WriteLine("Player name cannot be empty. Please re-enter.");
-                playerName = Reader.ReadLine();
+                playerName = reader.ReadLine();
             }
 
             return playerName;

@@ -9,8 +9,8 @@ namespace RPG_ConsoleGame.Interfaces
 {
     public interface ICharacter : IAttack, IDestroyable
     {
-        string Name { get; }
+        string Name { get; set; }
 
-        Position Position { get; }
+        Position Position { get; set; }
     }
 }
