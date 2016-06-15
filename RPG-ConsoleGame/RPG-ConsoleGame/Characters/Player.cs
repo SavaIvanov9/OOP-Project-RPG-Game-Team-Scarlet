@@ -16,7 +16,7 @@
         private int currentCol = 1;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
             this.inventory = new List<Item>();
@@ -184,18 +184,22 @@
                 case PlayerRace.Mage:
                     this.Damage = 50;
                     this.Health = 100;
+                    this.Defence = 10;
                     break;
                 case PlayerRace.Warrior:
                     this.Damage = 20;
                     this.Health = 300;
+                    this.Defence = 30;
                     break;
                 case PlayerRace.Archer:
                     this.Damage = 40;
                     this.Health = 150;
+                    this.Defence = 20;
                     break;
                 case PlayerRace.Rogue:
                     this.Damage = 30;
                     this.Health = 200;
+                    this.Defence = 10;
                     break;
                 default:
                     throw new ArgumentException("Unknown player race.");
