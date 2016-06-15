@@ -51,7 +51,7 @@
                     if ((map[currentRow, currentCol - 1] != '.') &&
                         (map[currentRow, currentCol - 1] != 'w'))
                     {
-                        char previousPosition = 'p';
+                        char previousPosition = 'P';
 
                         map[currentRow, currentCol] = ' ';
 
@@ -65,7 +65,7 @@
                     if ((map[currentRow, currentCol + 1] != '.') &&
                         (map[currentRow, currentCol + 1] != 'w'))
                     {
-                        char previousPosition = 'p';
+                        char previousPosition = 'P';
 
                         map[currentRow, currentCol] = ' ';
 
@@ -80,7 +80,7 @@
                         map[currentRow + 1, currentCol] != '.')
 
                     {
-                        char previousPosition = 'p';
+                        char previousPosition = 'P';
 
                         map[currentRow, currentCol] = ' ';
 
@@ -93,7 +93,7 @@
                     if ((map[currentRow - 1, currentCol] != 'w') &&
                         ((currentRow - 1) > 0))
                     {
-                        char previousPosition = 'p';
+                        char previousPosition = 'P';
 
                         map[currentRow, currentCol] = ' ';
 

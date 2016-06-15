@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using RPG_ConsoleGame.Characters;
 using RPG_ConsoleGame.Core;
@@ -63,6 +64,8 @@ namespace RPG_ConsoleGame.Engine
 
             database.Players.Add(newPlayer);
 
+            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerClass.Warrior));
+
             this.IsRunning = true;
             while (this.IsRunning)
             {
@@ -74,6 +77,8 @@ namespace RPG_ConsoleGame.Engine
 
                     PrintMap(map, plPos.X, plPos.Y);
                     PrintPlayerStats(database.Players[0]);
+
+                    CheckForBattle(database.Players[0], database.Bots[0]);
                 }
             }
         }
@@ -103,9 +108,14 @@ namespace RPG_ConsoleGame.Engine
         //    this.renderer.WriteLine("Valar morgulis!");
         //}
 
-        static void CheckForBattle(int x, int y)
+        private void CheckForBattle(ICharacter char1, ICharacter char2)
         {
-
+            if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
+            {
+                //Thread.Sleep();
+                render.Clear();
+                render.WriteLine("Start battle");
+            }
         }
 
         //static void PrintMap(char[,] matrix, int currentRow, int currentCol)
