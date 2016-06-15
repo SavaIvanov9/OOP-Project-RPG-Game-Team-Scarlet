@@ -12,9 +12,12 @@ namespace RPG_ConsoleGame.Items
         private int power;
         private int defence;
         public Itempossition itemposition;
-        public Item()
+        public Item(int hp,int defence,int power, Itempossition possition)
         {
-
+            this.Hp = hp;
+            this.Defence = defence;
+            this.Power = power;
+            this.itemposition = possition;
         }
         public int Hp { get; set; }
         public int Power { get; set; }

@@ -67,6 +67,7 @@
     <Compile Include="Interfaces\IRender.cs" />
     <Compile Include="Items\GameObject.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\Itempossition.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Position.cs" />
