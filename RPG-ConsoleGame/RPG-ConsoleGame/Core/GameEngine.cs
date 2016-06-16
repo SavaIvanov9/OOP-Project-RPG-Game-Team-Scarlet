@@ -61,10 +61,12 @@ namespace RPG_ConsoleGame.Engine
             var playerName = this.GetPlayerName();
             PlayerRace race = this.GetPlayerRace();
             Player newPlayer = new Player(plPos, 'P', playerName, race);
-
+            
             database.Players.Add(newPlayer);
 
-            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Warrior));
+            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
+            database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
+            database.Players[0].
 
             this.IsRunning = true;
             while (this.IsRunning)
@@ -75,10 +77,10 @@ namespace RPG_ConsoleGame.Engine
                   
                     database.Players[0].Move(map);
 
-                    CheckForBattle(database.Players[0], database.Bots[0]);
-
                     PrintMap(map, plPos.X, plPos.Y);
                     PrintPlayerStats(database.Players[0]);
+
+                    CheckForBattle(database.Players[0], database.Bots[0]);
                 }
             }
         }

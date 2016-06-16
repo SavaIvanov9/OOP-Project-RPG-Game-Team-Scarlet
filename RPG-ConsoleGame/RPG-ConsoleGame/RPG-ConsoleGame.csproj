@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Characters\Abilities\Mage\MageAbilitiesConstants.cs" />
+    <Compile Include="Models\Characters\Abilities\Mage\MageAbilitiesProcessor.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Bot.cs" />
+    <Compile Include="Models\Characters\CharacterClasses\Mage.cs" />
     <Compile Include="Models\Characters\Player.cs" />
     <Compile Include="Models\Characters\PlayerRace.cs" />
     <Compile Include="Core\Factories\BotFactory.cs" />
@@ -81,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
+    <Folder Include="Models\Characters\Abilities\Archer\" />
+    <Folder Include="Models\Characters\Abilities\Rogue\" />
+    <Folder Include="Models\Characters\Abilities\Warrior\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

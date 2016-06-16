@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
+
+namespace RPG_ConsoleGame.Characters
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +11,8 @@
 
     public class Player : Character, IPlayer
     {
-        private List<Item> inventory;
+        private IList<string> abilities;
+        private IList<Item> inventory;
         private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
@@ -19,11 +22,24 @@
             : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
-            this.inventory = new List<Item>();
+            this.Inventory = new List<Item>();
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
+            this.Abilities = new List<Object>();
+        }
 
+        public IList<Object> Abilities
+        {
+            get
+            {
+                return abilities;
+            }
+            set
+            {
+                abilities = value;
+                
+            }
         }
 
         public int CurrentCol { get; set; }
@@ -31,11 +47,15 @@
 
         public PlayerRace Race { get; private set; }
 
-        public IEnumerable<Item> Inventory
+        public IList<Item> Inventory
         {
             get
             {
-                return this.inventory;
+                return inventory;
+            }
+            set
+            {
+                inventory = value;
             }
         }
 
@@ -129,6 +149,7 @@
             switch (this.Race)
             {
                 case PlayerRace.Mage:
+                    abilities.Add();
                     this.Damage = 50;
                     this.Health = 100;
                     this.Defence = 10;

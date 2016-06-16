@@ -27,6 +27,7 @@ namespace RPG_ConsoleGame.Characters
         public int Damage { get; set; }
 
         public int Health { get; set; }
+
         public int Defence
         {
             get
@@ -54,6 +55,7 @@ namespace RPG_ConsoleGame.Characters
             }
 
         }
+
         public string Name
         {
             get
