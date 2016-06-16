@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RPG_ConsoleGame.Map;
+using RPG_ConsoleGame.Characters;
 
 namespace RPG_ConsoleGame.Interfaces
 {
@@ -12,5 +13,6 @@ namespace RPG_ConsoleGame.Interfaces
         string Name { get; set; }
 
         Position Position { get; set; }
+
     }
 }

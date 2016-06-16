@@ -128,6 +128,7 @@
 
         private void SetPlayerStats()
         {
+            /// make it with variable
             switch (this.Race)
             {
                 case PlayerRace.Mage:

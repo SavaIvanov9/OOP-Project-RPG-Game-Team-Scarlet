@@ -76,5 +76,6 @@ namespace RPG_ConsoleGame.Characters
         {
             enemy.Health -= this.Damage;
         }
+
     }
 }
