@@ -17,7 +17,7 @@ namespace RPG_ConsoleGame.Characters
         public int currentCol = 1;
 
         public Bot(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
             this.inventory = new List<Item>();

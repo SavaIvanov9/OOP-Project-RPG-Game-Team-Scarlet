@@ -25,7 +25,7 @@ namespace RPG_ConsoleGame.Engine
 
         static Map.Map mapMatrix = new Map.Map();
 
-        char[,] map = mapMatrix.ReadMap("map1.txt");
+        char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
         static Position plPos = new Position();
 
