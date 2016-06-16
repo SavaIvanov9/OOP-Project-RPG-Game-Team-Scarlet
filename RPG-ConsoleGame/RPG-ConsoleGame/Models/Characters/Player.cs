@@ -11,8 +11,6 @@ namespace RPG_ConsoleGame.Characters
 
     public class Player : Character, IPlayer
     {
-        private IList<string> abilities;
-        private IList<Item> inventory;
         private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
@@ -22,42 +20,17 @@ namespace RPG_ConsoleGame.Characters
             : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
-            this.Inventory = new List<Item>();
+            
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-            this.Abilities = new List<Object>();
-        }
-
-        public IList<Object> Abilities
-        {
-            get
-            {
-                return abilities;
-            }
-            set
-            {
-                abilities = value;
-                
-            }
+           
         }
 
         public int CurrentCol { get; set; }
         public int CurrentRow { get; set; }
 
         public PlayerRace Race { get; private set; }
-
-        public IList<Item> Inventory
-        {
-            get
-            {
-                return inventory;
-            }
-            set
-            {
-                inventory = value;
-            }
-        }
 
         public void Move(char[,] map)
         {
@@ -112,7 +85,7 @@ namespace RPG_ConsoleGame.Characters
                     this.bodyItems[4] = item;
                     break;
                 case ItemBodyPossition.inventory:
-                    this.inventory.Add(item);
+                    this.Inventory.Add(item);
                     break;
                 default:
                     throw new ArgumentException("ItemCollect Method error!");
@@ -149,22 +122,25 @@ namespace RPG_ConsoleGame.Characters
             switch (this.Race)
             {
                 case PlayerRace.Mage:
-                    abilities.Add();
+                    Abilities.Add("Fireball");
                     this.Damage = 50;
                     this.Health = 100;
                     this.Defence = 10;
                     break;
                 case PlayerRace.Warrior:
+                    Abilities.Add("Slash");
                     this.Damage = 20;
                     this.Health = 300;
                     this.Defence = 30;
                     break;
                 case PlayerRace.Archer:
+                    Abilities.Add("Firearrows");
                     this.Damage = 40;
                     this.Health = 150;
                     this.Defence = 20;
                     break;
                 case PlayerRace.Rogue:
+                    Abilities.Add("Backstab");
                     this.Damage = 30;
                     this.Health = 200;
                     this.Defence = 10;

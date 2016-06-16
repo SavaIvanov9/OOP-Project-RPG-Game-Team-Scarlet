@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
+namespace RPG_ConsoleGame.Interfaces
 {
-    public enum MageAbilitiesConstants
+    public interface IAbilitiesProcessor
     {
-        FireBall = 1
+        void ProcessCommand(string command);
     }
 }

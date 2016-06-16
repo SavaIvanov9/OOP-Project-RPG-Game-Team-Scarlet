@@ -9,6 +9,7 @@ using RPG_ConsoleGame.Core;
 using RPG_ConsoleGame.Core.Factories;
 using RPG_ConsoleGame.Interfaces;
 using RPG_ConsoleGame.Map;
+using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
 using RPG_ConsoleGame.UserInterface;
 
 namespace RPG_ConsoleGame.Engine
@@ -20,6 +21,7 @@ namespace RPG_ConsoleGame.Engine
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
         private readonly IBotFactory botFactory = new BotFactory();
         private readonly IGameDatabase database = new GameDatabase();
+        private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
 
         public bool IsRunning { get; private set; }
 
@@ -66,7 +68,9 @@ namespace RPG_ConsoleGame.Engine
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
-            database.Players[0].
+            
+            //Using ability
+            //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0]);
 
             this.IsRunning = true;
             while (this.IsRunning)
@@ -150,6 +154,7 @@ namespace RPG_ConsoleGame.Engine
 
         //        Console.WriteLine();
         //    }
+
         static void PrintMap(char[,] matrix, int currentRow, int currentCol)
         {
             for (int row = 0; row < matrix.GetLength(0); row++)

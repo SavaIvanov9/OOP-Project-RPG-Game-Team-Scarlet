@@ -11,9 +11,12 @@ namespace RPG_ConsoleGame.Characters
     using Items;
     public abstract class Character : GameObject, ICharacter
     {
+        
         private string name;
         private int health;
         private int defence;
+        private IList<string> abilities;
+        private IList<Item> inventory;
 
         protected Character(Position position, char objectSymbol, string name, int damage, int health, int defence)
             : base(position, objectSymbol)
@@ -22,11 +25,37 @@ namespace RPG_ConsoleGame.Characters
             this.Health = health;
             this.Name = name;
             this.Defence = defence;
+            this.Abilities = new List<string>();
+            this.Inventory = new List<Item>();
         }
 
         public int Damage { get; set; }
 
         public int Health { get; set; }
+
+        public IList<string> Abilities
+        {
+            get
+            {
+                return abilities;
+            }
+            set
+            {
+                abilities = value;
+            }
+        }
+
+        public IList<Item> Inventory
+        {
+            get
+            {
+                return inventory;
+            }
+            set
+            {
+                inventory = value;
+            }
+        }
 
         public int Defence
         {
