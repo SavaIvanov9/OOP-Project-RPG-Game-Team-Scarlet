@@ -12,8 +12,11 @@ namespace RPG_ConsoleGame.Characters
     public abstract class Character : GameObject, ICharacter
     {
         private string name;
+        private int health;
+        private int defence;
 
-        protected Character(Position position, char objectSymbol, string name, int damage, int health)
+
+        protected Character(Position position, char objectSymbol, string name, int damage, int health, int defence)
             : base(position, objectSymbol)
         {
             this.Damage = damage;
@@ -24,7 +27,33 @@ namespace RPG_ConsoleGame.Characters
         public int Damage { get; set; }
 
         public int Health { get; set; }
+        public int Defence
+        {
+            get
+            {
+                return this.defence;
 
+            }
+            set 
+            {
+                if (value+this.defence>=85)
+                {
+                    this.defence = 85;
+                }
+                else
+                {
+                    if (this.defence+value<=0)
+                    {
+                        this.defence = 0;
+                    }
+                    else
+                    {
+                        this.defence = value;
+                    }
+                }
+            }
+
+        }
         public string Name
         {
             get

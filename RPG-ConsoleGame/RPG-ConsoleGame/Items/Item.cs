@@ -8,5 +8,27 @@ namespace RPG_ConsoleGame.Items
 {
     public class Item
     {
+        private int hp;
+        private int power;
+        private int defence;
+        public Itempossition itemposition;
+        public Item(int hp,int defence,int power, Itempossition possition)
+        {
+            this.Hp = hp;
+            this.Defence = defence;
+            this.Power = power;
+            this.itemposition = possition;
+        }
+        public int Hp { get; set; }
+        public int Power { get; set; }
+        public int Defence { get; set; }
+        /// TO DO Add Item, possition based on List<Items>
+        /// 0-Head
+        /// 1-Chest
+        /// 2-hands
+        /// 3-Wepon
+        /// 4-Boots
+        /// Enum of possition
+        /// 
     }
 }
