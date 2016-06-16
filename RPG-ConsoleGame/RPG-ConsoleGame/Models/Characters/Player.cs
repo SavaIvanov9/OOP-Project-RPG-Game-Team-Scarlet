@@ -67,32 +67,31 @@
             }
         }
 
-        public void ItemCollect(Item item)
+        public void SetBodyItems(Item item)
         {
-
             switch (item.itemposition)
             {
-                case Itempossition.helmet:
+                case ItemBodyPossition.helmet:
                     ///Adding the item to helmet possition
                     this.bodyItems[0] = item;
                     break;
-                case Itempossition.chest:
+                case ItemBodyPossition.chest:
                     ///Adding the item to chest possition
                     this.bodyItems[1] = item;
                     break;
-                case Itempossition.hands:
+                case ItemBodyPossition.hands:
                     ///Adding the item to hand possition
                     this.bodyItems[2] = item;
                     break;
-                case Itempossition.weapon:
+                case ItemBodyPossition.weapon:
                     ///Adding the item to WEAPON possition
                     this.bodyItems[3] = item;
                     break;
-                case Itempossition.boots:
+                case ItemBodyPossition.boots:
                     ///Adding the item to boots
                     this.bodyItems[4] = item;
                     break;
-                case Itempossition.inventory:
+                case ItemBodyPossition.inventory:
                     this.inventory.Add(item);
                     break;
                 default:
@@ -100,7 +99,6 @@
 
             }
         }
-
 
         //public void Heal()
         //{
@@ -118,7 +116,7 @@
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
+                "Player {0} ({1}): Damage ({2}), Health ({3}), Inventory count: {4}",
                 this.Name,
                 this.Race,
                 this.Damage,
@@ -154,6 +152,7 @@
                     throw new ArgumentException("Unknown player race.");
             }
         }
+
         private void MoveLeft(char[,] map)
         {
             if ((map[currentRow, currentCol - 1] != '.') &&
@@ -170,6 +169,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void MoveRight(char[,] map)
         {
             if ((map[currentRow, currentCol + 1] != '.') &&
@@ -186,6 +186,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void MoveUp(char[,] map)
         {
             if ((map[currentRow - 1, currentCol] != 'w') &&
@@ -203,6 +204,7 @@
                 //Position = new Position(CurrentRow, currentCol);
             }
         }
+
         private void MoveDown(char[,] map)
         {
             if ((map[currentRow + 1, currentCol] != 'w') &&
@@ -219,6 +221,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void ItemsStatsToPlayerStat()
         {
             ///write  a logic for thransforming item to play stats

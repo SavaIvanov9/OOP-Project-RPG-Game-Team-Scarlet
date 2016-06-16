@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RPG_ConsoleGame.Map;
 
 namespace RPG_ConsoleGame.Items
 {
-    public class Item
+    public abstract class Item : GameObject
     {
         private int hp;
         private int power;
         private int defence;
-        public Itempossition itemposition;
-        public Item(int hp,int defence,int power, Itempossition possition)
+        public ItemBodyPossition itemposition;
+
+        public Item(Position position, char objectSymbol, ItemBodyPossition itemBodyPosition, int hp, int defence, int power) 
+            : base(position, objectSymbol)
         {
             this.Hp = hp;
             this.Defence = defence;
             this.Power = power;
-            this.itemposition = possition;
+            this.itemposition = itemBodyPosition;
         }
+
         public int Hp { get; set; }
         public int Power { get; set; }
         public int Defence { get; set; }

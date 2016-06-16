@@ -15,13 +15,13 @@ namespace RPG_ConsoleGame.Characters
         private int health;
         private int defence;
 
-
         protected Character(Position position, char objectSymbol, string name, int damage, int health, int defence)
             : base(position, objectSymbol)
         {
             this.Damage = damage;
             this.Health = health;
             this.Name = name;
+            this.Defence = defence;
         }
 
         public int Damage { get; set; }
