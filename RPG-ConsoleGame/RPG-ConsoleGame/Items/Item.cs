@@ -48,7 +48,7 @@ namespace RPG_ConsoleGame.Items
                 case Itempossition.chest:
                 case Itempossition.hands:
                 case Itempossition.boots:
-                    ///nothing here  some other login 
+                    ///nothing here  some other logic some other time
                     break;
                 case Itempossition.inventory:
                     tempPower = 0;
