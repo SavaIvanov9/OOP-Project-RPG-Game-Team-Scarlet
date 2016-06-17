@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.UserInterface
+﻿using System.Text;
+
+namespace RPG_ConsoleGame.UserInterface
 {
     using System;
     using Interfaces;
@@ -8,6 +10,11 @@
         public void WriteLine(string message, params object[] paramaters)
         {
             Console.WriteLine(message, paramaters);
+        }
+
+        public void PrintScreen(StringBuilder screen)
+        {
+            Console.WriteLine(screen);
         }
 
         public void Clear()

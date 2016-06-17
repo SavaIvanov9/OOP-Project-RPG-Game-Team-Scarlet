@@ -63,7 +63,7 @@ namespace RPG_ConsoleGame.Engine
             var playerName = this.GetPlayerName();
             PlayerRace race = this.GetPlayerRace();
             Player newPlayer = new Player(plPos, 'P', playerName, race);
-            
+
             database.Players.Add(newPlayer);
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
@@ -79,7 +79,7 @@ namespace RPG_ConsoleGame.Engine
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-                  
+
                     database.Players[0].Move(map);
 
                     PrintMap(map, plPos.X, plPos.Y);
@@ -121,6 +121,43 @@ namespace RPG_ConsoleGame.Engine
             {
                 render.Clear();
                 render.WriteLine("Start battle");
+                StringBuilder screen = new StringBuilder();
+                screen.AppendLine(char1.ToString());
+                screen.AppendLine(char2.ToString());
+                screen.AppendLine();
+                screen.AppendLine("Choose number to cast ability:");
+                for (int i = 0; i < char1.Abilities.Count; i++)
+                {
+                    var ability = char1.Abilities[i];
+                    screen.AppendLine(string.Format("{0} -> {1}", i, ability));
+                }
+                render.PrintScreen(screen);
+
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+                    while (Console.KeyAvailable)
+                    {
+                        Console.ReadKey(true);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D0)
+                    {
+                        abilitiesProcessor.ProcessCommand(char1.Abilities[0], char1, char2);
+                    }
+                    if (keyPressed.Key == ConsoleKey.RightArrow)
+                    {
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.DownArrow)
+                    {
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.UpArrow)
+                    {
+
+                    }
+                }
+
             }
         }
 

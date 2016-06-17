@@ -10,6 +10,8 @@ namespace RPG_ConsoleGame.Interfaces
     {
         void WriteLine(string message, params object[] paramaters);
 
+        void PrintScreen(StringBuilder screen);
+
         void Clear();
     }
 }
