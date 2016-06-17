@@ -122,25 +122,41 @@ namespace RPG_ConsoleGame.Characters
             switch (this.Race)
             {
                 case PlayerRace.Mage:
+                    //abilities
                     Abilities.Add("Fireball");
+                    Abilities.Add("Fireblast");
+                    Abilities.Add("Freeze"); // enemy luses turn
+                    //passives
                     this.Damage = 50;
                     this.Health = 100;
                     this.Defence = 10;
                     break;
                 case PlayerRace.Warrior:
+                    //abilities
                     Abilities.Add("Slash");
+                    Abilities.Add("Strike");
+                    Abilities.Add("Stab");
+                    //passeives
                     this.Damage = 20;
                     this.Health = 300;
                     this.Defence = 30;
                     break;
                 case PlayerRace.Archer:
+                    //abilities
                     Abilities.Add("Firearrows");
+                    Abilities.Add("Heavyshot");
+                    Abilities.Add("Venomousarrow");
+                    //passives
                     this.Damage = 40;
                     this.Health = 150;
                     this.Defence = 20;
                     break;
                 case PlayerRace.Rogue:
+                    //abilities
                     Abilities.Add("Backstab");
+                    Abilities.Add("Ambush");
+                    Abilities.Add("Kick");
+                    //passive
                     this.Damage = 30;
                     this.Health = 200;
                     this.Defence = 10;

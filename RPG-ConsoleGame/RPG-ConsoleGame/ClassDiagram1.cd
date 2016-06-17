@@ -4,23 +4,23 @@
     <Position X="3.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAQAAAQAAABEAAAAAAAAAAAAAAACAAAAAkAAAAA=</HashCode>
-      <FileName>Characters\Bot.cs</FileName>
+      <FileName>Models\Characters\Bot.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="RPG_ConsoleGame.Characters.Character" Collapsed="true">
     <Position X="4.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACACAAAAAAAAAAAAAAAQAAIAEAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Characters\Character.cs</FileName>
+      <HashCode>AAAACACAAAAAAAAAAAAAAAQAAIAEAAAAAAAAAgAAAAo=</HashCode>
+      <FileName>Models\Characters\Character.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="RPG_ConsoleGame.Characters.Player" Collapsed="true">
     <Position X="5.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAABAQAAIQAAABEAAAAAAAAAAAAAAACAAAAAkAAAAA=</HashCode>
-      <FileName>Characters\Player.cs</FileName>
+      <HashCode>QAEABAAAAIQCAABEAAAAhAAAAAAAAAAKQAAAAkAAAAA=</HashCode>
+      <FileName>Models\Characters\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -66,14 +66,14 @@
     <Position X="4.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAAAgAAAAIAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>Items\GameObject.cs</FileName>
+      <FileName>Models\GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RPG_ConsoleGame.Items.Item" Collapsed="true">
     <Position X="9.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Items\Item.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAABAAgAAQEI=</HashCode>
+      <FileName>Models\Items\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RPG_ConsoleGame.Launcher" Collapsed="true">
@@ -201,7 +201,14 @@
     <Position X="8" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAABAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
-      <FileName>Characters\PlayerRace.cs</FileName>
+      <FileName>Models\Characters\PlayerRace.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RPG_ConsoleGame.Items.ItemBodyPossition" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgBAAAAQAAAAAAABAAAACAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Items\ItemBodyPosition.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
