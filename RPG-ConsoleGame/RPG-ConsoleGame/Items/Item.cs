@@ -10,36 +10,56 @@ namespace RPG_ConsoleGame.Items
 {
     public class Item
     {
-        private int hp;
-        private int power;
-        private int defence;
+        private double hp;
+        private double power;
+        private double defence;
         public Itempossition itemposition;
-        public Item(int hp, int defence, int power, Itempossition possition)
+        public Item(double hp, double defence, double power, Itempossition possition)
         {
             this.Hp = hp;
             this.Defence = defence;
             this.Power = power;
             this.itemposition = possition;
         }
-        public int Hp { get; set; }
-        public int Power { get; set; }
-        public int Defence { get; set; }
-        public Item GetItem(Position position)
+        public double Hp { get; private set; }
+        public double Power { get;  private set; }
+        public double Defence { get; private set; }
+        public Item GetItem()
         {
             Random rnd=new Random();
-            int tempPower = rnd.Next(10-100);
+            double tempPower = rnd.Next(10-100);
+            double powercoef = 0.7;
             Array values = Enum.GetValues(typeof(Itempossition));
             Itempossition rndPos = (Itempossition)values.GetValue(rnd.Next(values.Length));
-            ///add item possin in the coef
-            int coef=0;
-            if (tempPower>=50)	{
-                 coef+=(int)(tempPower*0.7);
-            	}
-            else{
-                  coef+=(int)(tempPower*1.2);
-            	}
-            int tempHp=(int)(tempPower*coef);
-            int tempDeff=tempHp/10;
+            double coef = 0;
+            double tempHp=tempPower*coef;
+            double tempDeff=tempHp/10;
+             if (tempPower >= 50)
+                    {
+                        coef += (tempPower * powercoef);
+                    }
+                    else
+                    {
+                        coef += (tempPower * (powercoef+0.5));
+                    }
+                        switch (rndPos)
+                        {
+                            case Itempossition.helmet:
+                            case Itempossition.chest:
+                            case Itempossition.hands:
+                            case Itempossition.boots:
+                               ///nothing here  some other login 
+                                break;
+                            case Itempossition.inventory:
+                                tempPower = 0;
+                                break;
+                            case Itempossition.weapon:
+                                tempPower = (tempPower*1.1);
+                                tempDeff = 0;
+                                break;
+                            default:
+                                break;
+                        }
 
             return new Item(tempHp,tempDeff,tempPower,rndPos);
         }
