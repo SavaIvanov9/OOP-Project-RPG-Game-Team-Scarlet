@@ -4,122 +4,125 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
 {
     public class AbilitiesProcessor : IAbilitiesProcessor
     {
-        public void ProcessCommand(string command, ICharacter enemy)
+        public void ProcessCommand(string command, ICharacter player, ICharacter enemy)
         {
             switch (command)
             {
                 //Mage abilities
                 case "Fireball":
-                    this.Fireball(enemy);
+                    this.Fireball(player, enemy);
                     break;
-                case "Fireblast":
-                    this.FireBlast(enemy);
+                case "Hellfire":
+                    this.Hellfire(player, enemy);
                     break;
-                case "Freeze":
-                    this.Freeze(enemy);
+                case "Reflect":
+                    this.Reflect(player, enemy);
                     break;
 
                 //Warrior abilities
                 case "Slash":
-                    this.Slash(enemy);
+                    this.Slash(player, enemy);
                     break;
-                case "Strike":
-                    this.Strike(enemy);
+                case "Enrage":
+                    this.Enrage(player);
                     break;
-                case "Stab":
-                    this.Stab(enemy);
+                case "ShieldWall":
+                    this.ShieldWall(player);
                     break;
 
                 //Archer abilities
                 case "Firearrows":
-                    this.Firearrows(enemy);
+                    this.MarkTarget(enemy);
                     break;
                 case "Heavyshot":
-                    this.Heavyshot(enemy);
+                    this.Heavyshot(player, enemy);
                     break;
                 case "Venomousarrow":
-                    this.Venomousarrow(enemy);
+                    this.Venomousarrow(player, enemy);
                     break;
 
                 //Rogue abilities
                 case "Backstab":
-                    this.Backstab(enemy);
+                    this.Backstab(player, enemy);
                     break;
-                case "Ambush":
-                    this.Ambush(enemy);
+                case "SharpenBlades":
+                    this.SharpenBlades(player);
                     break;
-                case "Kick":
-                    this.Kick(enemy);
+                case "Execute":
+                    this.Execute(player, enemy);
                     break;
 
                default:
                     break;
             }
         }
-
-
         //Mage
-        private void Fireball(ICharacter enemy)
+        private void Fireball(ICharacter player, ICharacter enemy)
         {
-            //FireBall logic goes here
+            enemy.Health -= (player.Damage + 40);
         }
 
-        private void FireBlast(ICharacter enemy)
-        {
-            // TO DO
+        private void Hellfire(ICharacter player, ICharacter enemy)
+        {            
+            enemy.Health -= (player.Damage + 15);
+            // TO ADD BURN EFFECT
         }
 
-        private void Freeze(ICharacter enemy)
+        private void Reflect(ICharacter player, ICharacter enemy)
         {
-            // TO DO
+            enemy.Health -= enemy.Damage;
+            player.Health += enemy.Damage;
         }
+        //TO ADD MAGE PASSIVE(MANA SHIELD)
 
         //Warrior
-        private void Slash(ICharacter enemy)
+        private void Slash(ICharacter player, ICharacter enemy)
         {
-            //TO DO
+            enemy.Health -= player.Damage + 10 - enemy.Defense;
         }
 
-        private void Strike(ICharacter enemy)
+        private void Enrage(ICharacter player)
         {
-            //TO DO
+            player.Damage *= 2;
         }
 
-        private void Stab(ICharacter enemy)
+        private void ShieldWall(ICharacter player)
         {
-            //TO DO
+            player.Defense += 10;
         }
-
+        //TO ADD WARRIOR PASSIVE(LAST STAND)
         //Archer
-        private void Firearrows(ICharacter enemy)
+        private void MarkTarget(ICharacter enemy)
         {
-            // to do
+            enemy.Defense -= 15;
         }
 
-        private void Heavyshot(ICharacter enemy)
+        private void Heavyshot(ICharacter player, ICharacter enemy)
         {
-            // to do
+            enemy.Health -= (player.Damage + 10);
         }
 
-        private void Venomousarrow(ICharacter enemy)
+        private void Venomousarrow(ICharacter player, ICharacter enemy)
         {
-            // to do
+            enemy.Health -= player.Damage;
+            //TO DO POISON EFFECT
+        }
+        //TO ADD ARCHER PASSIVE(HEADSHOT)
+        // Rogue
+        private void Backstab(ICharacter player, ICharacter enemy)
+        {
+            enemy.Health -= (player.Damage * 2);
         }
 
-        private void Backstab(ICharacter enemy)
+        private void SharpenBlades(ICharacter player)
         {
-            // to do
+            player.Damage += 15;
         }
 
-        private void Ambush(ICharacter enemy)
+        private void Execute(ICharacter player, ICharacter enemy)
         {
-            // to do
+            //enemy.Health -= player.Damage*Round;
         }
-
-        private void Kick(ICharacter enemy)
-        {
-            // to do
-        }
-
+        //TO ADD ROGUE PASSIVE (POISON)
     }
 }

@@ -70,7 +70,7 @@ namespace RPG_ConsoleGame.Engine
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
 
             //Using ability
-            abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
+            //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
 
             this.IsRunning = true;

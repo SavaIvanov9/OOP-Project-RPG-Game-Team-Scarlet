@@ -124,42 +124,42 @@ namespace RPG_ConsoleGame.Characters
                 case PlayerRace.Mage:
                     //abilities
                     Abilities.Add("Fireball");
-                    Abilities.Add("Fireblast");
-                    Abilities.Add("Freeze"); // enemy luses turn
+                    Abilities.Add("Hellfire");
+                    Abilities.Add("Reflect");
                     //passives
-                    this.Damage = 50;
+                    this.Damage = 10;
                     this.Health = 100;
-                    this.Defence = 10;
+                    this.Defense = 10;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
                     Abilities.Add("Slash");
-                    Abilities.Add("Strike");
-                    Abilities.Add("Stab");
+                    Abilities.Add("Enrage");
+                    Abilities.Add("ShieldWall");
                     //passeives
-                    this.Damage = 20;
-                    this.Health = 300;
-                    this.Defence = 30;
+                    this.Damage = 15;
+                    this.Health = 200;
+                    this.Defense = 20;
                     break;
                 case PlayerRace.Archer:
                     //abilities
-                    Abilities.Add("Firearrows");
+                    Abilities.Add("MarkTarget");
                     Abilities.Add("Heavyshot");
                     Abilities.Add("Venomousarrow");
                     //passives
                     this.Damage = 40;
-                    this.Health = 150;
-                    this.Defence = 20;
+                    this.Health = 130;
+                    this.Defense = 15;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
                     Abilities.Add("Backstab");
                     Abilities.Add("Ambush");
                     Abilities.Add("Kick");
-                    //passive
+                    //passive                   
                     this.Damage = 30;
-                    this.Health = 200;
-                    this.Defence = 10;
+                    this.Health = 150;
+                    this.Defense = 10;
                     break;
                 default:
                     throw new ArgumentException("Unknown player race.");

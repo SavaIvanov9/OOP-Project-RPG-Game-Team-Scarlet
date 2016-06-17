@@ -14,7 +14,7 @@ namespace RPG_ConsoleGame.Characters
         
         private string name;
         private int health;
-        private int defence;
+        private int defense;
         private IList<string> abilities;
         private IList<Item> inventory;
 
@@ -24,7 +24,7 @@ namespace RPG_ConsoleGame.Characters
             this.Damage = damage;
             this.Health = health;
             this.Name = name;
-            this.Defence = defence;
+            this.Defense = defense;
             this.Abilities = new List<string>();
             this.Inventory = new List<Item>();
         }
@@ -57,28 +57,28 @@ namespace RPG_ConsoleGame.Characters
             }
         }
 
-        public int Defence
+        public int Defense
         {
             get
             {
-                return this.defence;
+                return this.defense;
 
             }
             set 
             {
-                if (value+this.defence>=85)
+                if (value+this.defense>=85)
                 {
-                    this.defence = 85;
+                    this.defense = 85;
                 }
                 else
                 {
-                    if (this.defence+value<=0)
+                    if (this.defense+value<=0)
                     {
-                        this.defence = 0;
+                        this.defense = 0;
                     }
                     else
                     {
-                        this.defence = value;
+                        this.defense = value;
                     }
                 }
             }
