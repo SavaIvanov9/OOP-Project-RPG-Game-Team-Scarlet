@@ -45,12 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
-    <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
-    <Compile Include="Models\Characters\Character.cs" />
-    <Compile Include="Models\Characters\Bot.cs" />
-    <Compile Include="Models\Characters\CharacterClasses\Mage.cs" />
-    <Compile Include="Models\Characters\Player.cs" />
-    <Compile Include="Models\Characters\PlayerRace.cs" />
+    <Compile Include="Map\Models\Characters\Abilities\AbilitiesProcessor.cs" />
+    <Compile Include="Map\Models\Characters\Character.cs" />
+    <Compile Include="Map\Models\Characters\Bot.cs" />
+    <Compile Include="Map\Models\Characters\Player.cs" />
+    <Compile Include="Map\Models\Characters\PlayerRace.cs" />
     <Compile Include="Core\Factories\BotFactory.cs" />
     <Compile Include="Core\Factories\ItemFactory.cs" />
     <Compile Include="Core\Factories\PlayerFactory.cs" />
@@ -68,9 +67,9 @@
     <Compile Include="Interfaces\IMoveable.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRender.cs" />
-    <Compile Include="Models\GameObject.cs" />
-    <Compile Include="Models\Items\Item.cs" />
-    <Compile Include="Models\Items\ItemBodyPosition.cs" />
+    <Compile Include="Map\Models\GameObject.cs" />
+    <Compile Include="Map\Models\Items\Item.cs" />
+    <Compile Include="Map\Models\Items\ItemBodyPosition.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Position.cs" />

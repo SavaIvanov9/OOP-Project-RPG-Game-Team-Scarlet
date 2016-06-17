@@ -11,7 +11,7 @@ namespace RPG_ConsoleGame.Characters
 {
     public class Bot: Character, IBot
     {
-        private readonly List<Item> inventory;
+        //private readonly List<Item> inventory;
 
         public int currentRow = 1;
         public int currentCol = 1;
@@ -20,7 +20,7 @@ namespace RPG_ConsoleGame.Characters
             : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
-            this.inventory = new List<Item>();
+            //this.inventory = new List<Item>();
             this.SetPlayerStats();
             //this.CurrentCol = currentCol;
             //this.CurrentRow = currentRow;
@@ -31,18 +31,10 @@ namespace RPG_ConsoleGame.Characters
         //public int CurrentRow { get; set; }
 
         public PlayerRace Race { get; private set; }
-
-        public IEnumerable<Item> Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-        }
         
         public void AddItemToInventory(Item item)
         {
-            this.inventory.Add(item);
+            Inventory.Add(item);
         }
 
         //public void Heal()
@@ -61,7 +53,7 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
+                "Bot {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
                 this.Name,
                 this.Race,
                 this.Damage,
@@ -74,24 +66,49 @@ namespace RPG_ConsoleGame.Characters
             switch (this.Race)
             {
                 case PlayerRace.Mage:
-                    this.Damage = 50;
+                    //abilities
+                    Abilities.Add("Fireball");
+                    Abilities.Add("Hellfire");
+                    Abilities.Add("Reflect");
+                    //passives
+                    this.Damage = 10;
                     this.Health = 100;
+                    this.Defense = 10;
                     break;
                 case PlayerRace.Warrior:
-                    this.Damage = 20;
-                    this.Health = 300;
+                    //abilities
+                    Abilities.Add("Slash");
+                    Abilities.Add("Enrage");
+                    Abilities.Add("ShieldWall");
+                    //passeives
+                    this.Damage = 15;
+                    this.Health = 200;
+                    this.Defense = 20;
                     break;
                 case PlayerRace.Archer:
+                    //abilities
+                    Abilities.Add("MarkTarget");
+                    Abilities.Add("Heavyshot");
+                    Abilities.Add("Venomousarrow");
+                    //passives
                     this.Damage = 40;
-                    this.Health = 150;
+                    this.Health = 130;
+                    this.Defense = 15;
                     break;
                 case PlayerRace.Rogue:
+                    //abilities
+                    Abilities.Add("Backstab");
+                    Abilities.Add("Ambush");
+                    Abilities.Add("Kick");
+                    //passive                   
                     this.Damage = 30;
-                    this.Health = 200;
+                    this.Health = 150;
+                    this.Defense = 10;
                     break;
                 default:
                     throw new ArgumentException("Unknown player race.");
             }
         }
+
     }
 }
