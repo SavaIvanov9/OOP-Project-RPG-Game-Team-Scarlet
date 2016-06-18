@@ -73,14 +73,19 @@ namespace RPG_ConsoleGame.Engine
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
-
             this.IsRunning = true;
+
+            Console.Clear();
+
+            PrintMap(map, plPos.X, plPos.Y);
+            PrintPlayerStats(database.Players[0]);
+
             while (this.IsRunning)
             {
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-
+                    
                     database.Players[0].Move(map);
 
                     PrintMap(map, plPos.X, plPos.Y);
@@ -89,11 +94,9 @@ namespace RPG_ConsoleGame.Engine
                     {
                         CheckForBattle(database.Players[0], database.Bots[0]);
                     }
-                    
+
                     RemoveDead(database);
                 }
-
-                
             }
         }
 
@@ -126,228 +129,98 @@ namespace RPG_ConsoleGame.Engine
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
+                var isInBattle = true;
+                var history = new StringBuilder();
+                var turnsCount = 0;
+                while (isInBattle)
+                {
+                    render.Clear();
+
+                    var screen = RenderBattleStats(char1, char2, history);
+
+                    //string choice = "";
+                    //screen.AppendLine("");
+                    //screen.AppendLine("Chosen ability: " + choice);
+                    //screen.AppendLine("");
+
+                    render.PrintScreen(screen);
+
+                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+                    
+
+                    //while (Console.KeyAvailable)
+                    //{
+                    //    Console.ReadKey(true);
+                    //}
+
+                    if (keyPressed.Key == ConsoleKey.D1)
+                    {
+                        turnsCount++;
+                        RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.D2)
+                    {
+                        turnsCount++;
+                        RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D3)
+                    {
+                        turnsCount++;
+                        RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D4)
+                    {
+                        turnsCount++;
+                        RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                    }
+
+                    if (char2.Health <= 0)
+                    {
+                        render.Clear();
+                        screen = RenderBattleStats(char1, char2, history);
+
+                        render.PrintScreen(screen);
+                        render.WriteLine("You have killed the enemy!!");
+                        isInBattle = false;
+                        //database.Bots.Remove((IBot)char2);
+                    }
+                }
                 //Console.CursorVisible = true;
-                render.Clear();
-
-                StringBuilder screen = new StringBuilder();
-                screen.AppendLine();
-                screen.AppendLine("You have entered in battle!!");
-                screen.AppendLine();
-                screen.AppendLine(new string('-', 60));
-                screen.AppendLine();
-                screen.AppendLine(char1.ToString());
-                screen.AppendLine(char2.ToString());
-
-                //StringBuilder screen2 = new StringBuilder();
-                screen.AppendLine();
-                screen.AppendLine("Choose number to cast ability:");
-
-                for (int i = 0; i < char1.Abilities.Count; i++)
-                {
-                    var ability = char1.Abilities[i];
-                    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
-                }
-
-                //string choice = "";
-                //screen.AppendLine("");
-                //screen.AppendLine("Chosen ability: " + choice);
-                //screen.AppendLine("");
-
-                StringBuilder history = new StringBuilder();
-
-                render.PrintScreen(screen);
                 
-                ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-
-                //while (Console.KeyAvailable)
-                //{
-                //    Console.ReadKey(true);
-                //}
-                
-                if (keyPressed.Key == ConsoleKey.D1)
-                {
-                    //render.Clear();
-                   abilitiesProcessor.ProcessCommand(char1.Abilities[0], char1, char2);
-
-                    render.WriteLine("");
-                    render.WriteLine("Chosen ability: " + char1.Abilities[2]);
-                    render.WriteLine("");
-
-                    render.Clear();
-
-                    render.WriteLine("");
-                    render.WriteLine("You have entered in battle!!");
-                    render.WriteLine("");
-                    render.WriteLine(new string('-', 60));
-                    render.WriteLine("");
-                    render.WriteLine(char1.ToString());
-                    render.WriteLine(char2.ToString());
-
-                    render.WriteLine("");
-                    render.WriteLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        render.WriteLine(string.Format("{0} -> {1}", i + 1, ability));
-                    }
-
-                    //screen.AppendLine();
-                    //screen.AppendLine("You have entered in battle!!");
-                    //screen.AppendLine();
-                    //screen.AppendLine(new string('-', 60));
-                    //screen.AppendLine();
-                    //screen.AppendLine(char1.ToString());
-                    //screen.AppendLine(char2.ToString());
-
-                    //screen.Clear();
-
-                    //screen.AppendLine(char1.ToString());
-                    //screen.AppendLine(char2.ToString());
-                    //screen.AppendLine();
-                    //screen.AppendLine("Choose number to cast ability:");
-                    //for (int i = 0; i < char1.Abilities.Count; i++)
-                    //{
-                    //    var ability = char1.Abilities[i];
-                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
-                    //}
-
-                }
-                if (keyPressed.Key == ConsoleKey.D2)
-                {
-                    abilitiesProcessor.ProcessCommand(char1.Abilities[2], char1, char2);
-
-                    //screen.AppendLine();
-                    //screen.AppendLine("Chosen ability: " + char1.Abilities[1]);
-                    //screen.AppendLine();
-
-                    render.WriteLine("");
-                    render.WriteLine("Chosen ability: " + char1.Abilities[1]);
-                    render.WriteLine("");
-
-                    render.Clear();
-
-                    render.WriteLine("");
-                    render.WriteLine("You have entered in battle!!");
-                    render.WriteLine("");
-                    render.WriteLine(new string('-', 60));
-                    render.WriteLine("");
-                    render.WriteLine(char1.ToString());
-                    render.WriteLine(char2.ToString());
-
-                    render.WriteLine("");
-                    render.WriteLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        render.WriteLine(string.Format("{0} -> {1}", i + 1, ability));
-                    }
-
-                    ////screen.Clear();
-
-                    //screen.AppendLine(char1.ToString());
-                    //screen.AppendLine(char2.ToString());
-                    //screen.AppendLine();
-                    //screen.AppendLine("Choose number to cast ability:");
-                    //for (int i = 0; i < char1.Abilities.Count; i++)
-                    //{
-                    //    var ability = char1.Abilities[i];
-                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
-                    //}
-                }
-                if (keyPressed.Key == ConsoleKey.D3)
-                {
-                    abilitiesProcessor.ProcessCommand(char1.Abilities[2], char1, char2);
-                    //render.WriteLine("");
-                    //render.WriteLine("Chosen ability: " + char1.Abilities[2]);
-                    //render.WriteLine("");
-
-                    render.WriteLine("");
-                    render.WriteLine("Chosen ability: " + char1.Abilities[2]);
-                    render.WriteLine("");
-
-                    render.Clear();
-
-                    render.WriteLine("");
-                    render.WriteLine("You have entered in battle!!");
-                    render.WriteLine("");
-                    render.WriteLine(new string('-', 60));
-                    render.WriteLine("");
-                    render.WriteLine(char1.ToString());
-                    render.WriteLine(char2.ToString());
-
-                    render.WriteLine("");
-                    render.WriteLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        render.WriteLine(string.Format("{0} -> {1}", i + 1, ability));
-                    }
-                    //Console.WriteLine("kur");
-                    //choice = char1.Abilities[2];
-
-
-                    render.PrintScreen(history);
-
-                    //screen.Clear();
-
-                    //screen.AppendLine(char1.ToString());
-                    //screen.AppendLine(char2.ToString());
-                    //screen.AppendLine();
-                    //screen.AppendLine("Choose number to cast ability:");
-                    //for (int i = 0; i < char1.Abilities.Count; i++)
-                    //{
-                    //    var ability = char1.Abilities[i];
-                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
-                    //}
-                }
-                if (keyPressed.Key == ConsoleKey.D4)
-                {
-                    //render.WriteLine("Chosen ability: {0}", char1.Abilities[3]);
-                    //render.WriteLine("");
-                    abilitiesProcessor.ProcessCommand(char1.Abilities[2], char1, char2);
-
-                    render.WriteLine("");
-                    render.WriteLine("Chosen ability: " + char1.Abilities[2]);
-                    render.WriteLine("");
-
-                    render.Clear();
-
-                    render.WriteLine("");
-                    render.WriteLine("You have entered in battle!!");
-                    render.WriteLine("");
-                    render.WriteLine(new string('-', 60));
-                    render.WriteLine("");
-                    render.WriteLine(char1.ToString());
-                    render.WriteLine(char2.ToString());
-
-                    render.WriteLine("");
-                    render.WriteLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        render.WriteLine(string.Format("{0} -> {1}", i + 1, ability));
-                    }
-                    //screen.Clear();
-
-                    //screen.AppendLine(char1.ToString());
-                    //screen.AppendLine(char2.ToString());
-                    //screen.AppendLine();
-                    //screen.AppendLine("Choose number to cast ability:");
-                    //for (int i = 0; i < char1.Abilities.Count; i++)
-                    //{
-                    //    var ability = char1.Abilities[i];
-                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
-                    //}
-                }
-
-                //render.PrintScreen(history);
-
-                if (char2.Health <= 0)
-                {
-                    render.WriteLine("You have killed the enemy!!");
-                    //database.Bots.Remove((IBot)char2);
-                }
             }
+        }
+
+        private StringBuilder RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
+        {
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine();
+            screen.AppendLine("You have entered in battle!!");
+            screen.AppendLine();
+            screen.AppendLine(new string('-', 60));
+            screen.AppendLine();
+            screen.AppendLine(char1.ToString());
+            screen.AppendLine(char2.ToString());
+
+            //StringBuilder screen2 = new StringBuilder();
+            screen.AppendLine();
+            screen.AppendLine("Choose number to cast ability:");
+
+            for (int i = 0; i < char1.Abilities.Count; i++)
+            {
+                var ability = char1.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
+
+            screen.Append(history);
+            return screen;
+        }
+
+        private void RenderBattleAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
+        {
+            abilitiesProcessor.ProcessCommand(ability, player, enemy);
+
+            history.AppendLine($"{turn}. Chosen ability: " + ability);
         }
 
         //static void PrintMap(char[,] matrix, int currentRow, int currentCol)
