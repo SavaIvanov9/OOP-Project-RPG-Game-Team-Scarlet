@@ -69,7 +69,7 @@ namespace RPG_ConsoleGame.Engine
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
-
+            
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
@@ -85,12 +85,11 @@ namespace RPG_ConsoleGame.Engine
 
                     PrintMap(map, plPos.X, plPos.Y);
                     PrintPlayerStats(database.Players[0]);
+                }
 
-                    if (database.Bots.Count > 0)
-                    {
-                        CheckForBattle(database.Players[0], database.Bots[0]);
-                    }
-                    
+                if (database.Bots.Count > 0)
+                {
+                    CheckForBattle(database.Players[0], database.Bots[0]);
                 }
             }
         }
@@ -122,108 +121,139 @@ namespace RPG_ConsoleGame.Engine
 
         private void CheckForBattle(ICharacter char1, ICharacter char2)
         {
-            Console.CursorVisible = true;
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
                 render.Clear();
-                render.WriteLine("Start battle");
+
                 StringBuilder screen = new StringBuilder();
+                screen.AppendLine();
+                screen.AppendLine("You have entered in battle!!");
+                screen.AppendLine();
+                screen.AppendLine(new string('-', 60));
+                screen.AppendLine();
                 screen.AppendLine(char1.ToString());
                 screen.AppendLine(char2.ToString());
+
+                //StringBuilder screen2 = new StringBuilder();
                 screen.AppendLine();
                 screen.AppendLine("Choose number to cast ability:");
+
                 for (int i = 0; i < char1.Abilities.Count; i++)
                 {
                     var ability = char1.Abilities[i];
-                    screen.AppendLine(string.Format("{0} -> {1}", i, ability));
+                    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
                 }
+
+                string choice = "";
+                screen.AppendLine("");
+                screen.AppendLine("Chosen ability: " + choice);
+                screen.AppendLine("");
+
+                StringBuilder history = new StringBuilder();
+
                 render.PrintScreen(screen);
-
-
+                
                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                //string input = reader.ReadLine();
 
+                //while (Console.KeyAvailable)
+                //{
+                //    Console.ReadKey(true);
+                //}
                 if (keyPressed.Key == ConsoleKey.D1)
-                //if(input == "1")
                 {
-                    render.WriteLine("Chosen ability: {0}", char1.Abilities[0]);
+                    //render.Clear();
+                    render.WriteLine("");
+                    render.WriteLine("Chosen ability: " + char1.Abilities[0]);
                     render.WriteLine("");
 
                     abilitiesProcessor.ProcessCommand(char1.Abilities[0], char1, char2);
-                    screen.Clear();
 
-                    screen.AppendLine(char1.ToString());
-                    screen.AppendLine(char2.ToString());
-                    screen.AppendLine();
-                    screen.AppendLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        screen.AppendLine(string.Format("{0} -> {1}", i, ability));
-                    }
-                    render.PrintScreen(screen);
+                    //screen.Clear();
+                   
+                    //screen.AppendLine(char1.ToString());
+                    //screen.AppendLine(char2.ToString());
+                    //screen.AppendLine();
+                    //screen.AppendLine("Choose number to cast ability:");
+                    //for (int i = 0; i < char1.Abilities.Count; i++)
+                    //{
+                    //    var ability = char1.Abilities[i];
+                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
+                    //}
+                    
                 }
                 if (keyPressed.Key == ConsoleKey.D2)
                 {
-                    render.WriteLine("Chosen ability: {0}", char1.Abilities[1]);
-                    render.WriteLine("");
+                    //screen.AppendLine();
+                    //screen.AppendLine("Chosen ability: " + char1.Abilities[1]);
+                    //screen.AppendLine();
 
-                    abilitiesProcessor.ProcessCommand(char1.Abilities[1], char1, char2);
-                    screen.Clear();
+                    //abilitiesProcessor.ProcessCommand(char1.Abilities[1], char1, char2);
 
-                    screen.AppendLine(char1.ToString());
-                    screen.AppendLine(char2.ToString());
-                    screen.AppendLine();
-                    screen.AppendLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        screen.AppendLine(string.Format("{0} -> {1}", i, ability));
-                    }
-                    render.PrintScreen(screen);
+                    ////screen.Clear();
+
+                    //screen.AppendLine(char1.ToString());
+                    //screen.AppendLine(char2.ToString());
+                    //screen.AppendLine();
+                    //screen.AppendLine("Choose number to cast ability:");
+                    //for (int i = 0; i < char1.Abilities.Count; i++)
+                    //{
+                    //    var ability = char1.Abilities[i];
+                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
+                    //}
                 }
                 if (keyPressed.Key == ConsoleKey.D3)
                 {
-                    render.WriteLine("Chosen ability: {0}", char1.Abilities[2]);
-                    render.WriteLine("");
+                    //render.WriteLine("");
+                    //render.WriteLine("Chosen ability: " + char1.Abilities[2]);
+                    //render.WriteLine("");
 
+                    screen.AppendLine("");
+                    screen.AppendLine("Chosen ability: " + char1.Abilities[2]);
+                    screen.AppendLine("");
+                    Console.WriteLine("kur");
+                    choice = char1.Abilities[2];
                     abilitiesProcessor.ProcessCommand(char1.Abilities[2], char1, char2);
-                    screen.Clear();
 
-                    screen.AppendLine(char1.ToString());
-                    screen.AppendLine(char2.ToString());
-                    screen.AppendLine();
-                    screen.AppendLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        screen.AppendLine(string.Format("{0} -> {1}", i, ability));
-                    }
-                    render.PrintScreen(screen);
+                    render.PrintScreen(history);
+
+                    //screen.Clear();
+
+                    //screen.AppendLine(char1.ToString());
+                    //screen.AppendLine(char2.ToString());
+                    //screen.AppendLine();
+                    //screen.AppendLine("Choose number to cast ability:");
+                    //for (int i = 0; i < char1.Abilities.Count; i++)
+                    //{
+                    //    var ability = char1.Abilities[i];
+                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
+                    //}
                 }
                 if (keyPressed.Key == ConsoleKey.D4)
                 {
-                    render.WriteLine("Chosen ability: {0}", char1.Abilities[3]);
-                    render.WriteLine("");
+                    //render.WriteLine("Chosen ability: {0}", char1.Abilities[3]);
+                    //render.WriteLine("");
 
-                    abilitiesProcessor.ProcessCommand(char1.Abilities[3], char1, char2);
-                    screen.Clear();
+                    //abilitiesProcessor.ProcessCommand(char1.Abilities[3], char1, char2);
+                    //screen.Clear();
 
-                    screen.AppendLine(char1.ToString());
-                    screen.AppendLine(char2.ToString());
-                    screen.AppendLine();
-                    screen.AppendLine("Choose number to cast ability:");
-                    for (int i = 0; i < char1.Abilities.Count; i++)
-                    {
-                        var ability = char1.Abilities[i];
-                        screen.AppendLine(string.Format("{0} -> {1}", i, ability));
-                    }
-                    render.PrintScreen(screen);
+                    //screen.AppendLine(char1.ToString());
+                    //screen.AppendLine(char2.ToString());
+                    //screen.AppendLine();
+                    //screen.AppendLine("Choose number to cast ability:");
+                    //for (int i = 0; i < char1.Abilities.Count; i++)
+                    //{
+                    //    var ability = char1.Abilities[i];
+                    //    screen.AppendLine(string.Format("{0} -> {1}", i + 1, ability));
+                    //}
                 }
+
+                //render.PrintScreen(history);
+
+                render.WriteLine("You won!!");
 
                 if (char1.Health <= 0 || char2.Health <= 0)
                 {
-                    database.Bots.Remove((IBot) char2);
+                    database.Bots.Remove((IBot)char2);
                 }
             }
         }

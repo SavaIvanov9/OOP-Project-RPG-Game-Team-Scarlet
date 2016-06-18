@@ -37,10 +37,10 @@ namespace RPG_ConsoleGame.Characters
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                while (Console.KeyAvailable)
-                {
-                    Console.ReadKey(true);
-                }
+                //while (Console.KeyAvailable)
+                //{
+                //    Console.ReadKey(true);
+                //}
                 if (keyPressed.Key == ConsoleKey.LeftArrow)
                 {
                     MoveLeft(map);
