@@ -11,7 +11,8 @@ namespace RPG_ConsoleGame.Interfaces
     public interface ICharacter : IAttack, IDestroyable
     {
         string Name { get; set; }
-
+        int Defense { get; set; }
+        IList<string> Abilities { get; set; }
         Position Position { get; set; }
 
     }

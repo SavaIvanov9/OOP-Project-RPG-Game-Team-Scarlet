@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
+
+namespace RPG_ConsoleGame.Characters
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +11,6 @@
 
     public class Player : Character, IPlayer
     {
-        private List<Item> inventory;
         private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
@@ -19,25 +20,17 @@
             : base(position, objectSymbol, name, 0, 0, 0)
         {
             this.Race = race;
-            this.inventory = new List<Item>();
+            
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-
+           
         }
 
         public int CurrentCol { get; set; }
         public int CurrentRow { get; set; }
 
         public PlayerRace Race { get; private set; }
-
-        public IEnumerable<Item> Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-        }
 
         public void Move(char[,] map)
         {
@@ -67,40 +60,38 @@
             }
         }
 
-        public void ItemCollect(Item item)
+        public void SetBodyItems(Item item)
         {
-
             switch (item.itemposition)
             {
-                case Itempossition.helmet:
+                case ItemBodyPossition.helmet:
                     ///Adding the item to helmet possition
                     this.bodyItems[0] = item;
                     break;
-                case Itempossition.chest:
+                case ItemBodyPossition.chest:
                     ///Adding the item to chest possition
                     this.bodyItems[1] = item;
                     break;
-                case Itempossition.hands:
+                case ItemBodyPossition.hands:
                     ///Adding the item to hand possition
                     this.bodyItems[2] = item;
                     break;
-                case Itempossition.weapon:
+                case ItemBodyPossition.weapon:
                     ///Adding the item to WEAPON possition
                     this.bodyItems[3] = item;
                     break;
-                case Itempossition.boots:
+                case ItemBodyPossition.boots:
                     ///Adding the item to boots
                     this.bodyItems[4] = item;
                     break;
-                case Itempossition.inventory:
-                    this.inventory.Add(item);
+                case ItemBodyPossition.inventory:
+                    this.Inventory.Add(item);
                     break;
                 default:
                     throw new ArgumentException("ItemCollect Method error!");
 
             }
         }
-
 
         //public void Heal()
         //{
@@ -118,7 +109,7 @@
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
+                "Player {0} ({1}): Damage ({2}), Health ({3}), Inventory count: {4}",
                 this.Name,
                 this.Race,
                 this.Damage,
@@ -132,29 +123,50 @@
             switch (this.Race)
             {
                 case PlayerRace.Mage:
-                    this.Damage = 50;
+                    //abilities
+                    Abilities.Add("Fireball");
+                    Abilities.Add("Hellfire");
+                    Abilities.Add("Reflect");
+                    //passives
+                    this.Damage = 10;
                     this.Health = 100;
-                    this.Defence = 10;
+                    this.Defense = 10;
                     break;
                 case PlayerRace.Warrior:
-                    this.Damage = 20;
-                    this.Health = 300;
-                    this.Defence = 30;
+                    //abilities
+                    Abilities.Add("Slash");
+                    Abilities.Add("Enrage");
+                    Abilities.Add("ShieldWall");
+                    //passeives
+                    this.Damage = 15;
+                    this.Health = 200;
+                    this.Defense = 20;
                     break;
                 case PlayerRace.Archer:
+                    //abilities
+                    Abilities.Add("MarkTarget");
+                    Abilities.Add("Heavyshot");
+                    Abilities.Add("Venomousarrow");
+                    //passives
                     this.Damage = 40;
-                    this.Health = 150;
-                    this.Defence = 20;
+                    this.Health = 130;
+                    this.Defense = 15;
                     break;
                 case PlayerRace.Rogue:
+                    //abilities
+                    Abilities.Add("Backstab");
+                    Abilities.Add("Ambush");
+                    Abilities.Add("Kick");
+                    //passive                   
                     this.Damage = 30;
-                    this.Health = 200;
-                    this.Defence = 10;
+                    this.Health = 150;
+                    this.Defense = 10;
                     break;
                 default:
                     throw new ArgumentException("Unknown player race.");
             }
         }
+
         private void MoveLeft(char[,] map)
         {
             if ((map[currentRow, currentCol - 1] != '.') &&
@@ -171,6 +183,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void MoveRight(char[,] map)
         {
             if ((map[currentRow, currentCol + 1] != '.') &&
@@ -187,6 +200,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void MoveUp(char[,] map)
         {
             if ((map[currentRow - 1, currentCol] != 'w') &&
@@ -204,6 +218,7 @@
                 //Position = new Position(CurrentRow, currentCol);
             }
         }
+
         private void MoveDown(char[,] map)
         {
             if ((map[currentRow + 1, currentCol] != 'w') &&
@@ -220,6 +235,7 @@
                 position.Y = currentCol;
             }
         }
+
         private void ItemsStatsToPlayerStat()
         {
             ///write  a logic for thransforming item to play stats

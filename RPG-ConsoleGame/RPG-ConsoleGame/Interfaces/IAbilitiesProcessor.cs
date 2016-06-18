@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPG_ConsoleGame.Interfaces
 {
-    public interface IRender
+    public interface IAbilitiesProcessor
     {
-        void WriteLine(string message, params object[] paramaters);
 
-        void PrintScreen(StringBuilder screen);
-
-        void Clear();
+        void ProcessCommand(string command, ICharacter player, ICharacter enemy);
     }
 }

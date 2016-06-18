@@ -11,10 +11,12 @@ namespace RPG_ConsoleGame.Characters
     using Items;
     public abstract class Character : GameObject, ICharacter
     {
+        
         private string name;
         private int health;
-        private int defence;
-
+        private int defense;
+        private IList<string> abilities;
+        private IList<Item> inventory;
 
         protected Character(Position position, char objectSymbol, string name, int damage, int health, int defence)
             : base(position, objectSymbol)
@@ -22,38 +24,67 @@ namespace RPG_ConsoleGame.Characters
             this.Damage = damage;
             this.Health = health;
             this.Name = name;
+            this.Defense = defense;
+            this.Abilities = new List<string>();
+            this.Inventory = new List<Item>();
         }
 
         public int Damage { get; set; }
 
         public int Health { get; set; }
-        public int Defence
+
+        public IList<string> Abilities
         {
             get
             {
-                return this.defence;
+                return abilities;
+            }
+            set
+            {
+                abilities = value;
+            }
+        }
+
+        public IList<Item> Inventory
+        {
+            get
+            {
+                return inventory;
+            }
+            set
+            {
+                inventory = value;
+            }
+        }
+
+        public int Defense
+        {
+            get
+            {
+                return this.defense;
 
             }
             set 
             {
-                if (value+this.defence>=85)
+                if (value+this.defense>=85)
                 {
-                    this.defence = 85;
+                    this.defense = 85;
                 }
                 else
                 {
-                    if (this.defence+value<=0)
+                    if (this.defense+value<=0)
                     {
-                        this.defence = 0;
+                        this.defense = 0;
                     }
                     else
                     {
-                        this.defence = value;
+                        this.defense = value;
                     }
                 }
             }
 
         }
+
         public string Name
         {
             get

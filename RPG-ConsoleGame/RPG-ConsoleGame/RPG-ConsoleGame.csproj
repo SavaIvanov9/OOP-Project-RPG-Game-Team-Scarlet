@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\Character.cs" />
-    <Compile Include="Characters\Bot.cs" />
-    <Compile Include="Characters\Player.cs" />
-    <Compile Include="Characters\PlayerRace.cs" />
+    <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
+    <Compile Include="Map\Models\Characters\Abilities\AbilitiesProcessor.cs" />
+    <Compile Include="Map\Models\Characters\Character.cs" />
+    <Compile Include="Map\Models\Characters\Bot.cs" />
+    <Compile Include="Map\Models\Characters\Player.cs" />
+    <Compile Include="Map\Models\Characters\PlayerRace.cs" />
     <Compile Include="Core\Factories\BotFactory.cs" />
     <Compile Include="Core\Factories\ItemFactory.cs" />
     <Compile Include="Core\Factories\PlayerFactory.cs" />
@@ -66,9 +68,9 @@
     <Compile Include="Interfaces\IMoveable.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRender.cs" />
-    <Compile Include="Items\GameObject.cs" />
-    <Compile Include="Items\Item.cs" />
-    <Compile Include="Items\Itempossition.cs" />
+    <Compile Include="Map\Models\GameObject.cs" />
+    <Compile Include="Map\Models\Items\Item.cs" />
+    <Compile Include="Map\Models\Items\ItemBodyPosition.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Position.cs" />
