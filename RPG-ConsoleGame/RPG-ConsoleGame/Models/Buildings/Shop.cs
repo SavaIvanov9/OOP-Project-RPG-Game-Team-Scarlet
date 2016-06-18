@@ -1,14 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RPG_ConsoleGame.Models.Buildings
+﻿namespace RPG_ConsoleGame.Models.Buildings
 {
-    class Shop
+    using System;
+    using System.Collections.Generic;
+    using Map;
+    using Items;
+    using Interfaces;
+
+    public class Shop : Building , IShopable
     {
-        //TO DO:
-        //should inherit from Building class
+        private IList<Item> inventory;
+
+        public Shop(Position position, char objectSymbol, string name, IList<Item> inventory) : base(position, objectSymbol, name)
+        {
+            this.Inventory = inventory;
+
+        }
+
+        public IList<Item> Inventory
+        {
+            get { return this.inventory; }
+            set { this.inventory = value; }
+        }
+
+        
+        //sell item to player or remove item from shop
+        public void SellItem(ICharacter player)
+        {
+  
+        }
+
+        //buy item from player or populate shop with itmes
+        public void BuyItem(ICharacter player)
+        {
+
+        }
     }
 }
