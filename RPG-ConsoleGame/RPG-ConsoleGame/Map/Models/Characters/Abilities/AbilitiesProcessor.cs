@@ -94,6 +94,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         {
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
+            if (player.Health > 100)
+                player.Health = 100;
         }
         //TO ADD MAGE PASSIVE(MANA SHIELD)
 
@@ -152,6 +154,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         {
             player.Health += 20;
             enemy.Health -= (player.Damage + 10);
+            if (player.Health > 180)
+                player.Health = 180;
         }
         private void Exorcism(ICharacter player, ICharacter enemy)
         {
@@ -162,6 +166,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         private void Heal(ICharacter player)
         {
             player.Health += 70;
+            if (player.Health > 180)
+                player.Health = 180;
         }
         //TO ADD PASSIVE ABILITY(HolyRegeneration)
 
