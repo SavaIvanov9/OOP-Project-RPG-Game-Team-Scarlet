@@ -237,7 +237,7 @@ namespace RPG_ConsoleGame.Characters
 
         private void ItemsStatsToPlayerStat()
         {
-            ///write  a logic for thransforming item to play stats
+            //write a logic for transforming item to play stats
         }
     }
 }

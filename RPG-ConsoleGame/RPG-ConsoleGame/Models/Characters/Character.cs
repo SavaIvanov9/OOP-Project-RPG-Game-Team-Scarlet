@@ -107,5 +107,13 @@ namespace RPG_ConsoleGame.Characters
         {
             enemy.Health -= this.Damage;
         }
+
+        //Add item to inventory
+        public void AddItem(Item item)
+        {
+            this.inventory.Add(item);
+        }
+
+        
     }
 }
