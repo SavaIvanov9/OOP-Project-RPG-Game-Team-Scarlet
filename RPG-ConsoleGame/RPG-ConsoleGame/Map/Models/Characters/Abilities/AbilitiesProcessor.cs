@@ -94,8 +94,6 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         {
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
-            if (player.Health > 100)
-                player.Health = 100;
         }
         //TO ADD MAGE PASSIVE(MANA SHIELD)
 
