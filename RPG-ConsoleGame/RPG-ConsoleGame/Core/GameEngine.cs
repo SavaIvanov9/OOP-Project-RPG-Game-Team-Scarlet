@@ -161,34 +161,44 @@ namespace RPG_ConsoleGame.Engine
                             turnsCount++;
                             RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
 
+                            //bot AI in action
+                            ExecuteBotDecision(turnsCount, char2, char1, history);
                         }
                         if (keyPressed.Key == ConsoleKey.D2)
                         {
                             turnsCount++;
                             RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+
+                            //bot AI in action
+                            ExecuteBotDecision(turnsCount, char2, char1, history);
                         }
                         if (keyPressed.Key == ConsoleKey.D3)
                         {
                             turnsCount++;
                             RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+
+                            //bot AI in action
+                            ExecuteBotDecision(turnsCount, char2, char1, history);
                         }
                         if (keyPressed.Key == ConsoleKey.D4)
                         {
                             turnsCount++;
                             RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
-                        }
 
-                        
+                            //bot AI in action
+                            ExecuteBotDecision(turnsCount, char2, char1, history);
+                        }
                     }
-                    else
+                    if(char1.Reflexes < char2.Reflexes)
                     {
-                        turnsCount++;
-                        RenderBattleAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
+                        //bot AI in action
+                        ExecuteBotDecision(turnsCount, char2, char1, history);
                         //abilitiesProcessor.ProcessCommand(((IBot)char2).MakeDecision(), char2, char1);
                         //history.AppendLine($"{turn}. Chosen ability: " + ability);
                     }
 
-                    if (char1.Health <= 0)
+                    //check if someone died
+                    if (char1.Health <= 0 && char2.Health > 0)
                     {
                         render.Clear();
                         screen = RenderBattleStats(char1, char2, history);
@@ -201,7 +211,7 @@ namespace RPG_ConsoleGame.Engine
                         break;
 
                     }
-                    if (char2.Health <= 0)
+                    if (char2.Health <= 0 && char1.Health > 0 )
                     {
                         render.Clear();
                         screen = RenderBattleStats(char1, char2, history);
@@ -211,12 +221,30 @@ namespace RPG_ConsoleGame.Engine
                         isInBattle = false;
                         //database.Bots.Remove((IBot)char2);
                     }
+                    if (char1.Health <= 0 && char2.Health <= 0)
+                    {
+                        render.Clear();
+                        screen = RenderBattleStats(char1, char2, history);
+
+                        render.PrintScreen(screen);
+                        render.WriteLine("You have killed the enemy, but you have died too... Ask admin to resurrect you :D");
+                        render.WriteLine("");
+                        //this.isInBattle = false;
+                        this.IsRunning = false;
+                        break;
+                    }
                 }
                 //Console.CursorVisible = true;
 
             }
         }
 
+        private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
+        {
+            turnsCount++;
+            RenderBattleAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
+        }
+        
         private StringBuilder RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
         {
             StringBuilder screen = new StringBuilder();

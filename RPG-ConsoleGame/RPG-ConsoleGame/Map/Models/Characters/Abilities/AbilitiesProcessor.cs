@@ -103,16 +103,19 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= player.Damage + 10 - enemy.Defense;
         }
 
         private void Enrage(ICharacter player)
         {
+            player.Reflexes -= 10;
             player.Damage *= 2;
         }
 
         private void ShieldWall(ICharacter player)
         {
+            player.Reflexes -= 10;
             player.Defense += 10;
         }
         //TO ADD WARRIOR PASSIVE(LAST STAND)

@@ -53,7 +53,7 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Reflexes: {4}",
+                "Player {0} ({1}): Damage ({2}), Health ({3}), Reflexes: ({4})",
                 this.Name,
                 this.Race,
                 this.Damage,
