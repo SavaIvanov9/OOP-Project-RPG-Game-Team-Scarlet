@@ -134,6 +134,7 @@ namespace RPG_ConsoleGame.Engine
                 var turnsCount = 0;
                 while (isInBattle)
                 {
+
                     render.Clear();
 
                     var screen = RenderBattleStats(char1, char2, history);
@@ -145,36 +146,61 @@ namespace RPG_ConsoleGame.Engine
 
                     render.PrintScreen(screen);
 
-                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+                    if (char1.Reflexes >= char2.Reflexes)
+                    {
+                        ConsoleKeyInfo keyPressed = Console.ReadKey(true);
 
 
-                    //while (Console.KeyAvailable)
-                    //{
-                    //    Console.ReadKey(true);
-                    //}
+                        //while (Console.KeyAvailable)
+                        //{
+                        //    Console.ReadKey(true);
+                        //}
 
-                    if (keyPressed.Key == ConsoleKey.D1)
+                        if (keyPressed.Key == ConsoleKey.D1)
+                        {
+                            turnsCount++;
+                            RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+
+                        }
+                        if (keyPressed.Key == ConsoleKey.D2)
+                        {
+                            turnsCount++;
+                            RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                        }
+                        if (keyPressed.Key == ConsoleKey.D3)
+                        {
+                            turnsCount++;
+                            RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                        }
+                        if (keyPressed.Key == ConsoleKey.D4)
+                        {
+                            turnsCount++;
+                            RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                        }
+
+                        
+                    }
+                    else
                     {
                         turnsCount++;
-                        RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
-
-                    }
-                    if (keyPressed.Key == ConsoleKey.D2)
-                    {
-                        turnsCount++;
-                        RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
-                    }
-                    if (keyPressed.Key == ConsoleKey.D3)
-                    {
-                        turnsCount++;
-                        RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
-                    }
-                    if (keyPressed.Key == ConsoleKey.D4)
-                    {
-                        turnsCount++;
-                        RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                        RenderBattleAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
+                        //abilitiesProcessor.ProcessCommand(((IBot)char2).MakeDecision(), char2, char1);
+                        //history.AppendLine($"{turn}. Chosen ability: " + ability);
                     }
 
+                    if (char1.Health <= 0)
+                    {
+                        render.Clear();
+                        screen = RenderBattleStats(char1, char2, history);
+
+                        render.PrintScreen(screen);
+                        render.WriteLine("You have died... Ask admin to resurrect you :D");
+                        render.WriteLine("");
+                        //this.isInBattle = false;
+                        this.IsRunning = false;
+                        break;
+
+                    }
                     if (char2.Health <= 0)
                     {
                         render.Clear();
@@ -221,7 +247,7 @@ namespace RPG_ConsoleGame.Engine
         {
             abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
-            history.AppendLine($"{turn}. Chosen ability: " + ability);
+            history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
         }
 
         //static void PrintMap(char[,] matrix, int currentRow, int currentCol)

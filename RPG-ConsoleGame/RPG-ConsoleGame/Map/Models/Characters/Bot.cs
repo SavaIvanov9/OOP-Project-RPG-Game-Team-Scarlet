@@ -53,12 +53,12 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Bot {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
+                "Player {0} ({1}): Damage ({2}), Health ({3}), Reflexes: {4}",
                 this.Name,
                 this.Race,
                 this.Damage,
                 this.Health,
-                this.Inventory.Count());
+                this.Reflexes);
         }
 
         private void SetPlayerStats()
@@ -137,5 +137,9 @@ namespace RPG_ConsoleGame.Characters
             }
         }
 
+        public string MakeDecision()
+        {
+            return this.Abilities[0];
+        }
     }
 }

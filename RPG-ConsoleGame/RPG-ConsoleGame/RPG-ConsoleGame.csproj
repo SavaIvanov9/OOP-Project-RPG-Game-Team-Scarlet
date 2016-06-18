@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\StateManager\StateConstants.cs" />
+    <Compile Include="Core\StateManager\StateManager.cs" />
+    <Compile Include="Core\ViewEngine.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
     <Compile Include="Map\Models\Characters\Abilities\AbilitiesProcessor.cs" />
     <Compile Include="Map\Models\Characters\Character.cs" />

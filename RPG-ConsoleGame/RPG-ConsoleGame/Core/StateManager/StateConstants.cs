@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_ConsoleGame.Interfaces
+namespace RPG_ConsoleGame.Core.StateManager
 {
-    public interface IBot : ICharacter
+    public class StateConstants
     {
-        string MakeDecision();
+        public const string SinglePlayer = "Single Player";
     }
 }
