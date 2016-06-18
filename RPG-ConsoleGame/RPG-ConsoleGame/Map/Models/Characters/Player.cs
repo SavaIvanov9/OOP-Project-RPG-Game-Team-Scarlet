@@ -154,8 +154,8 @@ namespace RPG_ConsoleGame.Characters
                 case PlayerRace.Rogue:
                     //abilities
                     Abilities.Add("Backstab");
-                    Abilities.Add("Ambush");
-                    Abilities.Add("Kick");
+                    Abilities.Add("SharpenBlades");
+                    Abilities.Add("Execute");
                     //passive                   
                     this.Damage = 30;
                     this.Health = 130;
