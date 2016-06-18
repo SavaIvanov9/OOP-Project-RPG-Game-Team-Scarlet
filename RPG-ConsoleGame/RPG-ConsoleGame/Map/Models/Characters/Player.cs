@@ -17,7 +17,7 @@ namespace RPG_ConsoleGame.Characters
         private int currentCol = 1;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0, 0)
         {
             this.Race = race;
             
@@ -130,6 +130,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 10;
                     this.Health = 100;
                     this.Defense = 10;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
@@ -140,6 +141,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 15;
                     this.Health = 200;
                     this.Defense = 20;
+                    this.Reflexes = 200;
                     break;
                 case PlayerRace.Archer:
                     //abilities
@@ -150,6 +152,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 40;
                     this.Health = 130;
                     this.Defense = 15;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
@@ -160,6 +163,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 30;
                     this.Health = 130;
                     this.Defense = 10;
+                    this.Reflexes = 300;
                     break;
                 case PlayerRace.Paladin:
                     //abilities
@@ -170,6 +174,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 20;
                     this.Health = 180;
                     this.Defense = 20;
+                    this.Reflexes = 200;
                     break;
                 case PlayerRace.Warlock:
                     //abilities
@@ -180,6 +185,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 10;
                     this.Health = 200;
                     this.Defense = 0;
+                    this.Reflexes = 100;
                     break;
 
                 default:

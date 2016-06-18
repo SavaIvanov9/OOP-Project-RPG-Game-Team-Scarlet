@@ -81,17 +81,20 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         //Mage
         private void Fireball(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 40);
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 15);
             // TO ADD BURN EFFECT
         }
 
         private void Reflect(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }

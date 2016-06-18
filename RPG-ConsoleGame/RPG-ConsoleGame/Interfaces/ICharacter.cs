@@ -11,6 +11,7 @@ namespace RPG_ConsoleGame.Interfaces
     {
         string Name { get; set; }
         int Defense { get; set; }
+        int Reflexes { get; set; }
         IList<string> Abilities { get; set; }
         Position Position { get; set; }
     }

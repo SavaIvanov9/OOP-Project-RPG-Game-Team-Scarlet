@@ -15,16 +15,19 @@ namespace RPG_ConsoleGame.Characters
         private string name;
         private int health;
         private int defense;
+        private int reflexes;
         private IList<string> abilities;
         private IList<Item> inventory;
 
-        protected Character(Position position, char objectSymbol, string name, int damage, int health, int defence)
+        protected Character(Position position, char objectSymbol, string name, 
+            int damage, int health, int defence, int reflexes)
             : base(position, objectSymbol)
         {
             this.Damage = damage;
             this.Health = health;
             this.Name = name;
             this.Defense = defense;
+            this.Reflexes = reflexes;
             this.Abilities = new List<string>();
             this.Inventory = new List<Item>();
         }
@@ -101,6 +104,12 @@ namespace RPG_ConsoleGame.Characters
 
                 this.name = value;
             }
+        }
+
+        public int Reflexes
+        {
+            get { return reflexes; }
+            set { reflexes = value; }
         }
 
         public void Attack(ICharacter enemy)

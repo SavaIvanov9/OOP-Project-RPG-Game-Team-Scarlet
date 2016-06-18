@@ -69,7 +69,7 @@ namespace RPG_ConsoleGame.Engine
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
-            
+
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
@@ -77,7 +77,7 @@ namespace RPG_ConsoleGame.Engine
 
             Console.Clear();
 
-            PrintMap(map, plPos.X, plPos.Y);
+            PrintMap(map);
             PrintPlayerStats(database.Players[0]);
 
             while (this.IsRunning)
@@ -85,10 +85,10 @@ namespace RPG_ConsoleGame.Engine
                 if (Console.KeyAvailable)
                 {
                     Console.Clear();
-                    
+
                     database.Players[0].Move(map);
 
-                    PrintMap(map, plPos.X, plPos.Y);
+                    PrintMap(map);
                     PrintPlayerStats(database.Players[0]);
                     if (database.Bots.Count > 0)
                     {
@@ -146,7 +146,7 @@ namespace RPG_ConsoleGame.Engine
                     render.PrintScreen(screen);
 
                     ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                    
+
 
                     //while (Console.KeyAvailable)
                     //{
@@ -187,7 +187,7 @@ namespace RPG_ConsoleGame.Engine
                     }
                 }
                 //Console.CursorVisible = true;
-                
+
             }
         }
 
@@ -212,6 +212,7 @@ namespace RPG_ConsoleGame.Engine
                 screen.AppendLine($"{i + 1} -> {ability}");
             }
 
+            screen.AppendLine();
             screen.Append(history);
             return screen;
         }
@@ -255,8 +256,10 @@ namespace RPG_ConsoleGame.Engine
         //        Console.WriteLine();
         //    }
 
-        static void PrintMap(char[,] matrix, int currentRow, int currentCol)
+        static void PrintMap(char[,] matrix)
         {
+            StringBuilder map = new StringBuilder();
+
             for (int row = 0; row < matrix.GetLength(0); row++)
             {
                 for (int col = 0; col < matrix.GetLength(1); col++)
@@ -264,16 +267,18 @@ namespace RPG_ConsoleGame.Engine
 
                     if (matrix[row, col] == '-')
                     {
-                        Console.Write("  ");
+                        map.Append("  ");
                     }
                     else
                     {
-                        Console.Write("{0} ", matrix[row, col]);
+                        map.Append($"{matrix[row, col]} ");
                     }
                 }
 
-                Console.WriteLine();
+                map.AppendLine();
             }
+
+            Console.WriteLine(map.ToString());
         }
 
         private void PrintPlayerStats(IPlayer player)
@@ -293,7 +298,7 @@ namespace RPG_ConsoleGame.Engine
             render.WriteLine("6. Warlock (damage: 10, health: 200, defense: 0");
             string choice = reader.ReadLine();
 
-            string[] validChoises = { "1", "2", "3", "4", "5","6" };
+            string[] validChoises = { "1", "2", "3", "4", "5", "6" };
 
             while (!validChoises.Contains(choice))
             {

@@ -17,7 +17,7 @@ namespace RPG_ConsoleGame.Characters
         public int currentCol = 1;
 
         public Bot(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0, 0)
         {
             this.Race = race;
             //this.inventory = new List<Item>();
@@ -74,6 +74,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 10;
                     this.Health = 100;
                     this.Defense = 10;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
@@ -84,6 +85,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 15;
                     this.Health = 200;
                     this.Defense = 20;
+                    this.Reflexes = 200;
                     break;
                 case PlayerRace.Archer:
                     //abilities
@@ -94,17 +96,42 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 40;
                     this.Health = 130;
                     this.Defense = 15;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
                     Abilities.Add("Backstab");
-                    Abilities.Add("Ambush");
-                    Abilities.Add("Kick");
+                    Abilities.Add("SharpenBlades");
+                    Abilities.Add("Execute");
                     //passive                   
                     this.Damage = 30;
-                    this.Health = 150;
+                    this.Health = 130;
                     this.Defense = 10;
+                    this.Reflexes = 300;
                     break;
+                case PlayerRace.Paladin:
+                    //abilities
+                    Abilities.Add("Smite");
+                    Abilities.Add("Exorcism");
+                    Abilities.Add("Heal");
+                    //passive                   
+                    this.Damage = 20;
+                    this.Health = 180;
+                    this.Defense = 20;
+                    this.Reflexes = 200;
+                    break;
+                case PlayerRace.Warlock:
+                    //abilities
+                    Abilities.Add("LifeDrain");
+                    Abilities.Add("LifeTap");
+                    Abilities.Add("ShadowBolt");
+                    //passive                   
+                    this.Damage = 10;
+                    this.Health = 200;
+                    this.Defense = 0;
+                    this.Reflexes = 100;
+                    break;
+
                 default:
                     throw new ArgumentException("Unknown player race.");
             }
