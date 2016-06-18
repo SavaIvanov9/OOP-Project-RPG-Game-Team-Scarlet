@@ -1,6 +1,6 @@
 ﻿namespace RPG_ConsoleGame.Items
 {
-    public enum ItemBodyPossition
+    public enum ItemPossition
     {
         helmet,
         chest,

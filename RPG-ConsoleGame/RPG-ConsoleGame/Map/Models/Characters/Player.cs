@@ -62,29 +62,29 @@ namespace RPG_ConsoleGame.Characters
 
         public void SetBodyItems(Item item)
         {
-            switch (item.itemposition)
+            switch (item.ItemPossiton)
             {
-                case ItemBodyPossition.helmet:
+                case ItemPossition.helmet:
                     ///Adding the item to helmet possition
                     this.bodyItems[0] = item;
                     break;
-                case ItemBodyPossition.chest:
+                case ItemPossition.chest:
                     ///Adding the item to chest possition
                     this.bodyItems[1] = item;
                     break;
-                case ItemBodyPossition.hands:
+                case ItemPossition.hands:
                     ///Adding the item to hand possition
                     this.bodyItems[2] = item;
                     break;
-                case ItemBodyPossition.weapon:
+                case ItemPossition.weapon:
                     ///Adding the item to WEAPON possition
                     this.bodyItems[3] = item;
                     break;
-                case ItemBodyPossition.boots:
+                case ItemPossition.boots:
                     ///Adding the item to boots
                     this.bodyItems[4] = item;
                     break;
-                case ItemBodyPossition.inventory:
+                case ItemPossition.inventory:
                     this.Inventory.Add(item);
                     break;
                 default:

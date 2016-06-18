@@ -70,7 +70,7 @@
     <Compile Include="Interfaces\IRender.cs" />
     <Compile Include="Map\Models\GameObject.cs" />
     <Compile Include="Map\Models\Items\Item.cs" />
-    <Compile Include="Map\Models\Items\ItemBodyPosition.cs" />
+    <Compile Include="Map\Models\Items\ItemPosition.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Position.cs" />
