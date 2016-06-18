@@ -44,7 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Factories\ShopFactory.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
+    <Compile Include="Interfaces\IShopFactory.cs" />
+    <Compile Include="Interfaces\IShopable.cs" />
+    <Compile Include="Models\Buildings\Building.cs" />
+    <Compile Include="Models\Buildings\Shop.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Bot.cs" />
