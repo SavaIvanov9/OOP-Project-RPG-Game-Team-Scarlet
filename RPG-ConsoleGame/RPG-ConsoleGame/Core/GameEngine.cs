@@ -197,6 +197,8 @@ namespace RPG_ConsoleGame.Engine
                         //history.AppendLine($"{turn}. Chosen ability: " + ability);
                     }
 
+                    RegenerateStats(char1, char2);
+
                     //check if someone died
                     if (char1.Health <= 0 && char2.Health > 0)
                     {
@@ -237,6 +239,12 @@ namespace RPG_ConsoleGame.Engine
                 //Console.CursorVisible = true;
 
             }
+        }
+
+        private void RegenerateStats(ICharacter player1, ICharacter player2)
+        {
+            player1.Reflexes += 5;
+            player2.Reflexes += 5;
         }
 
         private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)

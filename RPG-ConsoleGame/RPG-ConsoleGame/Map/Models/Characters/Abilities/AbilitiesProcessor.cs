@@ -127,11 +127,13 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
 
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 10);
         }
 
         private void Venomousarrow(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 15;
             enemy.Health -= player.Damage;
             //TO DO POISON EFFECT
         }
@@ -139,11 +141,13 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         // Rogue
         private void Backstab(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 40;
             enemy.Health -= (player.Damage * 2);
         }
 
         private void SharpenBlades(ICharacter player)
         {
+            player.Reflexes -= 20;
             player.Damage += 15;
         }
 
@@ -160,6 +164,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
             enemy.Health -= (player.Damage + 10);
             if (player.Health > 180)
                 player.Health = 180;
+
+            player.Reflexes -= 20;
         }
         private void Exorcism(ICharacter player, ICharacter enemy)
         {
@@ -172,6 +178,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
             player.Health += 70;
             if (player.Health > 180)
                 player.Health = 180;
+
+            player.Reflexes -= 20;
         }
         //TO ADD PASSIVE ABILITY(HolyRegeneration)
 
@@ -184,10 +192,14 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         {
             player.Health -= 10;
             //TO ADD MANA REGEN
+
+            player.Reflexes -= 20;
         }
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
             enemy.Health -= (player.Damage + 40);
+
+            player.Reflexes -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
     }
