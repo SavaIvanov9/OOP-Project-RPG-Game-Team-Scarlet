@@ -158,9 +158,30 @@ namespace RPG_ConsoleGame.Characters
                     Abilities.Add("Kick");
                     //passive                   
                     this.Damage = 30;
-                    this.Health = 150;
+                    this.Health = 130;
                     this.Defense = 10;
                     break;
+                case PlayerRace.Paladin:
+                    //abilities
+                    Abilities.Add("Smite");
+                    Abilities.Add("Exorcism");
+                    Abilities.Add("Heal");
+                    //passive                   
+                    this.Damage = 20;
+                    this.Health = 180;
+                    this.Defense = 20;
+                    break;
+                case PlayerRace.Warlock:
+                    //abilities
+                    Abilities.Add("LifeDrain");
+                    Abilities.Add("LifeTap");
+                    Abilities.Add("ShadowBolt");
+                    //passive                   
+                    this.Damage = 10;
+                    this.Health = 200;
+                    this.Defense = 0;
+                    break;
+
                 default:
                     throw new ArgumentException("Unknown player race.");
             }

@@ -412,14 +412,15 @@ namespace RPG_ConsoleGame.Engine
         private PlayerRace GetPlayerRace()
         {
             render.WriteLine("Choose a race:");
-            render.WriteLine("1. Mage (damage: 50, health: 100)");
-            render.WriteLine("2. Warrior (damage: 20, health: 300)");
-            render.WriteLine("3. Archer (damage: 40, health: 150)");
-            render.WriteLine("4. Rogue (damage: 30, health: 200)");
-
+            render.WriteLine("1. Mage (damage: 50, health: 100, defense: 10)");
+            render.WriteLine("2. Warrior (damage: 20, health: 300, defense: 20)");
+            render.WriteLine("3. Archer (damage: 40, health: 150, defense: 15)");
+            render.WriteLine("4. Rogue (damage: 30, health: 200, defense: 10)");
+            render.WriteLine("5. Paladin (damage: 20, health: 180, defense: 20)");
+            render.WriteLine("6. Warlock (damage: 10, health: 200, defense: 0");
             string choice = reader.ReadLine();
 
-            string[] validChoises = { "1", "2", "3", "4" };
+            string[] validChoises = { "1", "2", "3", "4", "5","6" };
 
             while (!validChoises.Contains(choice))
             {
