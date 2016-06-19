@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Engine
+﻿using System.Threading;
+
+namespace RPG_ConsoleGame.Engine
 {
     using System;
     using System.Linq;
@@ -117,7 +119,19 @@
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
+                StartMusic(SoundEffects.BattleStart);
+                render.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
+                render.WriteLine(new string('*', 30));
+                render.WriteLine("");
+                render.WriteLine("");
+                render.WriteLine("  YOU ARE ENGAGING ENEMY!!");
+                render.WriteLine("");
+                render.WriteLine("");
+                render.WriteLine(new string('*', 30));
+                Thread.Sleep(3000);
+                StartMusic(SoundEffects.BattleTheme);
+               
                 var isInBattle = true;
                 var history = new StringBuilder();
                 var turnsCount = 0;
@@ -186,12 +200,22 @@
                         screen = RenderBattleStats(char1, char2, history);
 
                         render.PrintScreen(screen);
-                        render.WriteLine("You have died... Ask admin to resurrect you :D");
+
+                        StartMusic(SoundEffects.BattleStart);
+                        render.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        render.WriteLine(new string('*', 50));
                         render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine("  YOU HAVE DIED!! Ask admin to resurrect you :D");
+                        render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine(new string('*', 50));
+                        Thread.Sleep(3000);
+                        
                         //this.isInBattle = false;
                         this.IsRunning = false;
                         break;
-
                     }
                     if (char2.Health <= 0 && char1.Health > 0 )
                     {
@@ -199,7 +223,21 @@
                         screen = RenderBattleStats(char1, char2, history);
 
                         render.PrintScreen(screen);
-                        render.WriteLine("You have killed the enemy!!");
+
+                        StartMusic(SoundEffects.EnemyIsDestroyed);
+                        render.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        render.WriteLine(new string('*', 60));
+                        render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine("  YOU HAVE KILLED THE ENEMY!! Press any key to continue.");
+                        render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine(new string('*', 60));
+                        Thread.Sleep(2000);
+
+                        StartMusic(SoundEffects.DefaultTheme);
+
                         Console.ForegroundColor = ConsoleColor.Green;
                         isInBattle = false;
                         //database.Bots.Remove((IBot)char2);
@@ -210,14 +248,38 @@
                         screen = RenderBattleStats(char1, char2, history);
 
                         render.PrintScreen(screen);
-                        render.WriteLine("You have killed the enemy, but you have died too... Ask admin to resurrect you :D");
+
+                        StartMusic(SoundEffects.BattleStart);
+                        render.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        render.WriteLine(new string('*', 87));
                         render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine("  You have killed the enemy, but you have died too... Ask admin to resurrect you :D");
+                        render.WriteLine("");
+                        render.WriteLine("");
+                        render.WriteLine(new string('*', 87));
+                        Thread.Sleep(3000);
+
                         this.IsRunning = false;
                         break;
                     }
                 }
           
             }
+        }
+
+        private void art()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            render.WriteLine(new string('*', 30));
+            render.WriteLine("");
+            render.WriteLine("");
+            render.WriteLine("YOU ARE ENGAGING ENEMY!!");
+            render.WriteLine("");
+            render.WriteLine("");
+            render.WriteLine(new string('*', 30));
+            Thread.Sleep(3000);
         }
 
         private void RegenerateStats(ICharacter player1, ICharacter player2)
@@ -353,8 +415,13 @@
             //Console.SetWindowSize(90, 45);
             //Console.SetWindowPosition(90, 45);
             Console.CursorVisible = false;
-            Sound.SFX(SoundEffects.DefaultTheme);
+            StartMusic(SoundEffects.DefaultTheme);
             Console.Clear();
+        }
+
+        private void StartMusic(SoundEffects stage)
+        {
+            Sound.SFX(stage);
         }
     }
 }

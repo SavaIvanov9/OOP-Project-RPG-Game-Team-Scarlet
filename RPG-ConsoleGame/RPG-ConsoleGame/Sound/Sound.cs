@@ -16,6 +16,15 @@
                 case SoundEffects.DefaultTheme:
                     PlaySoundFromFile(@"..\..\Sound\Music.wav");
                     break;
+                case SoundEffects.BattleStart:
+                    PlaySoundFromFile(@"..\..\Sound\BattleStart.wav");
+                    break;
+                case SoundEffects.BattleTheme:
+                    PlaySoundFromFile(@"..\..\Sound\BattleTheme.wav");
+                    break;
+                case SoundEffects.EnemyIsDestroyed:
+                    PlaySoundFromFile(@"..\..\Sound\EnemyIsDestroyed.wav");
+                    break;
             }
         }
 
