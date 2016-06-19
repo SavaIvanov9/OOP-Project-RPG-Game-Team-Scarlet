@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using RPG_ConsoleGame.Characters;
-using RPG_ConsoleGame.Core;
-using RPG_ConsoleGame.Core.Factories;
-using RPG_ConsoleGame.Interfaces;
-using RPG_ConsoleGame.Map;
-using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
-using RPG_ConsoleGame.UserInterface;
-
-namespace RPG_ConsoleGame.Engine
+﻿namespace RPG_ConsoleGame.Engine
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+    using Characters;
+    using Core;
+    using Core.Factories;
+    using Interfaces;
+    using Map;
+    using Models.Characters.Abilities.Mage;
+    using Sound;
+    using UserInterface;
+
     public class GameEngine
     {
         private readonly IInputReader reader = new ConsoleInputReader();
@@ -26,7 +23,7 @@ namespace RPG_ConsoleGame.Engine
 
         public bool IsRunning { get; private set; }
 
-        static Map.Map mapMatrix = new Map.Map();
+        static Map mapMatrix = new Map();
 
         char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
@@ -58,9 +55,11 @@ namespace RPG_ConsoleGame.Engine
                 return instance;
             }
         }
-
+        
         public void Run()
         {
+            Sound.SFX(SoundEffects.DefaultTheme);
+
             var playerName = this.GetPlayerName();
             PlayerRace race = this.GetPlayerRace();
             Player newPlayer = new Player(plPos, 'P', playerName, race);
