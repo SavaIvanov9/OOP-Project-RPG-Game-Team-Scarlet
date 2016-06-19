@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace RPG_ConsoleGame.Engine
+﻿namespace RPG_ConsoleGame.Engine
 {
     using System;
     using System.Linq;
@@ -125,27 +123,15 @@ namespace RPG_ConsoleGame.Engine
                 var turnsCount = 0;
                 while (isInBattle)
                 {
-
                     render.Clear();
 
                     var screen = RenderBattleStats(char1, char2, history);
-
-                    //string choice = "";
-                    //screen.AppendLine("");
-                    //screen.AppendLine("Chosen ability: " + choice);
-                    //screen.AppendLine("");
 
                     render.PrintScreen(screen);
 
                     if (char1.Reflexes >= char2.Reflexes)
                     {
                         ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-
-
-                        //while (Console.KeyAvailable)
-                        //{
-                        //    Console.ReadKey(true);
-                        //}
 
                         if (keyPressed.Key == ConsoleKey.D1)
                         {
@@ -154,6 +140,7 @@ namespace RPG_ConsoleGame.Engine
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
+                            turnsCount++;
                         }
                         if (keyPressed.Key == ConsoleKey.D2)
                         {
@@ -162,6 +149,7 @@ namespace RPG_ConsoleGame.Engine
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
+                            turnsCount++;
                         }
                         if (keyPressed.Key == ConsoleKey.D3)
                         {
@@ -170,6 +158,7 @@ namespace RPG_ConsoleGame.Engine
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
+                            turnsCount++;
                         }
                         if (keyPressed.Key == ConsoleKey.D4)
                         {
@@ -178,14 +167,14 @@ namespace RPG_ConsoleGame.Engine
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
+                            turnsCount++;
                         }
                     }
                     if(char1.Reflexes < char2.Reflexes)
                     {
                         //bot AI in action
+                        turnsCount++;
                         ExecuteBotDecision(turnsCount, char2, char1, history);
-                        //abilitiesProcessor.ProcessCommand(((IBot)char2).MakeDecision(), char2, char1);
-                        //history.AppendLine($"{turn}. Chosen ability: " + ability);
                     }
 
                     RegenerateStats(char1, char2);
