@@ -135,6 +135,7 @@ namespace RPG_ConsoleGame.Engine
                 var isInBattle = true;
                 var history = new StringBuilder();
                 var turnsCount = 0;
+
                 while (isInBattle)
                 {
                     render.Clear();
@@ -150,49 +151,56 @@ namespace RPG_ConsoleGame.Engine
                         if (keyPressed.Key == ConsoleKey.D1)
                         {
                             turnsCount++;
+                            RegenerateStats(char1);
                             RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
                             turnsCount++;
+                            RegenerateStats(char2);
                         }
                         if (keyPressed.Key == ConsoleKey.D2)
                         {
                             turnsCount++;
+                            RegenerateStats(char1);
                             RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
                             turnsCount++;
+                            RegenerateStats(char2);
                         }
                         if (keyPressed.Key == ConsoleKey.D3)
                         {
                             turnsCount++;
+                            RegenerateStats(char1);
                             RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
                             turnsCount++;
+                            RegenerateStats(char2);
                         }
                         if (keyPressed.Key == ConsoleKey.D4)
                         {
                             turnsCount++;
+                            RegenerateStats(char1);
                             RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
                             turnsCount++;
+                            RegenerateStats(char2);
                         }
                     }
                     if(char1.Reflexes < char2.Reflexes)
                     {
                         //bot AI in action
                         turnsCount++;
+                        RegenerateStats(char2);
                         ExecuteBotDecision(turnsCount, char2, char1, history);
                     }
-
-                    RegenerateStats(char1, char2);
-
+                    
                     //check if someone died
                     if (char1.Health <= 0 && char2.Health > 0)
                     {
@@ -282,10 +290,9 @@ namespace RPG_ConsoleGame.Engine
             Thread.Sleep(3000);
         }
 
-        private void RegenerateStats(ICharacter player1, ICharacter player2)
+        private void RegenerateStats(ICharacter player)
         {
-            player1.Reflexes += 5;
-            player2.Reflexes += 5;
+            player.Reflexes += 5;
         }
 
         private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
