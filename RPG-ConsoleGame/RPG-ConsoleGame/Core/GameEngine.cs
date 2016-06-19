@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Engine
+﻿using System.Threading;
+
+namespace RPG_ConsoleGame.Engine
 {
     using System;
     using System.Linq;
@@ -29,20 +31,9 @@
 
         static Position plPos = new Position();
 
-        //private IInputReader reader;
-        //private IRender render;
-
-        //public GameEngine(IInputReader reader, IRender render)
-        //{
-        //    this.reader = reader;
-        //    this.render = render;
-        //    //this.characters = new List<GameObject>();
-        //    //this.items = new List<GameObject>();
-        //}
-
-        private static GameEngine instance;
-
         //Singleton patern
+        private static GameEngine instance;
+        
         public static GameEngine Instance
         {
             get
@@ -58,14 +49,12 @@
         
         public void Run()
         {
-            Console.CursorVisible = false;
-
-            Sound.SFX(SoundEffects.DefaultTheme);
-
+            AdjustSettings();
+            
             var playerName = this.GetPlayerName();
             PlayerRace race = this.GetPlayerRace();
             Player newPlayer = new Player(plPos, 'P', playerName, race);
-
+            Console.ForegroundColor = ConsoleColor.Green;
             database.Players.Add(newPlayer);
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
@@ -95,12 +84,12 @@
                     {
                         CheckForBattle(database.Players[0], database.Bots[0]);
                     }
-
+                    
                     RemoveDead(database);
                 }
             }
         }
-
+        
         //string command = this.reader.ReadLine();
 
         //try
@@ -130,6 +119,7 @@
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 var isInBattle = true;
                 var history = new StringBuilder();
                 var turnsCount = 0;
@@ -221,6 +211,7 @@
 
                         render.PrintScreen(screen);
                         render.WriteLine("You have killed the enemy!!");
+                        Console.ForegroundColor = ConsoleColor.Green;
                         isInBattle = false;
                         //database.Bots.Remove((IBot)char2);
                     }
@@ -232,13 +223,11 @@
                         render.PrintScreen(screen);
                         render.WriteLine("You have killed the enemy, but you have died too... Ask admin to resurrect you :D");
                         render.WriteLine("");
-                        //this.isInBattle = false;
                         this.IsRunning = false;
                         break;
                     }
                 }
-                //Console.CursorVisible = true;
-
+          
             }
         }
 
@@ -265,7 +254,6 @@
             screen.AppendLine(char1.ToString());
             screen.AppendLine(char2.ToString());
 
-            //StringBuilder screen2 = new StringBuilder();
             screen.AppendLine();
             screen.AppendLine("Choose number to cast ability:");
 
@@ -286,39 +274,7 @@
 
             history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
         }
-
-        //static void PrintMap(char[,] matrix, int currentRow, int currentCol)
-        //{
-        //    for (int row = 0; row < matrix.GetLength(0); row++)
-        //    {
-        //        for (int col = 0; col < matrix.GetLength(1); col++)
-        //        {
-        //            if (matrix[row, col] == '.')
-        //            {
-        //                Console.Write(". ");
-        //            }
-        //            else if ((row >= currentRow - 5) && (row <= currentRow + 5) &&
-        //                (col >= currentCol - 5) && (col <= currentCol + 5))
-        //            {
-
-        //                if (matrix[row, col] == '-')
-        //                {
-        //                    Console.Write("  ");
-        //                }
-        //                else
-        //                {
-        //                    Console.Write("{0} ", matrix[row, col]);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                Console.Write("  ");
-        //            }
-        //        }
-
-        //        Console.WriteLine();
-        //    }
-
+        
         static void PrintMap(char[,] matrix)
         {
             StringBuilder map = new StringBuilder();
@@ -376,7 +332,7 @@
 
         private string GetPlayerName()
         {
-            render.WriteLine("Please enter your name:");
+           render.WriteLine("Please enter your name:");
 
             string playerName = reader.ReadLine();
             while (string.IsNullOrWhiteSpace(playerName))
@@ -398,6 +354,18 @@
                     database.Bots.Remove(bot);
                 }
             }
+        }
+
+        private void AdjustSettings()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.SetBufferSize(90, 45);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.SetWindowSize(90, 45);
+            //Console.SetWindowPosition(90, 45);
+            Console.CursorVisible = false;
+            Sound.SFX(SoundEffects.DefaultTheme);
+            Console.Clear();
         }
     }
 }
