@@ -58,6 +58,8 @@
         
         public void Run()
         {
+            Console.CursorVisible = false;
+
             Sound.SFX(SoundEffects.DefaultTheme);
 
             var playerName = this.GetPlayerName();
