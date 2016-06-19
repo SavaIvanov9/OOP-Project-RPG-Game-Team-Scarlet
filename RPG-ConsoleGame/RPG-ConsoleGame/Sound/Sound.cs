@@ -14,7 +14,7 @@
             switch (sfx)
             {
                 case SoundEffects.DefaultTheme:
-                    PlaySoundFromFile(@"..\..\Music\Music.wav");
+                    PlaySoundFromFile(@"..\..\Sound\Music.wav");
                     break;
             }
         }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RPG_ConsoleGame.Map;
-
-namespace RPG_ConsoleGame.Interfaces
+﻿namespace RPG_ConsoleGame.Interfaces
 {
+    using System.Collections.Generic;
+    using Map;
+
     public interface ICharacter : IAttack, IDestroyable
     {
         string Name { get; set; }

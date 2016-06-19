@@ -1,7 +1,7 @@
-﻿using RPG_ConsoleGame.Interfaces;
-
-namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
+﻿namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
 {
+    using Interfaces;
+
     public class AbilitiesProcessor : IAbilitiesProcessor
     {
         public void ProcessCommand(string command, ICharacter player, ICharacter enemy)

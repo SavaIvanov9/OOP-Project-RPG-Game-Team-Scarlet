@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace RPG_ConsoleGame.Core
+﻿namespace RPG_ConsoleGame.Core
 {
+    using System.Collections.Generic;
     using Interfaces;
 
     public class GameDatabase : IGameDatabase

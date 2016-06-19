@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RPG_ConsoleGame.Core
+﻿namespace RPG_ConsoleGame.Core
 {
     public delegate void OnMenuClickHandler(string selectedValue);
 

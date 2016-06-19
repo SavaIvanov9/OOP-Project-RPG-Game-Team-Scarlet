@@ -1,10 +1,6 @@
-﻿using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Characters
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Map;
     using Interfaces;
     using Items;
