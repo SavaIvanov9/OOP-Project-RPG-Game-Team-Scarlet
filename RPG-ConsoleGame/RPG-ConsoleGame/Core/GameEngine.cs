@@ -204,13 +204,13 @@ namespace RPG_ConsoleGame.Engine
                         StartMusic(SoundEffects.BattleStart);
                         render.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
-                        render.WriteLine(new string('*', 50));
+                        render.WriteLine(new string('*', 70));
                         render.WriteLine("");
                         render.WriteLine("");
-                        render.WriteLine("  YOU HAVE DIED!! Ask admin to resurrect you :D");
+                        render.WriteLine("  YOU HAVE DIED!! Give beer to the admin to resurrect you :D");
                         render.WriteLine("");
                         render.WriteLine("");
-                        render.WriteLine(new string('*', 50));
+                        render.WriteLine(new string('*', 70));
                         Thread.Sleep(3000);
                         
                         //this.isInBattle = false;
@@ -252,13 +252,13 @@ namespace RPG_ConsoleGame.Engine
                         StartMusic(SoundEffects.BattleStart);
                         render.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
-                        render.WriteLine(new string('*', 87));
+                        render.WriteLine(new string('*', 90));
                         render.WriteLine("");
                         render.WriteLine("");
-                        render.WriteLine("  You have killed the enemy, but you have died too... Ask admin to resurrect you :D");
+                        render.WriteLine("  You have killed the enemy, but you have died too... Give beer to the admin to resurrect you :D");
                         render.WriteLine("");
                         render.WriteLine("");
-                        render.WriteLine(new string('*', 87));
+                        render.WriteLine(new string('*', 90));
                         Thread.Sleep(3000);
 
                         this.IsRunning = false;
@@ -410,7 +410,7 @@ namespace RPG_ConsoleGame.Engine
         private void AdjustSettings()
         {
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.SetBufferSize(90, 45);
+            //Console.SetBufferSize(90, 45);
             Console.ForegroundColor = ConsoleColor.Cyan;
             //Console.SetWindowSize(90, 45);
             //Console.SetWindowPosition(90, 45);
