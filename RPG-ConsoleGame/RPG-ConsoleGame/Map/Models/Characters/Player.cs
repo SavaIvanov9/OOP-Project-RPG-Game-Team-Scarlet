@@ -109,11 +109,12 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Inventory count: {4}",
+                "Player {0} ({1}): Dmg: ({2}), Hp: ({3}), Deff: ({4}) Inventory count: {5}",
                 this.Name,
                 this.Race,
                 this.Damage,
                 this.Health,
+                this.Defense,
                 this.Inventory.Count());
         }
 
@@ -236,7 +237,7 @@ namespace RPG_ConsoleGame.Characters
             }
         }
 
-        private void ItemsStatsToPlayerStat()
+        private void ItemsStatsToPlayerStat(Item newItem)
         {
             ///write  a logic for thransforming item to play stats
         }

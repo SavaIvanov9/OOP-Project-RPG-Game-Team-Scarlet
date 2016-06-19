@@ -7,29 +7,104 @@ namespace RPG_ConsoleGame.Items
     using System.Threading.Tasks;
     using RPG_ConsoleGame.Characters;
     using RPG_ConsoleGame.Map;
-
+    /// <summary>
+    /// Item class
+    /// </summary>
     public class Item
     {
-        private double hp;
-        private double power;
-        private double defence;
+        private int hp;
+        private int power;
+        private int defence;
         private ItemPossition itemposition;
-
-        public Item(double hp, double defence, double power, ItemPossition possition)
+        /// <summary>
+        /// create an Item with 3 variables for inventory
+        /// </summary>
+        /// <param name="inputHp"></param>
+        /// <param name="inputDefence"></param>
+        /// <param name="inputPower"></param>
+        public Item(double inputHp, double inputDefence, double inputPower)
         {
-            this.Hp = hp;
-            this.Defence = defence;
-            this.Power = power;
-            this.itemposition = possition;
+            this.Power = inputPower;
+            this.Hp = inputHp;
+            this.Defence = inputDefence;
+            this.itemposition = ItemPossition.inventory;
         }
+        /// <summary>
+        /// Create an Item constructor with 4 variables
+        /// </summary>
+        /// <param name="inputHp"></param>
+        /// <param name="inputDefence"></param>
+        /// <param name="inputPower"></param>
+        /// <param name="inputPossition"></param>
+        public Item(double inputHp, double inputDefence, double inputPower, ItemPossition inputPossition)
+        {
+            this.Hp = inputHp;
+            this.Defence = inputDefence;
+            this.Power = inputPower;
+            this.ItemPossiton = inputPossition;
+        }
+        /// <summary>
+        /// Hp prop
+        /// </summary>
 
-        public double Hp { get; private set; }
+        public double Hp
+        {
+            get
+            {
+                return this.hp;
+            }
 
-        public double Power { get; private set; }
+            private set
+            {
+                this.hp = (int)value;
+            }
+        }
+        /// <summary>
+        /// deff prop
+        /// </summary>
 
-        public double Defence { get; private set; }
-        public ItemPossition ItemPossiton { get; set; }
+        public double Defence
+        {
+            get;
+            private set
+            {
+                this.defence = (int)value;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
 
+        public double Power
+        {
+            get;
+            private set
+            {
+                this.power = (int)value;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ItemPossition ItemPossiton
+        {
+            get;
+            private set
+            {
+                if ((int)value < 0 && (int)value > 5)
+                {
+                    throw new ArgumentException("Item possiton should be 0-5");
+                }
+                else
+                {
+                    this.itemposition = value;
+                }
+            }
+        }
+        /// <summary>
+        /// function for generating a new Item
+        /// </summary>
+        /// <returns>new Item</returns>
         public Item GetItem()
         {
             Random rnd = new Random();

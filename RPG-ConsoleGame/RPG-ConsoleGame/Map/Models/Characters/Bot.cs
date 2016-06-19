@@ -53,11 +53,12 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Bot {0} ({1}): Damage ({2}), Health ({3}), Number of beers: {4}",
+                "Bot {0} ({1}): Damage ({2}), Health ({3}), Deff: ({4}) Number of beers: {5}",
                 this.Name,
                 this.Race,
                 this.Damage,
                 this.Health,
+                this.Defense,
                 this.Inventory.Count());
         }
 
