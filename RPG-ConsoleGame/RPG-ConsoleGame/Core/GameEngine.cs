@@ -19,6 +19,7 @@
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
         private readonly IBotFactory botFactory = new BotFactory();
+        private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
@@ -59,6 +60,7 @@
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
+            database.AddBoss(bossFactory.CreateBoss(new Position(3, 3), 'B', "Aneta", BossRace.Boss1));
 
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
