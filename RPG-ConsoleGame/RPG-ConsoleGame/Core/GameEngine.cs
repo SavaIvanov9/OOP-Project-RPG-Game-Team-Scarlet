@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Engine
+﻿using RPG_ConsoleGame.Core.StateManager;
+
+namespace RPG_ConsoleGame.Engine
 {
     using System;
     using System.Linq;
@@ -22,6 +24,7 @@
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
+        private readonly IStateManager stateManager = new StateManager();
 
         public bool IsRunning { get; private set; }
 
@@ -33,7 +36,7 @@
 
         //Singleton patern
         private static GameEngine instance;
-        
+
         public static GameEngine Instance
         {
             get
@@ -46,50 +49,52 @@
                 return instance;
             }
         }
-        
+
         public void Run()
         {
             AdjustSettings();
-            
-            var playerName = this.GetPlayerName();
-            PlayerRace race = this.GetPlayerRace();
-            Player newPlayer = new Player(plPos, 'P', playerName, race);
-            Console.ForegroundColor = ConsoleColor.Green;
-            database.Players.Add(newPlayer);
 
-            database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
-            database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
+            stateManager.ProcessCommand(GetPlayerChoise());
 
-            //Using ability
-            //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
+            //var playerName = this.GetPlayerName();
+            //PlayerRace race = this.GetPlayerRace();
+            //Player newPlayer = new Player(plPos, 'P', playerName, race);
+            //Console.ForegroundColor = ConsoleColor.Green;
+            //database.Players.Add(newPlayer);
 
-            this.IsRunning = true;
+            //database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
+            //database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
 
-            Console.Clear();
+            ////Using ability
+            ////abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
-            PrintMap(map);
-            PrintPlayerStats(database.Players[0]);
+            //this.IsRunning = true;
 
-            while (this.IsRunning)
-            {
-                if (Console.KeyAvailable)
-                {
-                    Console.Clear();
+            //Console.Clear();
 
-                    database.Players[0].Move(map);
+            //PrintMap(map);
+            //PrintPlayerStats(database.Players[0]);
 
-                    PrintMap(map);
-                    PrintPlayerStats(database.Players[0]);
-                    if (database.Bots.Count > 0)
-                    {
-                        CheckForBattle(database.Players[0], database.Bots[0]);
-                    }
-                    
-                    RemoveDead(database);
-                }
-            }
+            //while (this.IsRunning)
+            //{
+            //    if (Console.KeyAvailable)
+            //    {
+            //        Console.Clear();
+
+            //        database.Players[0].Move(map);
+
+            //        PrintMap(map);
+            //        PrintPlayerStats(database.Players[0]);
+            //        if (database.Bots.Count > 0)
+            //        {
+            //            CheckForBattle(database.Players[0], database.Bots[0]);
+            //        }
+
+            //        RemoveDead(database);
+            //    }
+            //}
         }
-        
+
         //string command = this.reader.ReadLine();
 
         //try
@@ -115,6 +120,33 @@
         //    this.renderer.WriteLine("Valar morgulis!");
         //}
 
+        private string GetPlayerChoise()
+        {
+            StringBuilder screen = new StringBuilder();
+
+            screen.AppendLine(
+                "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                "1. Single Player" + Environment.NewLine + Environment.NewLine +
+                "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                "4. Credits");
+
+            render.PrintScreen(screen);
+            string choice = reader.ReadLine();
+            render.WriteLine("");
+
+            string[] validChoises = { "1", "2", "3", "4" };
+
+
+            while (!validChoises.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            return choice;
+        }
+
         private void CheckForBattle(ICharacter char1, ICharacter char2)
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
@@ -131,7 +163,7 @@
                 render.WriteLine(new string('*', 30));
                 Thread.Sleep(3000);
                 StartMusic(SoundEffects.BattleTheme);
-               
+
                 var isInBattle = true;
                 var history = new StringBuilder();
                 var turnsCount = 0;
@@ -193,14 +225,14 @@
                             RegenerateStats(char2);
                         }
                     }
-                    if(char1.Reflexes < char2.Reflexes)
+                    if (char1.Reflexes < char2.Reflexes)
                     {
                         //bot AI in action
                         turnsCount++;
                         RegenerateStats(char2);
                         ExecuteBotDecision(turnsCount, char2, char1, history);
                     }
-                    
+
                     //check if someone died
                     if (char1.Health <= 0 && char2.Health > 0)
                     {
@@ -220,12 +252,12 @@
                         render.WriteLine("");
                         render.WriteLine(new string('*', 70));
                         Thread.Sleep(3000);
-                        
+
                         //this.isInBattle = false;
                         this.IsRunning = false;
                         break;
                     }
-                    if (char2.Health <= 0 && char1.Health > 0 )
+                    if (char2.Health <= 0 && char1.Health > 0)
                     {
                         render.Clear();
                         screen = RenderBattleStats(char1, char2, history);
@@ -273,10 +305,10 @@
                         break;
                     }
                 }
-          
+
             }
         }
-
+        
         private void art()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -300,7 +332,7 @@
             turnsCount++;
             RenderBattleAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
         }
-        
+
         private StringBuilder RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
         {
             StringBuilder screen = new StringBuilder();
@@ -332,7 +364,7 @@
 
             history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
         }
-        
+
         static void PrintMap(char[,] matrix)
         {
             StringBuilder map = new StringBuilder();
@@ -390,7 +422,7 @@
 
         private string GetPlayerName()
         {
-           render.WriteLine("Please enter your name:");
+            render.WriteLine("Please enter your name:");
 
             string playerName = reader.ReadLine();
             while (string.IsNullOrWhiteSpace(playerName))

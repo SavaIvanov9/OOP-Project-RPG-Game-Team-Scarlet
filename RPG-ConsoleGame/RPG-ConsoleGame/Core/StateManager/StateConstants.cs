@@ -2,6 +2,6 @@
 {
     public class StateConstants
     {
-        public const string SinglePlayer = "Single Player";
+        public const string SinglePlayer = "1";
     }
 }
