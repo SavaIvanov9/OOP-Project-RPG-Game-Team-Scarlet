@@ -48,6 +48,7 @@
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\ViewEngine.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
+    <Compile Include="Interfaces\ISound.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Bot.cs" />

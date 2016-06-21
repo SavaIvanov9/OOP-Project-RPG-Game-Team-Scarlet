@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace RPG_ConsoleGame.Engine
+﻿namespace RPG_ConsoleGame.Engine
 {
     using System;
     using System.Linq;
@@ -13,6 +11,7 @@ namespace RPG_ConsoleGame.Engine
     using Models.Characters.Abilities.Mage;
     using Sound;
     using UserInterface;
+    using System.Threading;
 
     public class GameEngine
     {
@@ -22,6 +21,7 @@ namespace RPG_ConsoleGame.Engine
         private readonly IBotFactory botFactory = new BotFactory();
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
+        private readonly ISound sound = new Sound();
 
         public bool IsRunning { get; private set; }
 
@@ -428,7 +428,7 @@ namespace RPG_ConsoleGame.Engine
 
         private void StartMusic(SoundEffects stage)
         {
-            Sound.SFX(stage);
+            sound.SFX(stage);
         }
     }
 }
