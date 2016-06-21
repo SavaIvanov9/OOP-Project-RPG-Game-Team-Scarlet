@@ -74,6 +74,8 @@
                     this.ShadowBolt(player, enemy);
                     break;
 
+                    //BOSS1 abilities
+
                 default:
                     break;
             }
@@ -191,9 +193,9 @@
         private void LifeTap(ICharacter player)
         {
             player.Health -= 10;
-            //TO ADD MANA REGEN
+            //TO ADD Reflexes REGEN
 
-            player.Reflexes -= 20;
+            player.Reflexes += 50;
         }
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
@@ -202,5 +204,6 @@
             player.Reflexes -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
+        
     }
 }

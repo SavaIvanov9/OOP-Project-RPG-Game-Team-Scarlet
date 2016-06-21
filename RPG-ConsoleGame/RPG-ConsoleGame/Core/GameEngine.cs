@@ -54,7 +54,9 @@ namespace RPG_ConsoleGame.Engine
         {
             AdjustSettings();
 
-            stateManager.ProcessCommand(GetPlayerChoise());
+            stateManager.ProcessCommand(StateConstants.BeginGame);
+
+            //stateManager.ProcessCommand(GetPlayerChoise());
 
             //var playerName = this.GetPlayerName();
             //PlayerRace race = this.GetPlayerRace();
@@ -65,8 +67,8 @@ namespace RPG_ConsoleGame.Engine
             //database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             //database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
 
-            ////Using ability
-            ////abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
+            //Using ability
+            //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
             //this.IsRunning = true;
 

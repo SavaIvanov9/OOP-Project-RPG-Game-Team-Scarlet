@@ -14,6 +14,8 @@ namespace RPG_ConsoleGame.Core.StateManager
 {
     public class StateManager : IStateManager
     {
+        private readonly ViewEngine viewEngine = new ViewEngine();
+
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
@@ -21,7 +23,7 @@ namespace RPG_ConsoleGame.Core.StateManager
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound.Sound();
-        private readonly IStateManager stateManager = new StateManager();
+        //private readonly IStateManager stateManager = new StateManager();
 
         public bool IsRunning { get; private set; }
 
@@ -31,10 +33,18 @@ namespace RPG_ConsoleGame.Core.StateManager
 
         static Position plPos = new Position();
 
+        public StateManager()
+        {
+            viewEngine.OnMenuClick += ProcessCommand;
+        }
+
         public void ProcessCommand(string command)
         {
             switch (command)
             {
+                case StateConstants.BeginGame:
+                    viewEngine.DrawMenu();
+                    break;
                 case StateConstants.SinglePlayer:
                     StartSinglePlayer();
                     break;
@@ -43,21 +53,10 @@ namespace RPG_ConsoleGame.Core.StateManager
             }
         }
 
-        private void DoMenuAction(string menuAction)
-        {
-            // Do some stuff based on user choice
-        }
-        
         private void StartSinglePlayer()
         {
-            //var ve = new ViewEngine();
-
-            //ve.OnMenuClick += DoMenuAction;
-
-            var playerName = this.GetPlayerName();
-            PlayerRace race = this.GetPlayerRace();
-            Player newPlayer = new Player(plPos, 'P', playerName, race);
-            Console.ForegroundColor = ConsoleColor.Green;
+            //render.WriteLine("single player");
+            var newPlayer = viewEngine.GetPlayer();
             database.Players.Add(newPlayer);
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
