@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
     <Compile Include="Interfaces\ISound.cs" />
     <Compile Include="Interfaces\IStateManager.cs" />
+    <Compile Include="Interfaces\IViewEngine.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Bot.cs" />

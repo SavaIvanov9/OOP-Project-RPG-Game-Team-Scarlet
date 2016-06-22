@@ -10,7 +10,7 @@ namespace RPG_ConsoleGame.Core
 {
     public delegate void OnMenuClickHandler(string selectedValue);
 
-    public class ViewEngine
+    public class ViewEngine : IViewEngine
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();

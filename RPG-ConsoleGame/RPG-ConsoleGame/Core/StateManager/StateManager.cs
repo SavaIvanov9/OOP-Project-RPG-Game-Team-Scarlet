@@ -14,8 +14,6 @@ namespace RPG_ConsoleGame.Core.StateManager
 {
     public class StateManager : IStateManager
     {
-        private readonly ViewEngine viewEngine = new ViewEngine();
-
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
@@ -23,7 +21,7 @@ namespace RPG_ConsoleGame.Core.StateManager
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound.Sound();
-        //private readonly IStateManager stateManager = new StateManager();
+        private readonly IViewEngine viewEngine = new ViewEngine();
 
         public bool IsRunning { get; private set; }
 

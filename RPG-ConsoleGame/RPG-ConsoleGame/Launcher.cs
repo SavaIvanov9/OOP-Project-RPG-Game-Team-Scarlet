@@ -1,6 +1,6 @@
 ﻿namespace RPG_ConsoleGame
 {
-    using Engine;
+    using Core;
 
     public class Launcher
     {
