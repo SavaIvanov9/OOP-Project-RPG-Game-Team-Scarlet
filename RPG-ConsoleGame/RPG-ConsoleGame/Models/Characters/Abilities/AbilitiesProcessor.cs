@@ -74,6 +74,7 @@
                     this.ShadowBolt(player, enemy);
                     break;
 
+<<<<<<< HEAD
                 //Boss1 abilities
                 case "Ability1":
                     this.Ability1(player, enemy);
@@ -84,6 +85,9 @@
                 case "Ability3":
                     this.Ability3(player, enemy);
                     break;
+=======
+                    //BOSS1 abilities
+>>>>>>> refs/remotes/origin/master
 
                 default:
                     break;
@@ -203,9 +207,9 @@
         private void LifeTap(ICharacter player)
         {
             player.Health -= 10;
-            //TO ADD MANA REGEN
+            //TO ADD Reflexes REGEN
 
-            player.Reflexes -= 20;
+            player.Reflexes += 50;
         }
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
@@ -214,6 +218,7 @@
             player.Reflexes -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
+<<<<<<< HEAD
 
         //Boss1
         private void Ability1(ICharacter player, ICharacter enemy)
@@ -235,5 +240,8 @@
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }
+=======
+        
+>>>>>>> refs/remotes/origin/master
     }
 }
