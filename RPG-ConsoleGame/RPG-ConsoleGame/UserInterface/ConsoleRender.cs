@@ -1,8 +1,7 @@
-﻿using System.Text;
-
-namespace RPG_ConsoleGame.UserInterface
+﻿namespace RPG_ConsoleGame.UserInterface
 {
     using System;
+    using System.Text;
     using Interfaces;
 
     public class ConsoleRender : IRender

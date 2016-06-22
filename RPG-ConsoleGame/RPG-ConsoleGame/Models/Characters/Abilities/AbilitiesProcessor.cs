@@ -1,7 +1,7 @@
-﻿using RPG_ConsoleGame.Interfaces;
-
-namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
+﻿namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
 {
+    using Interfaces;
+
     public class AbilitiesProcessor : IAbilitiesProcessor
     {
         public void ProcessCommand(string command, ICharacter player, ICharacter enemy)
@@ -52,24 +52,51 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
                     this.Execute(player, enemy);
                     break;
 
-               default:
+                    //Paladin abilities
+                case "Smite":
+                    this.Smite(player, enemy);
+                    break;
+                case "Exorcism":
+                    this.Exorcism(player, enemy);
+                    break;
+                case "Heal":
+                    this.Heal(player);
+                    break;
+
+                    //Warlock abilities
+                case "LifeDrain":
+                    this.LifeDrain(player, enemy);
+                    break;
+                case "LifeTap":
+                    this.LifeTap(player);
+                    break;
+                case "ShadowBolt":
+                    this.ShadowBolt(player, enemy);
+                    break;
+
+                    //BOSS1 abilities
+
+                default:
                     break;
             }
         }
         //Mage
         private void Fireball(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 40);
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
-        {            
+        {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 15);
             // TO ADD BURN EFFECT
         }
 
         private void Reflect(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }
@@ -78,16 +105,19 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= player.Damage + 10 - enemy.Defense;
         }
 
         private void Enrage(ICharacter player)
         {
+            player.Reflexes -= 10;
             player.Damage *= 2;
         }
 
         private void ShieldWall(ICharacter player)
         {
+            player.Reflexes -= 10;
             player.Defense += 10;
         }
         //TO ADD WARRIOR PASSIVE(LAST STAND)
@@ -99,11 +129,13 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
 
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 20;
             enemy.Health -= (player.Damage + 10);
         }
 
         private void Venomousarrow(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 15;
             enemy.Health -= player.Damage;
             //TO DO POISON EFFECT
         }
@@ -111,11 +143,13 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
         // Rogue
         private void Backstab(ICharacter player, ICharacter enemy)
         {
+            player.Reflexes -= 40;
             enemy.Health -= (player.Damage * 2);
         }
 
         private void SharpenBlades(ICharacter player)
         {
+            player.Reflexes -= 20;
             player.Damage += 15;
         }
 
@@ -124,5 +158,52 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
             //enemy.Health -= player.Damage*Round;
         }
         //TO ADD ROGUE PASSIVE (POISON)
+
+        //Paladin
+        private void Smite(ICharacter player, ICharacter enemy)
+        {
+            player.Health += 20;
+            enemy.Health -= (player.Damage + 10);
+            if (player.Health > 180)
+                player.Health = 180;
+
+            player.Reflexes -= 20;
+        }
+        private void Exorcism(ICharacter player, ICharacter enemy)
+        {
+            //Aura spell
+            enemy.Health -= (player.Damage / 2 + 5);
+            //TO ADD SELF DMG PER ROUND(To nullify the effect of the passive aura)
+        }
+        private void Heal(ICharacter player)
+        {
+            player.Health += 70;
+            if (player.Health > 180)
+                player.Health = 180;
+
+            player.Reflexes -= 20;
+        }
+        //TO ADD PASSIVE ABILITY(HolyRegeneration)
+
+        //Warlock
+        private void LifeDrain(ICharacter player, ICharacter enemy)
+        {
+            //PER ROUND ENEMY DAMAGE AND SELF HEAL
+        }
+        private void LifeTap(ICharacter player)
+        {
+            player.Health -= 10;
+            //TO ADD Reflexes REGEN
+
+            player.Reflexes += 50;
+        }
+        private void ShadowBolt(ICharacter player, ICharacter enemy)
+        {
+            enemy.Health -= (player.Damage + 40);
+
+            player.Reflexes -= 20;
+        }
+        //TO ADD PASSIVE ABILITY (ImmortalImp)
+        
     }
 }

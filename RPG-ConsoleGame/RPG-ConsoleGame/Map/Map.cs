@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RPG_ConsoleGame.Map
+﻿namespace RPG_ConsoleGame.Map
 {
+    using System.Collections.Generic;
+    using System.IO;
+
     public class Map
     {
         public char[,] ReadMap(string path)

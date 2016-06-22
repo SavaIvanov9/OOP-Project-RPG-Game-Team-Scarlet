@@ -1,23 +1,25 @@
-﻿using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
+﻿using RPG_ConsoleGame.Core;
+using RPG_ConsoleGame.UserInterface;
 
 namespace RPG_ConsoleGame.Characters
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Map;
     using Interfaces;
     using Items;
 
     public class Player : Character, IPlayer
     {
+        private readonly IRender render = new ConsoleRender();
+        private readonly IViewEngine viewEngine = new ViewEngine();
+
         private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
         private int currentCol = 1;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0, 0)
         {
             this.Race = race;
             
@@ -37,10 +39,10 @@ namespace RPG_ConsoleGame.Characters
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                while (Console.KeyAvailable)
-                {
-                    Console.ReadKey(true);
-                }
+                //while (Console.KeyAvailable)
+                //{
+                //    Console.ReadKey(true);
+                //}
                 if (keyPressed.Key == ConsoleKey.LeftArrow)
                 {
                     MoveLeft(map);
@@ -56,6 +58,11 @@ namespace RPG_ConsoleGame.Characters
                 if (keyPressed.Key == ConsoleKey.UpArrow)
                 {
                     MoveUp(map);
+                }
+                if (keyPressed.Key == ConsoleKey.Escape)
+                {
+                    render.Clear();
+                    viewEngine.DrawMenu();
                 }
             }
         }
@@ -109,12 +116,12 @@ namespace RPG_ConsoleGame.Characters
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Inventory count: {4}",
+                "Player {0} ({1}): Damage ({2}), Health ({3}), Reflexes: ({4})",
                 this.Name,
                 this.Race,
                 this.Damage,
                 this.Health,
-                this.Inventory.Count());
+                this.Reflexes);
         }
 
         private void SetPlayerStats()
@@ -130,6 +137,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 10;
                     this.Health = 100;
                     this.Defense = 10;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
@@ -140,6 +148,7 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 15;
                     this.Health = 200;
                     this.Defense = 20;
+                    this.Reflexes = 200;
                     break;
                 case PlayerRace.Archer:
                     //abilities
@@ -150,17 +159,42 @@ namespace RPG_ConsoleGame.Characters
                     this.Damage = 40;
                     this.Health = 130;
                     this.Defense = 15;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
                     Abilities.Add("Backstab");
-                    Abilities.Add("Ambush");
-                    Abilities.Add("Kick");
+                    Abilities.Add("SharpenBlades");
+                    Abilities.Add("Execute");
                     //passive                   
                     this.Damage = 30;
-                    this.Health = 150;
+                    this.Health = 130;
                     this.Defense = 10;
+                    this.Reflexes = 300;
                     break;
+                case PlayerRace.Paladin:
+                    //abilities
+                    Abilities.Add("Smite");
+                    Abilities.Add("Exorcism");
+                    Abilities.Add("Heal");
+                    //passive                   
+                    this.Damage = 20;
+                    this.Health = 180;
+                    this.Defense = 20;
+                    this.Reflexes = 200;
+                    break;
+                case PlayerRace.Warlock:
+                    //abilities
+                    Abilities.Add("LifeDrain");
+                    Abilities.Add("LifeTap");
+                    Abilities.Add("ShadowBolt");
+                    //passive                   
+                    this.Damage = 10;
+                    this.Health = 200;
+                    this.Defense = 0;
+                    this.Reflexes = 100;
+                    break;
+
                 default:
                     throw new ArgumentException("Unknown player race.");
             }

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RPG_ConsoleGame.Map;
-
-namespace RPG_ConsoleGame.Interfaces
+﻿namespace RPG_ConsoleGame.Interfaces
 {
+<<<<<<< HEAD
     using Items;
+=======
+    using System.Collections.Generic;
+    using Map;
+>>>>>>> 832b300dbc599325fca42c08d22d0c5bac4df48f
 
     public interface ICharacter : IAttack, IDestroyable
     {
         string Name { get; set; }
         int Defense { get; set; }
+        int Reflexes { get; set; }
         IList<string> Abilities { get; set; }
         Position Position { get; set; }
 
