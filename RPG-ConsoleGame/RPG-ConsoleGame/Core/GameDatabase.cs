@@ -6,8 +6,7 @@
     public class GameDatabase : IGameDatabase
     {
         private IList<IPlayer> players = new List<IPlayer>();
-        private IList<IBot> bots = new List<IBot>();
-        private IList<IBoss> bosses = new List<IBoss>();
+        private IList<IBot> bots = new List<IBot>(); 
 
         public IList<IPlayer> Players
         {
@@ -21,12 +20,6 @@
             set { this.bots = value; }
         }
 
-        public IList<IBoss> Bosses
-        {
-            get { return this.bosses; }
-            set { this.bosses = value; }
-        }
-
         public void AddBot(IBot bot)
         {
             Bots.Add(bot);
@@ -35,11 +28,6 @@
         public void AddPlayer(IPlayer player)
         {
             Players.Add(player);
-        }
-
-        public void AddBoss(IBoss boss)
-        {
-            Bosses.Add(boss);
         }
     }
 }
