@@ -75,6 +75,7 @@
                     break;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 //Boss1 abilities
                 case "Ability1":
                     this.Ability1(player, enemy);
@@ -88,10 +89,12 @@
 =======
                     //BOSS1 abilities
 >>>>>>> refs/remotes/origin/master
+=======
+                    //BOSS1 abilities
+>>>>>>> refs/remotes/origin/master
 
                 default:
                     break;
-                //TODO MORE BOSSES!!
             }
         }
         //Mage
@@ -219,6 +222,7 @@
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         //Boss1
         private void Ability1(ICharacter player, ICharacter enemy)
@@ -240,6 +244,9 @@
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }
+=======
+        
+>>>>>>> refs/remotes/origin/master
 =======
         
 >>>>>>> refs/remotes/origin/master

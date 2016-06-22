@@ -14,6 +14,7 @@
     public class GameEngine
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
@@ -22,12 +23,17 @@
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
 =======
+=======
+>>>>>>> refs/remotes/origin/master
         //private readonly IInputReader reader = new ConsoleInputReader();
         //private readonly IRender render = new ConsoleRender();
         //private readonly IPlayerFactory playerFactory = new PlayerFactory();
         //private readonly IBotFactory botFactory = new BotFactory();
         //private readonly IGameDatabase database = new GameDatabase();
         //private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
 >>>>>>> refs/remotes/origin/master
         private readonly ISound sound = new Sound();
         private readonly IStateManager stateManager = new StateManager.StateManager();
@@ -61,10 +67,13 @@
             AdjustSettings();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
             database.AddBoss(bossFactory.CreateBoss(new Position(3, 3), 'B', "Aneta", BossRace.Boss1));
 =======
+=======
+>>>>>>> refs/remotes/origin/master
             stateManager.StartState(StateConstants.BeginGame);
 
             #region Singleplayer logic, moved to state manager
@@ -78,6 +87,9 @@
 
             //database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             //database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
 >>>>>>> refs/remotes/origin/master
 
             //Using ability
