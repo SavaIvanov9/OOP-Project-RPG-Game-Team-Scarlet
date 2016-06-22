@@ -1,6 +1,5 @@
 ﻿namespace RPG_ConsoleGame.Models.Buildings
 {
-    using System;
     using System.Collections.Generic;
     using Map;
     using Items;

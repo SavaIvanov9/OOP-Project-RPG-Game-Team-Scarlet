@@ -7,7 +7,8 @@ namespace RPG_ConsoleGame.Core
     public class GameDatabase : IGameDatabase
     {
         private IList<IPlayer> players = new List<IPlayer>();
-        private IList<IBot> bots = new List<IBot>(); 
+        private IList<IBot> bots = new List<IBot>();
+        private IList<IShopable> shops = new List<IShopable>();
 
         public IList<IPlayer> Players
         {
@@ -21,6 +22,12 @@ namespace RPG_ConsoleGame.Core
             set { this.bots = value; }
         }
 
+        public IList<IShopable> Shops
+        {
+            get { return this.shops; }
+            set { this.shops = value; }
+        }
+
         public void AddBot(IBot bot)
         {
             Bots.Add(bot);
@@ -29,6 +36,11 @@ namespace RPG_ConsoleGame.Core
         public void AddPlayer(IPlayer player)
         {
             Players.Add(player);
+        }
+
+        public void AddShop(IShopable shop)
+        {
+            Shops.Add(shop);
         }
     }
 }
