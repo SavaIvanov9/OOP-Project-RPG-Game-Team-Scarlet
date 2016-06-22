@@ -46,14 +46,44 @@ namespace RPG_ConsoleGame.Core.StateManager
                 case StateConstants.SinglePlayer:
                     StartSinglePlayer();
                     break;
+                case StateConstants.Multiplayer:
+                    StartSinglePlayer();
+                    break;
+                case StateConstants.SurvivalMode:
+                    StartSinglePlayer();
+                    break;
+                case StateConstants.LoadGame:
+                    StartSinglePlayer();
+                    break;
+                case StateConstants.Credits:
+                    StartSinglePlayer();
+                    break;
+                case StateConstants.ReturnBack:
+                    ReturnBack();
+                    break;
                 default:
                     break;
             }
         }
 
+        private void ReturnBack()
+        {
+            //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+            //if (keyPressed.Key == ConsoleKey.Escape)
+            if(Console.ReadKey(true).Key == ConsoleKey.Escape)
+            {
+                render.Clear();
+                viewEngine.DrawMenu();
+            }
+            else
+            {
+                ConsoleKeyInfo eyPressed = Console.ReadKey(true);
+            }
+
+        }
+
         private void StartSinglePlayer()
         {
-            //render.WriteLine("single player");
             var newPlayer = viewEngine.GetPlayer();
             database.Players.Add(newPlayer);
 
@@ -72,8 +102,18 @@ namespace RPG_ConsoleGame.Core.StateManager
 
             while (this.IsRunning)
             {
+                //ReturnBack();
+
                 if (Console.KeyAvailable)
                 {
+                    //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+                    //if (keyPressed.Key == ConsoleKey.Escape)
+                    //{
+                    //    render.Clear();
+                    //    viewEngine.DrawMenu();
+                    //}
+                    
+
                     Console.Clear();
 
                     database.Players[0].Move(map);
@@ -337,44 +377,6 @@ namespace RPG_ConsoleGame.Core.StateManager
         {
             render.WriteLine("");
             render.WriteLine(player.ToString());
-        }
-
-        private PlayerRace GetPlayerRace()
-        {
-            render.WriteLine("Choose a race:");
-            render.WriteLine("1. Mage (damage: 50, health: 100, defense: 10)");
-            render.WriteLine("2. Warrior (damage: 20, health: 300, defense: 20)");
-            render.WriteLine("3. Archer (damage: 40, health: 150, defense: 15)");
-            render.WriteLine("4. Rogue (damage: 30, health: 200, defense: 10)");
-            render.WriteLine("5. Paladin (damage: 20, health: 180, defense: 20)");
-            render.WriteLine("6. Warlock (damage: 10, health: 200, defense: 0");
-            string choice = reader.ReadLine();
-
-            string[] validChoises = { "1", "2", "3", "4", "5", "6" };
-
-            while (!validChoises.Contains(choice))
-            {
-                render.WriteLine("Invalid choice of race, please re-enter.");
-                choice = reader.ReadLine();
-            }
-
-            PlayerRace race = (PlayerRace)int.Parse(choice);
-
-            return race;
-        }
-
-        private string GetPlayerName()
-        {
-            render.WriteLine("Please enter your name:");
-
-            string playerName = reader.ReadLine();
-            while (string.IsNullOrWhiteSpace(playerName))
-            {
-                render.WriteLine("Player name cannot be empty. Please re-enter.");
-                playerName = reader.ReadLine();
-            }
-
-            return playerName;
         }
 
         private void RemoveDead(IGameDatabase database)

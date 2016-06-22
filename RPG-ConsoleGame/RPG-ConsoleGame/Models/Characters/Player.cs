@@ -1,4 +1,7 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿using RPG_ConsoleGame.Core;
+using RPG_ConsoleGame.UserInterface;
+
+namespace RPG_ConsoleGame.Characters
 {
     using System;
     using Map;
@@ -7,6 +10,9 @@
 
     public class Player : Character, IPlayer
     {
+        private readonly IRender render = new ConsoleRender();
+        private readonly IViewEngine viewEngine = new ViewEngine();
+
         private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
@@ -52,6 +58,11 @@
                 if (keyPressed.Key == ConsoleKey.UpArrow)
                 {
                     MoveUp(map);
+                }
+                if (keyPressed.Key == ConsoleKey.Escape)
+                {
+                    render.Clear();
+                    viewEngine.DrawMenu();
                 }
             }
         }

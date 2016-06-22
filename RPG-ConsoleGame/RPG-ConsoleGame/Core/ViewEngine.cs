@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using RPG_ConsoleGame.Characters;
-using RPG_ConsoleGame.Interfaces;
-using RPG_ConsoleGame.Map;
-using RPG_ConsoleGame.UserInterface;
-
-namespace RPG_ConsoleGame.Core
+﻿namespace RPG_ConsoleGame.Core
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+    using Characters;
+    using Interfaces;
+    using Map;
+    using UserInterface;
+
     public delegate void OnMenuClickHandler(string selectedValue);
 
     public class ViewEngine : IViewEngine
@@ -25,7 +25,7 @@ namespace RPG_ConsoleGame.Core
             }
         }
 
-        public void DrawMenu()
+       public void DrawMenu()
         {
             StringBuilder screen = new StringBuilder();
 
@@ -34,7 +34,8 @@ namespace RPG_ConsoleGame.Core
                 "1. Single Player" + Environment.NewLine + Environment.NewLine +
                 "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
                 "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                "4. Credits");
+                "4. Load Game" + Environment.NewLine + Environment.NewLine +
+                "5. Credits");
 
             render.PrintScreen(screen);
             string choice = reader.ReadLine();
