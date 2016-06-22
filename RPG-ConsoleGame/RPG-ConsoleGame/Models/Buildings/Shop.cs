@@ -23,13 +23,13 @@
 
         
         //sell item to player or remove item from shop
-        public void SellItem(ICharacter player)
+        public void AddItem(ICharacter player)
         {
   
         }
 
         //buy item from player or populate shop with itmes
-        public void BuyItem(ICharacter player)
+        public void RemoveItem(ICharacter player)
         {
 
         }
