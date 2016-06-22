@@ -9,5 +9,34 @@
         {
             return Console.ReadLine();
         }
+
+        public string ReadKey()
+        {
+            string input = null;
+            ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+            if (keyPressed.Key == ConsoleKey.LeftArrow)
+            {
+                input = "moveLeft";
+            }
+            if (keyPressed.Key == ConsoleKey.RightArrow)
+            {
+                input = "moveRight";
+            }
+            if (keyPressed.Key == ConsoleKey.DownArrow)
+            {
+                input = "moveDown";
+            }
+            if (keyPressed.Key == ConsoleKey.UpArrow)
+            {
+                input = "moveUp"; 
+            }
+            if (keyPressed.Key == ConsoleKey.Escape)
+            {
+                input = "exit";
+            }
+
+            return input;
+        }
     }
 }

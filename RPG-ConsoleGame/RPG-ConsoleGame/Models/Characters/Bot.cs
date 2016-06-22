@@ -9,8 +9,8 @@
     {
         //private readonly List<Item> inventory;
 
-        public int currentRow = 1;
-        public int currentCol = 1;
+        //public int currentRow = 1;
+        //public int currentCol = 1;
 
         public Bot(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0, 0, 0)
