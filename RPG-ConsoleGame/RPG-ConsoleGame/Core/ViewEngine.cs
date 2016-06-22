@@ -37,6 +37,7 @@
                 "4. Load Game" + Environment.NewLine + Environment.NewLine +
                 "5. Credits");
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             render.PrintScreen(screen);
             string choice = reader.ReadLine();
             render.WriteLine("");

@@ -2,6 +2,6 @@
 {
     public interface IStateManager
     {
-        void ProcessCommand(string command);
+        void StartState(string state);
     }
 }

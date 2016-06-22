@@ -13,8 +13,8 @@
 
     public class GameEngine
     {
-        private readonly IInputReader reader = new ConsoleInputReader();
-        private readonly IRender render = new ConsoleRender();
+        //private readonly IInputReader reader = new ConsoleInputReader();
+        //private readonly IRender render = new ConsoleRender();
         //private readonly IPlayerFactory playerFactory = new PlayerFactory();
         //private readonly IBotFactory botFactory = new BotFactory();
         //private readonly IGameDatabase database = new GameDatabase();
@@ -50,7 +50,7 @@
         {
             AdjustSettings();
 
-            stateManager.ProcessCommand(StateConstants.BeginGame);
+            stateManager.StartState(StateConstants.BeginGame);
 
             #region Singleplayer logic, moved to state manager
             //stateManager.ProcessCommand(GetPlayerChoise());
@@ -97,32 +97,32 @@
 
         #region Moved to StateManager
 
-        private string GetPlayerChoise()
-        {
-            StringBuilder screen = new StringBuilder();
+        //private string GetPlayerChoise()
+        //{
+        //    StringBuilder screen = new StringBuilder();
 
-            screen.AppendLine(
-                "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
-                "1. Single Player" + Environment.NewLine + Environment.NewLine +
-                "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                "4. Credits");
+        //    screen.AppendLine(
+        //        "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+        //        "1. Single Player" + Environment.NewLine + Environment.NewLine +
+        //        "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+        //        "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
+        //        "4. Credits");
 
-            render.PrintScreen(screen);
-            string choice = reader.ReadLine();
-            render.WriteLine("");
+        //    render.PrintScreen(screen);
+        //    string choice = reader.ReadLine();
+        //    render.WriteLine("");
 
-            string[] validChoises = { "1", "2", "3", "4" };
+        //    string[] validChoises = { "1", "2", "3", "4" };
 
 
-            while (!validChoises.Contains(choice))
-            {
-                render.WriteLine("Invalid choice, please re-enter.");
-                choice = reader.ReadLine();
-            }
+        //    while (!validChoises.Contains(choice))
+        //    {
+        //        render.WriteLine("Invalid choice, please re-enter.");
+        //        choice = reader.ReadLine();
+        //    }
 
-            return choice;
-        }
+        //    return choice;
+        //}
 
         //string command = this.reader.ReadLine();
 

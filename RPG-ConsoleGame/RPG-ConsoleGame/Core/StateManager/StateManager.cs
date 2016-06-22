@@ -33,12 +33,12 @@ namespace RPG_ConsoleGame.Core.StateManager
 
         public StateManager()
         {
-            viewEngine.OnMenuClick += ProcessCommand;
+            viewEngine.OnMenuClick += StartState;
         }
 
-        public void ProcessCommand(string command)
+        public void StartState(string state)
         {
-            switch (command)
+            switch (state)
             {
                 case StateConstants.BeginGame:
                     viewEngine.DrawMenu();
@@ -58,28 +58,21 @@ namespace RPG_ConsoleGame.Core.StateManager
                 case StateConstants.Credits:
                     StartSinglePlayer();
                     break;
-                case StateConstants.ReturnBack:
-                    ReturnBack();
-                    break;
+                //case StateConstants.ReturnBack:
+                //    ReturnBack();
+                //    break;
                 default:
                     break;
             }
         }
 
-        private void ReturnBack()
+        private void ReturnBack(string command)
         {
-            //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-            //if (keyPressed.Key == ConsoleKey.Escape)
-            if(Console.ReadKey(true).Key == ConsoleKey.Escape)
+            if(command == "exit")
             {
                 render.Clear();
                 viewEngine.DrawMenu();
             }
-            else
-            {
-                ConsoleKeyInfo eyPressed = Console.ReadKey(true);
-            }
-
         }
 
         private void StartSinglePlayer()
@@ -115,8 +108,9 @@ namespace RPG_ConsoleGame.Core.StateManager
                     
 
                     Console.Clear();
-
-                    database.Players[0].Move(map);
+                    string command = reader.ReadKey();
+                    ReturnBack(command);
+                    database.Players[0].Move(map, command);
 
                     PrintMap(map);
                     PrintPlayerStats(database.Players[0]);
@@ -237,8 +231,10 @@ namespace RPG_ConsoleGame.Core.StateManager
                         Thread.Sleep(3000);
 
                         //this.isInBattle = false;
-                        this.IsRunning = false;
-                        break;
+
+                        ReturnBack("exit");
+                        //this.IsRunning = false;
+                        //break;
                     }
                     if (char2.Health <= 0 && char1.Health > 0)
                     {
@@ -284,8 +280,10 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.WriteLine(new string('*', 90));
                         Thread.Sleep(3000);
 
-                        this.IsRunning = false;
-                        break;
+                        ReturnBack("exit");
+
+                        //this.IsRunning = false;
+                        //break;
                     }
                 }
 
