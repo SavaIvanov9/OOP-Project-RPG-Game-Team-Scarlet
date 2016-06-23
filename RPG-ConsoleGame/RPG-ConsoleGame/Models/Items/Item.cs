@@ -2,8 +2,9 @@
 {
     using Map;
 
-    public abstract class Item : GameObject
+    public class Item : GameObject
     {
+        public ItemBodyPossition Type;
         private int hp;
         private int power;
         private int defence;
