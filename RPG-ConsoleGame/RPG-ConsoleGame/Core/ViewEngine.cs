@@ -27,8 +27,7 @@ namespace RPG_ConsoleGame.Core
                 OnMenuClick(value);
             }
         }
-
-        public void DrawMenu()
+        public void RenderMenu()
         {
             render.Clear();
 
@@ -57,6 +56,57 @@ namespace RPG_ConsoleGame.Core
             }
 
             OnClick(choice);
+        }
+
+        public void RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
+        {
+            render.Clear();
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine();
+            screen.AppendLine("You have entered in battle!!");
+            screen.AppendLine();
+            screen.AppendLine(new string('-', 60));
+            screen.AppendLine();
+            screen.AppendLine(char1.ToString());
+            screen.AppendLine(char2.ToString());
+
+            screen.AppendLine();
+            screen.AppendLine("Choose number to cast ability:");
+
+            for (int i = 0; i < char1.Abilities.Count; i++)
+            {
+                var ability = char1.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
+
+            screen.AppendLine();
+            screen.Append(history);
+            render.PrintScreen(screen);
+        }
+
+        public void RenderMap(char[,] matrix)
+        {
+            StringBuilder map = new StringBuilder();
+
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+
+                    if (matrix[row, col] == '-')
+                    {
+                        map.Append("  ");
+                    }
+                    else
+                    {
+                        map.Append($"{matrix[row, col]} ");
+                    }
+                }
+
+                map.AppendLine();
+            }
+
+            render.PrintScreen(map);
         }
 
         //Register new player
@@ -108,7 +158,7 @@ namespace RPG_ConsoleGame.Core
             return playerName;
         }
 
-        public void DrawCredits()
+        public void RenderCredits()
         {
             render.Clear();
 
@@ -123,8 +173,13 @@ namespace RPG_ConsoleGame.Core
             StartTimer(5);
         }
 
-        //Render Warning Screen
-        public void WarningScreen(ConsoleColor color, StringBuilder message1, int time, StringBuilder message2 = null)
+        private void RenderPlayerStats(IPlayer player)
+        {
+            render.WriteLine("");
+            render.WriteLine(player.ToString());
+        }
+
+        public void RenderWarningScreen(ConsoleColor color, StringBuilder message1, int time, StringBuilder message2 = null)
         {
             render.Clear();
 

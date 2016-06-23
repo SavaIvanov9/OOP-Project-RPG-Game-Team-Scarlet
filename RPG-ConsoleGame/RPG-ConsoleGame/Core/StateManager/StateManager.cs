@@ -30,8 +30,6 @@ namespace RPG_ConsoleGame.Core.StateManager
 
         char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
-        static Position plPos = new Position();
-
         public StateManager()
         {
             viewEngine.OnMenuClick += StartState;
@@ -42,7 +40,7 @@ namespace RPG_ConsoleGame.Core.StateManager
             switch (state)
             {
                 case StateConstants.BeginGame:
-                    viewEngine.DrawMenu();
+                    viewEngine.RenderMenu();
                     break;
                 case StateConstants.SinglePlayer:
                     StartSinglePlayer();
@@ -57,8 +55,8 @@ namespace RPG_ConsoleGame.Core.StateManager
                     StartSinglePlayer();
                     break;
                 case StateConstants.Credits:
-                    viewEngine.DrawCredits();
-                    viewEngine.DrawMenu();
+                    viewEngine.RenderCredits();
+                    viewEngine.RenderMenu();
                     break;
                 //case StateConstants.ReturnBack:
                 //    ReturnBack();
@@ -70,10 +68,10 @@ namespace RPG_ConsoleGame.Core.StateManager
 
         private void ReturnBack(string command)
         {
-            if(command == "exit")
+            if (command == "exit")
             {
                 render.Clear();
-                viewEngine.DrawMenu();
+                viewEngine.RenderMenu();
             }
         }
 
@@ -90,32 +88,23 @@ namespace RPG_ConsoleGame.Core.StateManager
 
             this.IsRunning = true;
 
-            Console.Clear();
+            render.Clear();
 
-            PrintMap(map);
-            PrintPlayerStats(database.Players[0]);
+            viewEngine.RenderMap(map);
+            viewEngine.RenderPlayerStats(database.Players[0]);
 
             while (this.IsRunning)
             {
-                //ReturnBack();
-
                 if (Console.KeyAvailable)
                 {
-                    //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                    //if (keyPressed.Key == ConsoleKey.Escape)
-                    //{
-                    //    render.Clear();
-                    //    viewEngine.DrawMenu();
-                    //}
-                    
-
-                    Console.Clear();
+                    render.Clear();
                     string command = reader.ReadKey();
                     ReturnBack(command);
                     database.Players[0].Move(map, command);
 
-                    PrintMap(map);
-                    PrintPlayerStats(database.Players[0]);
+                    viewEngine.RenderMap(map);
+                    viewEngine.RenderPlayerStats(database.Players[0]);
+
                     if (database.Bots.Count > 0)
                     {
                         CheckForBattle(database.Players[0], database.Bots[0]);
@@ -135,8 +124,8 @@ namespace RPG_ConsoleGame.Core.StateManager
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
                 StartMusic(SoundEffects.BattleStart);
-                viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU ARE ENGAGING ENEMY!!"), 3);
-               
+                viewEngine.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU ARE ENGAGING ENEMY!!"), 3);
+
                 StartMusic(SoundEffects.BattleTheme);
 
                 var isInBattle = true;
@@ -145,11 +134,7 @@ namespace RPG_ConsoleGame.Core.StateManager
 
                 while (isInBattle)
                 {
-                    render.Clear();
-
-                    var screen = RenderBattleStats(char1, char2, history);
-
-                    render.PrintScreen(screen);
+                    viewEngine.RenderBattleStats(char1, char2, history);
 
                     if (char1.Reflexes >= char2.Reflexes)
                     {
@@ -159,7 +144,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         {
                             turnsCount++;
                             RegenerateStats(char1);
-                            RenderBattleAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+                            ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
@@ -170,7 +155,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         {
                             turnsCount++;
                             RegenerateStats(char1);
-                            RenderBattleAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                            ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
@@ -181,7 +166,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         {
                             turnsCount++;
                             RegenerateStats(char1);
-                            RenderBattleAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                            ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
@@ -192,7 +177,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         {
                             turnsCount++;
                             RegenerateStats(char1);
-                            RenderBattleAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                            ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
 
                             //bot AI in action
                             ExecuteBotDecision(turnsCount, char2, char1, history);
@@ -211,31 +196,22 @@ namespace RPG_ConsoleGame.Core.StateManager
                     //check if someone died
                     if (char1.Health <= 0 && char2.Health > 0)
                     {
-                        render.Clear();
-                        screen = RenderBattleStats(char1, char2, history);
-
-                        render.PrintScreen(screen);
+                        viewEngine.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.BattleStart);
-                        viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3, new StringBuilder("Press enter to continue"));
-                       
+                        viewEngine.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3, new StringBuilder("Press enter to continue"));
 
                         ReturnBack("exit");
-                        //this.IsRunning = false;
-                        //break;
                     }
                     if (char2.Health <= 0 && char1.Health > 0)
                     {
-                        render.Clear();
-                        screen = RenderBattleStats(char1, char2, history);
-
-                        render.PrintScreen(screen);
+                        viewEngine.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.EnemyIsDestroyed);
-                        viewEngine.WarningScreen(
+                        viewEngine.RenderWarningScreen(
                             ConsoleColor.Red, new StringBuilder("YOU HAVE KILLED THE ENEMY!!"),
                             2, new StringBuilder("Press enter to continue."));
-                        
+
                         StartMusic(SoundEffects.DefaultTheme);
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -244,22 +220,16 @@ namespace RPG_ConsoleGame.Core.StateManager
                     }
                     if (char1.Health <= 0 && char2.Health <= 0)
                     {
-                        render.Clear();
-                        screen = RenderBattleStats(char1, char2, history);
-
-                        render.PrintScreen(screen);
+                        viewEngine.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.BattleStart);
-                        viewEngine.WarningScreen(
+                        viewEngine.RenderWarningScreen(
                             ConsoleColor.Red, new StringBuilder(
-                            " You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"), 
+                            " You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
                             3, new StringBuilder("Press enter or escape continue"));
                         StartMusic(SoundEffects.DefaultTheme);
 
                         ReturnBack("exit");
-
-                        //this.IsRunning = false;
-                        //break;
                     }
                 }
 
@@ -274,72 +244,16 @@ namespace RPG_ConsoleGame.Core.StateManager
         private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
         {
             turnsCount++;
-            RenderBattleAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
+            ExecutePlayerAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
         }
 
-        private StringBuilder RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
-        {
-            StringBuilder screen = new StringBuilder();
-            screen.AppendLine();
-            screen.AppendLine("You have entered in battle!!");
-            screen.AppendLine();
-            screen.AppendLine(new string('-', 60));
-            screen.AppendLine();
-            screen.AppendLine(char1.ToString());
-            screen.AppendLine(char2.ToString());
-
-            screen.AppendLine();
-            screen.AppendLine("Choose number to cast ability:");
-
-            for (int i = 0; i < char1.Abilities.Count; i++)
-            {
-                var ability = char1.Abilities[i];
-                screen.AppendLine($"{i + 1} -> {ability}");
-            }
-
-            screen.AppendLine();
-            screen.Append(history);
-            return screen;
-        }
-
-        private void RenderBattleAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
+        private void ExecutePlayerAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
         {
             abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
             history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
         }
-
-        static void PrintMap(char[,] matrix)
-        {
-            StringBuilder map = new StringBuilder();
-
-            for (int row = 0; row < matrix.GetLength(0); row++)
-            {
-                for (int col = 0; col < matrix.GetLength(1); col++)
-                {
-
-                    if (matrix[row, col] == '-')
-                    {
-                        map.Append("  ");
-                    }
-                    else
-                    {
-                        map.Append($"{matrix[row, col]} ");
-                    }
-                }
-
-                map.AppendLine();
-            }
-
-            Console.WriteLine(map.ToString());
-        }
-
-        private void PrintPlayerStats(IPlayer player)
-        {
-            render.WriteLine("");
-            render.WriteLine(player.ToString());
-        }
-
+        
         private void RemoveDead(IGameDatabase database)
         {
             for (int index = 0; index < database.Bots.Count; index++)
