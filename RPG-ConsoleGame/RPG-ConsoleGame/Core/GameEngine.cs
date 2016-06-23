@@ -19,6 +19,7 @@
         //private readonly IBotFactory botFactory = new BotFactory();
         //private readonly IGameDatabase database = new GameDatabase();
         //private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
+        private readonly IBossFactory bossFactory = new BossFactory();
         private readonly ISound sound = new Sound();
         private readonly IStateManager stateManager = new StateManager.StateManager();
 

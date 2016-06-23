@@ -44,11 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Factories\BossFactory.cs" />
     <Compile Include="Core\Factories\ShopFactory.cs" />
     <Compile Include="Core\StateManager\StateConstants.cs" />
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\ViewEngine.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
+    <Compile Include="Interfaces\IBoss.cs" />
+    <Compile Include="Interfaces\IBossFactory.cs" />
     <Compile Include="Interfaces\IShop.cs" />
     <Compile Include="Interfaces\IShopFactory.cs" />
     <Compile Include="Interfaces\ISound.cs" />
@@ -57,6 +60,8 @@
     <Compile Include="Models\Buildings\Building.cs" />
     <Compile Include="Models\Buildings\Shop.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
+    <Compile Include="Models\Characters\Boss.cs" />
+    <Compile Include="Models\Characters\BossRace.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Bot.cs" />
     <Compile Include="Models\Characters\Player.cs" />
