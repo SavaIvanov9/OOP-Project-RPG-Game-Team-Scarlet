@@ -18,6 +18,7 @@ namespace RPG_ConsoleGame.Core.StateManager
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
         private readonly IBotFactory botFactory = new BotFactory();
+        private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound.Sound();
@@ -83,7 +84,7 @@ namespace RPG_ConsoleGame.Core.StateManager
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
-
+            database.AddBoss(bossFactory.CreateBoss(new Position(9, 11), 'B', "Boss1", BossRace.Boss1));
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
 
@@ -118,6 +119,10 @@ namespace RPG_ConsoleGame.Core.StateManager
                     if (database.Bots.Count > 0)
                     {
                         CheckForBattle(database.Players[0], database.Bots[0]);
+                    }
+                    if (database.Bosses.Count > 0)
+                    {
+                        CheckForBattle(database.Players[0], database.Bosses[0]);
                     }
 
                     RemoveDead(database);
@@ -212,19 +217,8 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.PrintScreen(screen);
 
                         StartMusic(SoundEffects.BattleStart);
-                        viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to the admin to resurrect you :D" + Environment.NewLine + "Press enter or escape to return to the menu."), 3);
-                        //render.Clear();
-                        //Console.ForegroundColor = ConsoleColor.Red;
-                        //render.WriteLine(new string('*', 70));
-                        //render.WriteLine("");
-                        //render.WriteLine("");
-                        //render.WriteLine("  YOU HAVE DIED!! Give beer to the admin to resurrect you :D");
-                        //render.WriteLine("");
-                        //render.WriteLine("");
-                        //render.WriteLine(new string('*', 70));
-                        //viewEngine.StartTimer(3);
-
-                        //this.isInBattle = false;
+                        viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3, new StringBuilder("Press enter to continue"));
+                       
 
                         ReturnBack("exit");
                         //this.IsRunning = false;
@@ -238,17 +232,10 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.PrintScreen(screen);
 
                         StartMusic(SoundEffects.EnemyIsDestroyed);
-                        render.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        render.WriteLine(new string('*', 60));
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine("  YOU HAVE KILLED THE ENEMY!! Press any key to continue.");
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine(new string('*', 60));
-                        viewEngine.StartTimer(2);
-
+                        viewEngine.WarningScreen(
+                            ConsoleColor.Red, new StringBuilder("YOU HAVE KILLED THE ENEMY!!"),
+                            2, new StringBuilder("Press enter to continue."));
+                        
                         StartMusic(SoundEffects.DefaultTheme);
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -263,16 +250,11 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.PrintScreen(screen);
 
                         StartMusic(SoundEffects.BattleStart);
-                        render.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        render.WriteLine(new string('*', 90));
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine("  You have killed the enemy, but you have died too... Give beer to the admin to resurrect you :D");
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine(new string('*', 90));
-                        viewEngine.StartTimer(3);
+                        viewEngine.WarningScreen(
+                            ConsoleColor.Red, new StringBuilder(
+                            " You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"), 
+                            3, new StringBuilder("Press enter or escape continue"));
+                        StartMusic(SoundEffects.DefaultTheme);
 
                         ReturnBack("exit");
 
@@ -282,19 +264,6 @@ namespace RPG_ConsoleGame.Core.StateManager
                 }
 
             }
-        }
-
-        private void Art()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            render.WriteLine(new string('*', 30));
-            render.WriteLine("");
-            render.WriteLine("");
-            render.WriteLine("YOU ARE ENGAGING ENEMY!!");
-            render.WriteLine("");
-            render.WriteLine("");
-            render.WriteLine(new string('*', 30));
-            Thread.Sleep(3000);
         }
 
         private void RegenerateStats(ICharacter player)
@@ -375,10 +344,17 @@ namespace RPG_ConsoleGame.Core.StateManager
         {
             for (int index = 0; index < database.Bots.Count; index++)
             {
-                var bot = database.Bots[index];
-                if (bot.Health <= 0)
+                if (database.Bots[index].Health <= 0)
                 {
-                    database.Bots.Remove(bot);
+                    database.Bots.Remove(database.Bots[index]);
+                }
+            }
+
+            for (int index = 0; index < database.Bosses.Count; index++)
+            {
+                if (database.Bosses[index].Health <= 0)
+                {
+                    database.Bosses.Remove(database.Bosses[index]);
                 }
             }
         }

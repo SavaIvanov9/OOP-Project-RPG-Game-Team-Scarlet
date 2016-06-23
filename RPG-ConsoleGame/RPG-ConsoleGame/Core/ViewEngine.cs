@@ -123,37 +123,49 @@ namespace RPG_ConsoleGame.Core
             StartTimer(5);
         }
 
-        //Rebder Battle
-        public void WarningScreen(ConsoleColor color, StringBuilder message, int time)
+        //Render Warning Screen
+        public void WarningScreen(ConsoleColor color, StringBuilder message1, int time, StringBuilder message2 = null)
         {
             render.Clear();
 
             Console.ForegroundColor = color;
             StringBuilder screen = new StringBuilder();
-            screen.AppendLine(new string('*', message.Length/2));
+
+            screen.AppendLine(
+                new string('*',
+                (message1.Length > ((message2 != null) ? message2.Length : 0)) ?
+                message1.Length : message2.Length));
             screen.AppendLine();
             screen.AppendLine();
-            screen.Append(message + Environment.NewLine);
+            screen.Append(message1 + Environment.NewLine);
+            if (message2 != null)
+            {
+                screen.Append(Environment.NewLine + message2 + Environment.NewLine);
+
+            }
             screen.AppendLine();
             screen.AppendLine();
-            screen.AppendLine(new string('*', message.Length/2));
+            screen.AppendLine(
+               new string('*',
+               (message1.Length > ((message2 != null) ? message2.Length : 0)) ?
+               message1.Length : message2.Length));
+
             render.PrintScreen(screen);
-            
+
             StartTimer(time);
         }
-
 
         //primary timer option for skipping
         public void StartTimer(int seconds)
         {
-            for (int i = 0; i < seconds*2; i++)
+            for (int i = 0; i < seconds * 4; i++)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(250);
 
                 if (reader.ReadKey() == "skip")
                 {
-                   break; 
-                }  
+                    break;
+                }
             }
         }
     }
