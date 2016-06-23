@@ -1,4 +1,4 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
+﻿namespace RPG_ConsoleGame.Models.Characters.Abilities
 {
     using Interfaces;
 

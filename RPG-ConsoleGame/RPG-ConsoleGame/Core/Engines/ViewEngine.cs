@@ -1,11 +1,9 @@
-﻿using System.Threading;
-using RPG_ConsoleGame.Sound;
-
-namespace RPG_ConsoleGame.Core
+﻿namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using Characters;
     using Interfaces;
     using Map;
@@ -17,7 +15,8 @@ namespace RPG_ConsoleGame.Core
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
-
+        //private readonly IBackEngine backEngine = new BackEngine();
+        
         public event OnMenuClickHandler OnMenuClick;
 
         private void OnClick(string value)
@@ -109,7 +108,6 @@ namespace RPG_ConsoleGame.Core
             render.PrintScreen(map);
         }
 
-        //Register new player
         public IPlayer GetPlayer()
         {
             var playerName = this.GetPlayerName();
@@ -173,7 +171,7 @@ namespace RPG_ConsoleGame.Core
             StartTimer(5);
         }
 
-        private void RenderPlayerStats(IPlayer player)
+        public void RenderPlayerStats(IPlayer player)
         {
             render.WriteLine("");
             render.WriteLine(player.ToString());
@@ -210,7 +208,6 @@ namespace RPG_ConsoleGame.Core
             StartTimer(time);
         }
 
-        //primary timer option for skipping
         public void StartTimer(int seconds)
         {
             for (int i = 0; i < seconds * 4; i++)

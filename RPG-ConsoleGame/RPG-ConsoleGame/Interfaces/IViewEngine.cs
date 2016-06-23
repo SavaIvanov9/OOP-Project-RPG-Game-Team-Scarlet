@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text;
-    using Core;
+    using Core.Engines;
 
     public interface IViewEngine
     {
@@ -13,7 +13,7 @@
         void RenderMap(char[,] matrix);
         void RenderPlayerStats(IPlayer player);
         void RenderWarningScreen(ConsoleColor color, StringBuilder message, int time, StringBuilder message2 = null);
-        void StartTimer(int seconds);
         IPlayer GetPlayer();
+        void StartTimer(int seconds);
     }
 }
