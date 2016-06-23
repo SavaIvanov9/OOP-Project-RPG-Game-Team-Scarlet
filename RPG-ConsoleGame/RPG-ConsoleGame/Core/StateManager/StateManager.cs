@@ -132,6 +132,8 @@ namespace RPG_ConsoleGame.Core.StateManager
                         CheckForBattle(database.Players[0], database.Bots[0]);
                     }
 
+                    CheckForShop(database.Players[0], database.Shops[0]);
+
                     RemoveDead(database);
                 }
             }
@@ -296,6 +298,16 @@ namespace RPG_ConsoleGame.Core.StateManager
                     }
                 }
 
+            }
+        }
+
+        private void CheckForShop(ICharacter character, IShop shop)
+        {
+            if (character.Position.X == shop.Position.X &&
+                character.Position.Y == shop.Position.Y)
+            {
+                //enter shop
+                Console.WriteLine("You entered the shop");
             }
         }
 
