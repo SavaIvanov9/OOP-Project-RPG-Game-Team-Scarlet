@@ -130,16 +130,8 @@ namespace RPG_ConsoleGame.Core.StateManager
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
                 StartMusic(SoundEffects.BattleStart);
-                render.Clear();
-                Console.ForegroundColor = ConsoleColor.Red;
-                render.WriteLine(new string('*', 30));
-                render.WriteLine("");
-                render.WriteLine("");
-                render.WriteLine("  YOU ARE ENGAGING ENEMY!!");
-                render.WriteLine("");
-                render.WriteLine("");
-                render.WriteLine(new string('*', 30));
-                viewEngine.StartTimer(3);
+                viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU ARE ENGAGING ENEMY!!"), 3);
+               
                 StartMusic(SoundEffects.BattleTheme);
 
                 var isInBattle = true;
@@ -220,16 +212,17 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.PrintScreen(screen);
 
                         StartMusic(SoundEffects.BattleStart);
-                        render.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        render.WriteLine(new string('*', 70));
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine("  YOU HAVE DIED!! Give beer to the admin to resurrect you :D");
-                        render.WriteLine("");
-                        render.WriteLine("");
-                        render.WriteLine(new string('*', 70));
-                        viewEngine.StartTimer(3);
+                        viewEngine.WarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to the admin to resurrect you :D" + Environment.NewLine + "Press enter or escape to return to the menu."), 3);
+                        //render.Clear();
+                        //Console.ForegroundColor = ConsoleColor.Red;
+                        //render.WriteLine(new string('*', 70));
+                        //render.WriteLine("");
+                        //render.WriteLine("");
+                        //render.WriteLine("  YOU HAVE DIED!! Give beer to the admin to resurrect you :D");
+                        //render.WriteLine("");
+                        //render.WriteLine("");
+                        //render.WriteLine(new string('*', 70));
+                        //viewEngine.StartTimer(3);
 
                         //this.isInBattle = false;
 

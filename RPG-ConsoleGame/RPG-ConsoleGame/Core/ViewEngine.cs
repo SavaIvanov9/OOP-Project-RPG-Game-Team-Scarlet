@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using RPG_ConsoleGame.Sound;
 
 namespace RPG_ConsoleGame.Core
 {
@@ -27,7 +28,7 @@ namespace RPG_ConsoleGame.Core
             }
         }
 
-       public void DrawMenu()
+        public void DrawMenu()
         {
             render.Clear();
 
@@ -58,6 +59,7 @@ namespace RPG_ConsoleGame.Core
             OnClick(choice);
         }
 
+        //Register new player
         public IPlayer GetPlayer()
         {
             var playerName = this.GetPlayerName();
@@ -121,11 +123,32 @@ namespace RPG_ConsoleGame.Core
             StartTimer(5);
         }
 
+        //Rebder Battle
+        public void WarningScreen(ConsoleColor color, StringBuilder message, int time)
+        {
+            render.Clear();
+
+            Console.ForegroundColor = color;
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine(new string('*', message.Length/2));
+            screen.AppendLine();
+            screen.AppendLine();
+            screen.Append(message + Environment.NewLine);
+            screen.AppendLine();
+            screen.AppendLine();
+            screen.AppendLine(new string('*', message.Length/2));
+            render.PrintScreen(screen);
+            
+            StartTimer(time);
+        }
+
+
+        //primary timer option for skipping
         public void StartTimer(int seconds)
         {
-            for (int i = 0; i < seconds; i++)
+            for (int i = 0; i < seconds*2; i++)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 if (reader.ReadKey() == "skip")
                 {
