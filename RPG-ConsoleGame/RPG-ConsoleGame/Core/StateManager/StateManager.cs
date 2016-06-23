@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 using RPG_ConsoleGame.Characters;
 using RPG_ConsoleGame.Core.Factories;
 using RPG_ConsoleGame.Interfaces;
@@ -9,6 +10,8 @@ using RPG_ConsoleGame.Map;
 using RPG_ConsoleGame.UserInterface;
 using RPG_ConsoleGame.Models.Characters.Abilities.Mage;
 using RPG_ConsoleGame.Sound;
+using RPG_ConsoleGame.Models.Buildings;
+using RPG_ConsoleGame.Items;
 
 namespace RPG_ConsoleGame.Core.StateManager
 {
@@ -18,6 +21,7 @@ namespace RPG_ConsoleGame.Core.StateManager
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
         private readonly IBotFactory botFactory = new BotFactory();
+        private readonly IShopFactory shopFactory = new ShopFactory();
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound.Sound();
@@ -89,6 +93,9 @@ namespace RPG_ConsoleGame.Core.StateManager
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
+
+            var shop = new Shop(new Position(3, 3), 'S', "Shop", new List<Item>());
+            database.AddShop(shop);
 
             //Using ability
             //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
