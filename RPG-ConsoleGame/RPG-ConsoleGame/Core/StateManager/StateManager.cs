@@ -94,7 +94,7 @@ namespace RPG_ConsoleGame.Core.StateManager
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
             database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
 
-            var shop = new Shop(new Position(3, 3), 'S', "Shop", new List<Item>());
+            var shop = shopFactory.CreateShop(new Position(3, 3), 'S', "Shop");
             database.AddShop(shop);
 
             //Using ability
@@ -307,6 +307,8 @@ namespace RPG_ConsoleGame.Core.StateManager
                 character.Position.Y == shop.Position.Y)
             {
                 //enter shop
+
+                
                 Console.WriteLine("You entered the shop");
             }
         }

@@ -100,5 +100,10 @@
 
             return playerName;
         }
+
+        public void Shop()
+        {
+            
+        }
     }
 }
