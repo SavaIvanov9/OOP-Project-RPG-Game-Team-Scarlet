@@ -1,0 +1,58 @@
+﻿namespace RPG_ConsoleGame.Core.Engines
+{
+    using System;
+    using Interfaces;
+    using Sound;
+    using StateManager;
+
+    public class CoreGameEngine
+    {
+        private readonly ISound sound = new Sound();
+        private readonly IStateManager stateManager = new StateManager();
+
+        public bool IsRunning { get; private set; }
+
+        //Singleton patern
+        private static CoreGameEngine instance;
+
+        public static CoreGameEngine Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CoreGameEngine();
+                }
+
+                return instance;
+            }
+        }
+
+        public void Run()
+        {
+            AdjustSettings();
+
+            stateManager.StartState(StateConstants.BeginGame);
+
+            
+        }
+        
+        private void AdjustSettings()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            //Console.SetBufferSize(90, 45);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.SetWindowSize(90, 45);
+            //Console.SetWindowPosition(90, 45);
+            Console.CursorVisible = false;
+            StartMusic(SoundEffects.DefaultTheme);
+            Console.Clear();
+        }
+
+        private void StartMusic(SoundEffects stage)
+        {
+            sound.SFX(stage);
+        }
+    }
+}
+

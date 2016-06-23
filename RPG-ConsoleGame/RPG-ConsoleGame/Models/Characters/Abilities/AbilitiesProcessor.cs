@@ -1,4 +1,4 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Abilities.Mage
+﻿namespace RPG_ConsoleGame.Models.Characters.Abilities
 {
     using Interfaces;
 
@@ -74,7 +74,17 @@
                     this.ShadowBolt(player, enemy);
                     break;
 
-                    //BOSS1 abilities
+                //BOSS1 abilities
+                case "Ability1":
+                    this.Ability1(player, enemy);
+                    break;
+                case "Ability2":
+                    this.Ability2(player, enemy);
+                    break;
+                case "Ability3":
+                    this.Ability3(player, enemy);
+                    break;
+                //TODO more bosses
 
                 default:
                     break;
@@ -204,6 +214,26 @@
             player.Reflexes -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
-        
+
+        //Boss1
+        private void Ability1(ICharacter player, ICharacter enemy)
+        {
+            player.Reflexes -= 20;
+            enemy.Health -= (player.Damage + 40);
+        }
+
+        private void Ability2(ICharacter player, ICharacter enemy)
+        {
+            player.Reflexes -= 20;
+            enemy.Health -= (player.Damage + 15);
+
+        }
+
+        private void Ability3(ICharacter player, ICharacter enemy)
+        {
+            player.Reflexes -= 20;
+            enemy.Health -= enemy.Damage;
+            player.Health += enemy.Damage;
+        }
     }
 }

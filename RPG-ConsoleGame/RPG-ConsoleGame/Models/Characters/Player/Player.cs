@@ -7,6 +7,7 @@ namespace RPG_ConsoleGame.Characters
     using Map;
     using Interfaces;
     using Items;
+    using Core.Engines;
 
     public class Player : Character, IPlayer
     {
@@ -34,37 +35,55 @@ namespace RPG_ConsoleGame.Characters
 
         public PlayerRace Race { get; private set; }
 
-        public void Move(char[,] map)
+        public void Move(char[,] map, string command)
         {
-            if (Console.KeyAvailable)
+            //if (Console.KeyAvailable)
+            //{
+            //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+            ////while (Console.KeyAvailable)
+            ////{
+            ////    Console.ReadKey(true);
+            ////}
+            //if (keyPressed.Key == ConsoleKey.LeftArrow)
+            //{
+            //    MoveLeft(map);
+            //}
+            //if (keyPressed.Key == ConsoleKey.RightArrow)
+            //{
+            //    MoveRight(map);
+            //}
+            //if (keyPressed.Key == ConsoleKey.DownArrow)
+            //{
+            //    MoveDown(map);
+            //}
+            //if (keyPressed.Key == ConsoleKey.UpArrow)
+            //{
+            //    MoveUp(map);
+            //}
+            //if (keyPressed.Key == ConsoleKey.Escape)
+            //{
+            //    render.Clear();
+            //    viewEngine.DrawMenu();
+            //}
+            //}
+
+            if (command == "moveLeft")
             {
-                ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-                //while (Console.KeyAvailable)
-                //{
-                //    Console.ReadKey(true);
-                //}
-                if (keyPressed.Key == ConsoleKey.LeftArrow)
-                {
-                    MoveLeft(map);
-                }
-                if (keyPressed.Key == ConsoleKey.RightArrow)
-                {
-                    MoveRight(map);
-                }
-                if (keyPressed.Key == ConsoleKey.DownArrow)
-                {
-                    MoveDown(map);
-                }
-                if (keyPressed.Key == ConsoleKey.UpArrow)
-                {
-                    MoveUp(map);
-                }
-                if (keyPressed.Key == ConsoleKey.Escape)
-                {
-                    render.Clear();
-                    viewEngine.DrawMenu();
-                }
+                MoveLeft(map);
             }
+            if (command == "moveRight")
+            {
+                MoveRight(map);
+            }
+            if (command == "moveDown")
+            {
+                MoveDown(map);
+            }
+            if (command == "moveUp")
+            {
+                MoveUp(map);
+            }
+            
         }
 
         public void SetBodyItems(Item item)
