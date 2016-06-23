@@ -6,7 +6,7 @@
     {
         IList<IPlayer> Players { get; set; }
         IList<IBot> Bots { get; set; }
-        IList<IShop> Shop { get; set; }
+        IList<IShop> Shops { get; set; }
 
         void AddPlayer(IPlayer player);
         void AddBot(IBot bot);

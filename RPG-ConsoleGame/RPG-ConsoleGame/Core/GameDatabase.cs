@@ -7,7 +7,7 @@
     {
         private IList<IPlayer> players = new List<IPlayer>();
         private IList<IBot> bots = new List<IBot>();
-        private IList<IShop> shop = new List<IShop>();
+        private IList<IShop> shops = new List<IShop>();
 
         public IList<IPlayer> Players
         {
@@ -21,10 +21,10 @@
             set { this.bots = value; }
         }
 
-        public IList<IShop> Shop
+        public IList<IShop> Shops
         {
-            get { return this.shop; }
-            set { this.shop = value; }
+            get { return this.shops; }
+            set { this.shops = value; }
         }
 
         public void AddBot(IBot bot)
@@ -39,7 +39,7 @@
 
         public void AddShop(IShop shop)
         {
-            Shop.Add(shop);
+            Shops.Add(shop);
         }
     }
 }
