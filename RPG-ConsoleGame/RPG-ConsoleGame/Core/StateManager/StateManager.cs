@@ -56,7 +56,8 @@ namespace RPG_ConsoleGame.Core.StateManager
                     StartSinglePlayer();
                     break;
                 case StateConstants.Credits:
-                    StartSinglePlayer();
+                    viewEngine.DrawCredits();
+                    viewEngine.DrawMenu();
                     break;
                 //case StateConstants.ReturnBack:
                 //    ReturnBack();
@@ -138,7 +139,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                 render.WriteLine("");
                 render.WriteLine("");
                 render.WriteLine(new string('*', 30));
-                Thread.Sleep(3000);
+                viewEngine.StartTimer(3);
                 StartMusic(SoundEffects.BattleTheme);
 
                 var isInBattle = true;
@@ -228,7 +229,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.WriteLine("");
                         render.WriteLine("");
                         render.WriteLine(new string('*', 70));
-                        Thread.Sleep(3000);
+                        viewEngine.StartTimer(3);
 
                         //this.isInBattle = false;
 
@@ -253,7 +254,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.WriteLine("");
                         render.WriteLine("");
                         render.WriteLine(new string('*', 60));
-                        Thread.Sleep(2000);
+                        viewEngine.StartTimer(2);
 
                         StartMusic(SoundEffects.DefaultTheme);
 
@@ -278,7 +279,7 @@ namespace RPG_ConsoleGame.Core.StateManager
                         render.WriteLine("");
                         render.WriteLine("");
                         render.WriteLine(new string('*', 90));
-                        Thread.Sleep(3000);
+                        viewEngine.StartTimer(3);
 
                         ReturnBack("exit");
 
@@ -290,7 +291,7 @@ namespace RPG_ConsoleGame.Core.StateManager
             }
         }
 
-        private void art()
+        private void Art()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             render.WriteLine(new string('*', 30));

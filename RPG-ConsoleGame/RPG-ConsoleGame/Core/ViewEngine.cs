@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core
+﻿using System.Threading;
+
+namespace RPG_ConsoleGame.Core
 {
     using System;
     using System.Linq;
@@ -27,6 +29,8 @@
 
        public void DrawMenu()
         {
+            render.Clear();
+
             StringBuilder screen = new StringBuilder();
 
             screen.AppendLine(
@@ -42,7 +46,7 @@
             string choice = reader.ReadLine();
             render.WriteLine("");
 
-            string[] validChoises = { "1", "2", "3", "4" };
+            string[] validChoises = { "1", "2", "3", "4", "5" };
 
 
             while (!validChoises.Contains(choice))
@@ -100,6 +104,34 @@
             }
 
             return playerName;
+        }
+
+        public void DrawCredits()
+        {
+            render.Clear();
+
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine("Teleric Software Academy");
+            screen.AppendLine();
+            screen.AppendLine();
+            screen.AppendLine("Team Scarlet");
+            screen.AppendLine();
+            screen.AppendLine("OOP Team Project - C# RPG Game");
+            render.PrintScreen(screen);
+            StartTimer(5);
+        }
+
+        public void StartTimer(int seconds)
+        {
+            for (int i = 0; i < seconds; i++)
+            {
+                Thread.Sleep(1000);
+
+                if (reader.ReadKey() == "skip")
+                {
+                   break; 
+                }  
+            }
         }
     }
 }

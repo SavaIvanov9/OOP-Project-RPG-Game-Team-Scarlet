@@ -35,6 +35,10 @@
             {
                 input = "exit";
             }
+            if (keyPressed.Key == ConsoleKey.Enter)
+            {
+                input = "skip";
+            }
 
             return input;
         }
