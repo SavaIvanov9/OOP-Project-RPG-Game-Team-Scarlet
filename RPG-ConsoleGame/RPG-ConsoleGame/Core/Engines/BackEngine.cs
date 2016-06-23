@@ -19,7 +19,6 @@
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IGameDatabase database = new GameDatabase();
         private readonly IViewEngine viewEngine = new ViewEngine();
-        //private readonly IBackEngine backEngine = new BackEngine();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
 
@@ -73,7 +72,7 @@
             }
         }
 
-        public void CheckForBattle(ICharacter char1, ICharacter char2)
+        private void CheckForBattle(ICharacter char1, ICharacter char2)
         {
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
@@ -190,25 +189,25 @@
             }
         }
 
-        public void RegenerateStats(ICharacter player)
+        private void RegenerateStats(ICharacter player)
         {
             player.Reflexes += 5;
         }
 
-        public void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
+        private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
         {
             turnsCount++;
             ExecutePlayerAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
         }
 
-        public void ExecutePlayerAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
+        private void ExecutePlayerAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
         {
             abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
             history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
         }
 
-        public void RemoveDead(IGameDatabase database)
+        private void RemoveDead(IGameDatabase database)
         {
             for (int index = 0; index < database.Bots.Count; index++)
             {
@@ -227,7 +226,7 @@
             }
         }
 
-        public void ReturnBack(string command)
+        private void ReturnBack(string command)
         {
             if (command == "exit")
             {
@@ -236,7 +235,7 @@
             }
         }
 
-        public void StartMusic(SoundEffects stage)
+        private void StartMusic(SoundEffects stage)
         {
             sound.SFX(stage);
         }

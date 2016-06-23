@@ -15,7 +15,6 @@
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
-        //private readonly IBackEngine backEngine = new BackEngine();
         
         public event OnMenuClickHandler OnMenuClick;
 
