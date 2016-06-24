@@ -4,6 +4,7 @@
     using Interfaces;
     using Map;
 
+    //Factory Pattern
     public class BossFactory : IBossFactory
     {
         public IBoss CreateBoss(Position position, char objectSymbol, string name, BossRace race)

@@ -2,10 +2,9 @@
 {
     using Interfaces;
     using Map;
-    using System.Collections.Generic;
     using Models.Buildings;
-    using Items;
 
+    //Factory Pattern
     public class ShopFactory : IShopFactory
     {
         public IShop CreateShop(Position position, char objectSymbol, string name)

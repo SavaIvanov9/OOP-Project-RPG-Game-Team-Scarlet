@@ -4,6 +4,7 @@
     using Interfaces;
     using Map;
 
+    //Factory Pattern
     public class BotFactory : IBotFactory
     {
         public IBot CreateBot(Position position, char objectSymbol, string name, PlayerRace race)

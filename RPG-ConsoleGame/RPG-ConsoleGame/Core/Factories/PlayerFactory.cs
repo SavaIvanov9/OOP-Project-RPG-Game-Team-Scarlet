@@ -4,6 +4,7 @@
     using Interfaces;
     using Map;
 
+    //Factory Pattern
     public class PlayerFactory : IPlayerFactory
     {
          public IPlayer CreateHuman(Position position, char objectSymbol, string name, PlayerRace race)
