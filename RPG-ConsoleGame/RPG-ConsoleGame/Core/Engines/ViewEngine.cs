@@ -128,7 +128,7 @@
         {
             var playerName = this.GetPlayerName();
             PlayerRace race = this.GetPlayerRace();
-            Player newPlayer = new Player(new Position(), 'P', playerName, race);
+            IPlayer newPlayer = new Player(new Position(), 'P', playerName, race);
             Console.ForegroundColor = ConsoleColor.Green;
 
             return newPlayer;

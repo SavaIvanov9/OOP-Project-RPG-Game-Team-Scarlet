@@ -6,7 +6,7 @@
     public class GameDatabase : IGameDatabase
     {
         private IList<IPlayer> players = new List<IPlayer>();
-        private IList<IBot> bots = new List<IBot>();
+        private IList<ICreature> creatures = new List<ICreature>();
         private IList<IBoss> bosses = new List<IBoss>();
         private IList<IShop> shops = new List<IShop>();
         
@@ -16,10 +16,10 @@
             set { this.players = value; }
         }
 
-        public IList<IBot> Bots
+        public IList<ICreature> Creatures
         {
-            get { return this.bots; }
-            set { this.bots = value; }
+            get { return this.creatures; }
+            set { this.creatures = value; }
         }
 
         public IList<IShop> Shops
@@ -34,9 +34,9 @@
             set { this.bosses = value; }
         }
         
-        public void AddBot(IBot bot)
+        public void AddCreature(ICreature creature)
         {
-            Bots.Add(bot);
+            Creatures.Add(creature);
         }
 
         public void AddPlayer(IPlayer player)

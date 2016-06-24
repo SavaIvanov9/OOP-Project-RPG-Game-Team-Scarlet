@@ -17,7 +17,7 @@ namespace RPG_ConsoleGame.Core.Engines
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
         private readonly IPlayerFactory playerFactory = new PlayerFactory();
-        private readonly IBotFactory botFactory = new BotFactory();
+        private readonly ICreatureFactory creatureFactory = new CreatureFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
         private readonly IGameDatabase database = new GameDatabase();
@@ -48,8 +48,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            var newPlayer = ViewEngine.Instance.GetPlayer();
-            database.Players.Add(newPlayer);
+            database.Players.Add(ViewEngine.Instance.GetPlayer());
 
             PopulateMap(map);
             //database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
@@ -103,7 +102,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
                     if (map[row, col] == 'E')
                     {
-                        database.AddBot(botFactory.CreateBot(
+                        database.AddCreature(creatureFactory.CreateCreature(
                             new Position(row, col), 'E', "Bot",
                             (raceNumber.Equals(1)) ? PlayerRace.Mage :
                             (raceNumber.Equals(2)) ? PlayerRace.Warrior :
@@ -138,9 +137,9 @@ namespace RPG_ConsoleGame.Core.Engines
 
             if (enemy.Equals("Bot"))
             {
-                for (int i = 0; i < database.Bots.Count; i++)
+                for (int i = 0; i < database.Creatures.Count; i++)
                 {
-                    if (database.Bots[i].Health > 0)
+                    if (database.Creatures[i].Health > 0)
                     {
                         result = true;
                     }
@@ -163,12 +162,12 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             if (enemyType.Equals("Bot"))
             {
-                for (int i = 0; i < database.Bots.Count; i++)
+                for (int i = 0; i < database.Creatures.Count; i++)
                 {
-                    if (char1.Position.X == database.Bots[i].Position.X && 
-                        char1.Position.Y == database.Bots[i].Position.Y)
+                    if (char1.Position.X == database.Creatures[i].Position.X && 
+                        char1.Position.Y == database.Creatures[i].Position.Y)
                     {
-                        ICharacter char2 = database.Bots[i];
+                        IBot char2 = database.Creatures[i];
 
                         StartMusic(SoundEffects.BattleStart);
                         ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
@@ -292,7 +291,7 @@ namespace RPG_ConsoleGame.Core.Engines
                     if (char1.Position.X == database.Bosses[i].Position.X &&
                         char1.Position.Y == database.Bosses[i].Position.Y)
                     {
-                        ICharacter char2 = database.Bosses[i];
+                        IBot char2 = database.Bosses[i];
 
                         StartMusic(SoundEffects.BattleStart);
                         ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
@@ -416,10 +415,10 @@ namespace RPG_ConsoleGame.Core.Engines
             player.Reflexes += 5;
         }
 
-        private void ExecuteBotDecision(int turnsCount, ICharacter char2, ICharacter char1, StringBuilder history)
+        private void ExecuteBotDecision(int turnsCount, IBot char2, ICharacter char1, StringBuilder history)
         {
             turnsCount++;
-            ExecutePlayerAbility(((IBot)char2).MakeDecision(), char2, char1, turnsCount, history);
+            ExecutePlayerAbility(char2.MakeDecision(), char2, char1, turnsCount, history);
         }
 
         private void ExecutePlayerAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
@@ -431,11 +430,11 @@ namespace RPG_ConsoleGame.Core.Engines
 
         private void RemoveDead(IGameDatabase database)
         {
-            for (int index = 0; index < database.Bots.Count; index++)
+            for (int index = 0; index < database.Creatures.Count; index++)
             {
-                if (database.Bots[index].Health <= 0)
+                if (database.Creatures[index].Health <= 0)
                 {
-                    database.Bots.Remove(database.Bots[index]);
+                    database.Creatures.Remove(database.Creatures[index]);
                 }
             }
 

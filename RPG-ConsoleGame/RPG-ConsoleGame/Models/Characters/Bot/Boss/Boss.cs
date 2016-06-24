@@ -4,8 +4,9 @@
     using Interfaces;
     using Items;
     using Map;
+    using Models.Characters.Bot;
 
-    public class Boss : Character, IBoss
+    public class Boss : Bot, IBoss
     {
 
         public Boss(Position position, char objectSymbol, string name, BossRace race)
@@ -109,7 +110,7 @@
             }
         }
 
-        public string MakeDecision()
+        public override string MakeDecision()
         {
             return this.Abilities[0];
         }

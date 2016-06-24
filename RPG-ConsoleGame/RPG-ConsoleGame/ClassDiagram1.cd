@@ -1,17 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="RPG_ConsoleGame.Characters.Bot" Collapsed="true">
-    <Position X="3.25" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAQAAAQAAABEAAAAAAAAAAAAAAACAAAAAkAAAAA=</HashCode>
-      <FileName>Models\Characters\Bot.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="RPG_ConsoleGame.Characters.Character" Collapsed="true">
     <Position X="4.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACACAAAAAAAAAAAAAAAQAAIAEAAAAAAAAAgAAAAo=</HashCode>
+      <HashCode>AAAACQCAAAAAAAAAAAAAAAQAAIAEEAACABAAAgAAAAs=</HashCode>
       <FileName>Models\Characters\Character.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -19,16 +11,16 @@
   <Class Name="RPG_ConsoleGame.Characters.Player" Collapsed="true">
     <Position X="5.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEABAAAAIQCAABEAAAAhAAAAAAAAAAKQAAAAkAAAAA=</HashCode>
-      <FileName>Models\Characters\Player.cs</FileName>
+      <HashCode>QAEABAAAAIQCAABEAAAAhAAAAAAAAAAIQAAAAEAAAAA=</HashCode>
+      <FileName>Models\Characters\Player\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="RPG_ConsoleGame.Core.Factories.BotFactory" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="RPG_ConsoleGame.Core.Factories.CreatureFactory" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Core\Factories\BotFactory.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Factories\CreatureFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -50,7 +42,7 @@
   <Class Name="RPG_ConsoleGame.Core.GameDatabase" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="13.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAEAAAAAgAAAAIAgQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAAAMAAQgAAgAIAgIAAAIAgAAAQAAAA=</HashCode>
       <FileName>Core\GameDatabase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -72,7 +64,7 @@
   <Class Name="RPG_ConsoleGame.Items.Item" Collapsed="true">
     <Position X="9.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAABAAgAAQEI=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAQBAAgAAQEI=</HashCode>
       <FileName>Models\Items\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -93,7 +85,7 @@
   <Class Name="RPG_ConsoleGame.UserInterface.ConsoleInputReader" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>UserInterface\ConsoleInputReader.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -101,7 +93,7 @@
   <Class Name="RPG_ConsoleGame.UserInterface.ConsoleRender" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>UserInterface\ConsoleRender.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -120,24 +112,24 @@
       <FileName>Interfaces\IAttack.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="RPG_ConsoleGame.Interfaces.IBot" Collapsed="true">
+  <Interface Name="RPG_ConsoleGame.Interfaces.ICreature" Collapsed="true">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IBot.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Interfaces\ICreature.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="RPG_ConsoleGame.Interfaces.IBotFactory" Collapsed="true">
+  <Interface Name="RPG_ConsoleGame.Interfaces.ICreatureFactory" Collapsed="true">
     <Position X="8" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IBotFactory.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICreatureFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="RPG_ConsoleGame.Interfaces.ICharacter" Collapsed="true">
     <Position X="3.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAgAAAAAAQAAAAAAAAAABAAAgAAAAA=</HashCode>
       <FileName>Interfaces\ICharacter.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -158,14 +150,14 @@
   <Interface Name="RPG_ConsoleGame.Interfaces.IGameDatabase" Collapsed="true">
     <Position X="9.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAgAAAAAAgQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAMAAQgAAgAAAgAAAAAAgAAAQAAAA=</HashCode>
       <FileName>Interfaces\IGameDatabase.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="RPG_ConsoleGame.Interfaces.IInputReader" Collapsed="true">
     <Position X="11.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IInputReader.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -179,7 +171,7 @@
   <Interface Name="RPG_ConsoleGame.Interfaces.IPlayer" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IPlayer.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -193,15 +185,15 @@
   <Interface Name="RPG_ConsoleGame.Interfaces.IRender" Collapsed="true">
     <Position X="8" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Interfaces\IRender.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="RPG_ConsoleGame.Characters.PlayerRace" Collapsed="true">
     <Position X="8" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAABAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
-      <FileName>Models\Characters\PlayerRace.cs</FileName>
+      <HashCode>ACAABAAAAAAAAAAAADAAAAAAAAAAAAAEAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Characters\Player\PlayerRace.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="RPG_ConsoleGame.Items.ItemBodyPossition" Collapsed="true">

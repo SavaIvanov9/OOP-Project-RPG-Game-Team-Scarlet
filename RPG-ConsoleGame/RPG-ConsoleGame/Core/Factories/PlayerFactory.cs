@@ -7,7 +7,7 @@
     //Factory Pattern
     public class PlayerFactory : IPlayerFactory
     {
-         public IPlayer CreateHuman(Position position, char objectSymbol, string name, PlayerRace race)
+         public IPlayer CreatePlayer(Position position, char objectSymbol, string name, PlayerRace race)
          {
             var player = new Player(position, objectSymbol, name, race);
 

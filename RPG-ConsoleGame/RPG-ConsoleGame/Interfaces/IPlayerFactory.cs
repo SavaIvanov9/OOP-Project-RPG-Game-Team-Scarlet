@@ -5,6 +5,6 @@
 
     interface IPlayerFactory
     {
-        IPlayer CreateHuman(Position position, char objectSymbol, string name, PlayerRace race);
+        IPlayer CreatePlayer(Position position, char objectSymbol, string name, PlayerRace race);
     }
 }

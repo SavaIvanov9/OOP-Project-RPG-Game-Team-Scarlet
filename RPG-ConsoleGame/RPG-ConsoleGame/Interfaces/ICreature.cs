@@ -1,6 +1,6 @@
 ﻿namespace RPG_ConsoleGame.Interfaces
 {
-    public interface IBoss : IBot
+    public interface ICreature : IBot
     {
         string MakeDecision();
     }
