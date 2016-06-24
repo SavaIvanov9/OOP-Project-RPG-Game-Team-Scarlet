@@ -10,7 +10,7 @@
     using UserInterface;
     using Models.Characters.Abilities;
 
-    public class BackEngine : IBackEngine
+    public class BackEngine
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
@@ -18,7 +18,6 @@
         private readonly IBotFactory botFactory = new BotFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IGameDatabase database = new GameDatabase();
-        private readonly IViewEngine viewEngine = new ViewEngine();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
 
@@ -28,9 +27,25 @@
 
         char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
+        //Singleton patern
+        private static BackEngine instance;
+
+        public static BackEngine Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new BackEngine();
+                }
+
+                return instance;
+            }
+        }
+
         public void StartSinglePlayer()
         {
-            var newPlayer = viewEngine.GetPlayer();
+            var newPlayer = ViewEngine.Instance.GetPlayer();
             database.Players.Add(newPlayer);
 
             database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
@@ -43,8 +58,8 @@
 
             render.Clear();
 
-            viewEngine.RenderMap(map);
-            viewEngine.RenderPlayerStats(database.Players[0]);
+            ViewEngine.Instance.RenderMap(map);
+            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
             while (this.IsRunning)
             {
@@ -55,8 +70,8 @@
                     ReturnBack(command);
                     database.Players[0].Move(map, command);
 
-                    viewEngine.RenderMap(map);
-                    viewEngine.RenderPlayerStats(database.Players[0]);
+                    ViewEngine.Instance.RenderMap(map);
+                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
                     if (database.Bots.Count > 0)
                     {
@@ -77,7 +92,7 @@
             if (char1.Position.X == char2.Position.X && char1.Position.Y == char2.Position.Y)
             {
                 StartMusic(SoundEffects.BattleStart);
-                viewEngine.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU ARE ENGAGING ENEMY!!"), 3);
+                ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU ARE ENGAGING ENEMY!!"), 3);
 
                 StartMusic(SoundEffects.BattleTheme);
 
@@ -87,7 +102,7 @@
 
                 while (isInBattle)
                 {
-                    viewEngine.RenderBattleStats(char1, char2, history);
+                    ViewEngine.Instance.RenderBattleStats(char1, char2, history);
 
                     if (char1.Reflexes >= char2.Reflexes)
                     {
@@ -149,19 +164,19 @@
                     //check if someone died
                     if (char1.Health <= 0 && char2.Health > 0)
                     {
-                        viewEngine.RenderBattleStats(char1, char2, history);
+                        ViewEngine.Instance.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.BattleStart);
-                        viewEngine.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3, new StringBuilder("Press enter to continue"));
+                        ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red, new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3, new StringBuilder("Press enter to continue"));
 
                         ReturnBack("exit");
                     }
                     if (char2.Health <= 0 && char1.Health > 0)
                     {
-                        viewEngine.RenderBattleStats(char1, char2, history);
+                        ViewEngine.Instance.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.EnemyIsDestroyed);
-                        viewEngine.RenderWarningScreen(
+                        ViewEngine.Instance.RenderWarningScreen(
                             ConsoleColor.Red, new StringBuilder("YOU HAVE KILLED THE ENEMY!!"),
                             2, new StringBuilder("Press enter to continue."));
 
@@ -173,12 +188,12 @@
                     }
                     if (char1.Health <= 0 && char2.Health <= 0)
                     {
-                        viewEngine.RenderBattleStats(char1, char2, history);
+                        ViewEngine.Instance.RenderBattleStats(char1, char2, history);
 
                         StartMusic(SoundEffects.BattleStart);
-                        viewEngine.RenderWarningScreen(
+                        ViewEngine.Instance.RenderWarningScreen(
                             ConsoleColor.Red, new StringBuilder(
-                            " You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
+                            "You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
                             3, new StringBuilder("Press enter or escape continue"));
                         StartMusic(SoundEffects.DefaultTheme);
 
@@ -231,7 +246,7 @@
             if (command == "exit")
             {
                 render.Clear();
-                viewEngine.RenderMenu();
+                ViewEngine.Instance.RenderMenu();
             }
         }
 

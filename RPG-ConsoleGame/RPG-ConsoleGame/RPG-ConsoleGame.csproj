@@ -51,14 +51,11 @@
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
-    <Compile Include="Interfaces\IBackEngine.cs" />
     <Compile Include="Interfaces\IBoss.cs" />
     <Compile Include="Interfaces\IBossFactory.cs" />
     <Compile Include="Interfaces\IShop.cs" />
     <Compile Include="Interfaces\IShopFactory.cs" />
     <Compile Include="Interfaces\ISound.cs" />
-    <Compile Include="Interfaces\IStateManager.cs" />
-    <Compile Include="Interfaces\IViewEngine.cs" />
     <Compile Include="Models\Buildings\Building.cs" />
     <Compile Include="Models\Buildings\Shop.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />

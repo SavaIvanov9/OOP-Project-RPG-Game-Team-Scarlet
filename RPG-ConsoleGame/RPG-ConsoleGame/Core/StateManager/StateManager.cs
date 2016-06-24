@@ -1,19 +1,28 @@
-﻿using System.Collections.Generic;
-using RPG_ConsoleGame.Models.Buildings;
-using RPG_ConsoleGame.Items;
-namespace RPG_ConsoleGame.Core.StateManager
+﻿namespace RPG_ConsoleGame.Core.StateManager
 {
-    using Interfaces;
     using Engines;
 
-    public class StateManager : IStateManager
+    public class StateManager 
     {
-        private readonly IViewEngine viewEngine = new ViewEngine();
-        private readonly IBackEngine backEngine = new BackEngine();
-
         public StateManager()
         {
-            viewEngine.OnMenuClick += StartState;
+            ViewEngine.Instance.OnMenuClick += StartState;
+        }
+
+        //Singleton patern
+        private static StateManager instance;
+
+        public static StateManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new StateManager();
+                }
+
+                return instance;
+            }
         }
 
         public void StartState(string state)
@@ -21,23 +30,23 @@ namespace RPG_ConsoleGame.Core.StateManager
             switch (state)
             {
                 case StateConstants.BeginGame:
-                    viewEngine.RenderMenu();
+                    ViewEngine.Instance.RenderMenu();
                     break;
                 case StateConstants.SinglePlayer:
-                    backEngine.StartSinglePlayer();
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.Multiplayer:
-                    backEngine.StartSinglePlayer();
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.SurvivalMode:
-                    backEngine.StartSinglePlayer();
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.LoadGame:
-                    backEngine.StartSinglePlayer();
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.Credits:
-                    viewEngine.RenderCredits();
-                    viewEngine.RenderMenu();
+                    ViewEngine.Instance.RenderCredits();
+                    ViewEngine.Instance.RenderMenu();
                     break;
                 default:
                     break;

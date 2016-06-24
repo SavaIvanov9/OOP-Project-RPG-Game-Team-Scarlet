@@ -11,7 +11,7 @@
 
     public delegate void OnMenuClickHandler(string selectedValue);
 
-    public class ViewEngine : IViewEngine
+    public class ViewEngine 
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
@@ -25,6 +25,23 @@
                 OnMenuClick(value);
             }
         }
+
+        //Singleton patern
+        private static ViewEngine instance;
+
+        public static ViewEngine Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ViewEngine();
+                }
+
+                return instance;
+            }
+        }
+
         public void RenderMenu()
         {
             render.Clear();

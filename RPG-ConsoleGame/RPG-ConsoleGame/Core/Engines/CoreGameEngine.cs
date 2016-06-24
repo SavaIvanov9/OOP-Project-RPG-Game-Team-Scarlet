@@ -8,7 +8,6 @@
     public class CoreGameEngine
     {
         private readonly ISound sound = new Sound();
-        private readonly IStateManager stateManager = new StateManager();
 
         public bool IsRunning { get; private set; }
 
@@ -32,9 +31,7 @@
         {
             AdjustSettings();
 
-            stateManager.StartState(StateConstants.BeginGame);
-
-            
+            StateManager.Instance.StartState(StateConstants.BeginGame);
         }
         
         private void AdjustSettings()

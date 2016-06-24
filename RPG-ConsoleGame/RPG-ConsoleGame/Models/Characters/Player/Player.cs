@@ -1,7 +1,4 @@
-﻿using RPG_ConsoleGame.Core;
-using RPG_ConsoleGame.UserInterface;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Characters
 {
     using System;
     using Map;
@@ -11,10 +8,7 @@ namespace RPG_ConsoleGame.Characters
 
     public class Player : Character, IPlayer
     {
-        private readonly IRender render = new ConsoleRender();
-        private readonly IViewEngine viewEngine = new ViewEngine();
-
-        private Item[] bodyItems = new Item[5];
+       private Item[] bodyItems = new Item[5];
 
         private int currentRow = 1;
         private int currentCol = 1;
