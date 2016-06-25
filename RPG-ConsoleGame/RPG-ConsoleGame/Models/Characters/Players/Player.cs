@@ -1,12 +1,11 @@
-﻿using RPG_ConsoleGame.Models.Items;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Models.Characters.Players
 {
     using System;
     using Map;
     using Interfaces;
     using Items;
-    using Core.Engines;
+    using RPG_ConsoleGame.Characters;
+    using RPG_ConsoleGame.Items;
 
     [Serializable()]
     public class Player : Character, IPlayer

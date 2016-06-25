@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="RPG_ConsoleGame.Characters.Player" Collapsed="true">
+  <Class Name="RPG_ConsoleGame.Models.Characters.Players.Player" Collapsed="true">
     <Position X="5.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAEABAAAAIQCAABEAAAAhAAAAAAAAAAIQAAAAEAAAAA=</HashCode>
@@ -42,7 +42,7 @@
   <Class Name="RPG_ConsoleGame.Core.GameDatabase" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="13.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAMAAQgAAgAIAgIAAAIAgAAAQAAAA=</HashCode>
+      <HashCode>AIAAAAAAAAAQAIAAMAAQgAAgAIAgIAAAIIgAAASAAAA=</HashCode>
       <FileName>Core\GameDatabase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -59,13 +59,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAAAgAAAAIAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Models\GameObject.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="RPG_ConsoleGame.Items.Item" Collapsed="true">
-    <Position X="9.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAQBAAgAAQEI=</HashCode>
-      <FileName>Models\Items\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RPG_ConsoleGame.Launcher" Collapsed="true">
@@ -150,7 +143,7 @@
   <Interface Name="RPG_ConsoleGame.Interfaces.IGameDatabase" Collapsed="true">
     <Position X="9.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAMAAQgAAgAAAgAAAAAAgAAAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAAMAAQgAAgAAAgAAAAAIgAAASAAAA=</HashCode>
       <FileName>Interfaces\IGameDatabase.cs</FileName>
     </TypeIdentifier>
   </Interface>

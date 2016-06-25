@@ -73,6 +73,8 @@ namespace RPG_ConsoleGame.Core.Engines
                     render.Clear();
                     string command = reader.ReadKey();
                     ReturnBack(command);
+                    SaveGame(command, database);
+
                     database.Players[0].Move(database.Maps[0], command);
 
                     ViewEngine.Instance.RenderMap(database.Maps[0]);
@@ -463,18 +465,49 @@ namespace RPG_ConsoleGame.Core.Engines
             sound.SFX(stage);
         }
 
-        private void SaveGame(object root)
+        private void SaveGame(string command, IGameDatabase data)
         {
-            FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
-            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            if (command == "save")
+            {
+                SaveData(data);
+            }
+        }
+
+        private static void SaveData(IGameDatabase data)
+        {
+            FileStream fs = new FileStream(@"..\..\GameSavedData\Data.xml", FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
+
             try
             {
-                formatter.Serialize(fs, root);
+                formatter.Serialize(fs, data);
+                Console.WriteLine("Data saved");
             }
             catch (SerializationException e)
             {
                 Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+            }
+            finally
+            {
+                fs.Close();
+            }
+        }
+
+        private static IGameDatabase LoadData(string path)
+        {
+            FileStream fs = new FileStream(path, FileMode.Open);
+
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                
+                IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+
+                return obj;
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
                 throw;
             }
             finally

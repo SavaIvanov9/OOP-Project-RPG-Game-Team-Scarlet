@@ -1,9 +1,10 @@
-﻿using RPG_ConsoleGame.Models.Items;
-
-namespace RPG_ConsoleGame.Items
+﻿namespace RPG_ConsoleGame.Models.Items
 {
+    using System;
+    using RPG_ConsoleGame.Items;
     using Map;
 
+    [Serializable()]
     public class Item : GameObject
     {
         public ItemBodyPossition Type;

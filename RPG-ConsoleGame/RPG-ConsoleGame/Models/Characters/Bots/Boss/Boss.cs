@@ -1,11 +1,13 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿
+namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
 {
     using System;
     using Interfaces;
-    using Items;
     using Map;
-    using Models.Characters.Bot;
+    using RPG_ConsoleGame.Characters;
+    using Models.Items;
 
+    [Serializable()]
     public class Boss : Bot, IBoss
     {
 

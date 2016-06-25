@@ -1,9 +1,11 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Bot
+﻿namespace RPG_ConsoleGame.Models.Characters.Bots
 {
+    using System;
     using RPG_ConsoleGame.Characters;
     using Interfaces;
     using Map;
 
+    [Serializable()]
     public abstract class Bot : Character, IBot
     {
         protected Bot(Position position, char objectSymbol, string name,

@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core.Engines
+﻿using RPG_ConsoleGame.Models.Characters.Players;
+
+namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;

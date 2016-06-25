@@ -1,8 +1,10 @@
 ﻿namespace RPG_ConsoleGame.Core
 {
+    using System;
     using System.Collections.Generic;
     using Interfaces;
 
+    [Serializable()]
     public class GameDatabase : IGameDatabase
     {
         private IList<char[,]> maps = new List<char[,]>();

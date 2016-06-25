@@ -2,7 +2,8 @@
 {
     using System;
     using Map;
-    
+
+    [Serializable()]
     public abstract class GameObject
     {
         protected Position position;

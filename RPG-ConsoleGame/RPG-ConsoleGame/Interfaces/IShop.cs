@@ -1,8 +1,8 @@
 ﻿namespace RPG_ConsoleGame.Interfaces
 {
-    using Items;
     using System.Collections.Generic;
     using Map;
+    using Models.Items;
 
     public interface IShop
     {

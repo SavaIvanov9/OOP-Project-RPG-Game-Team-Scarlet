@@ -1,5 +1,8 @@
 ﻿namespace RPG_ConsoleGame.Map
 {
+    using System;
+
+    [Serializable()]
     public struct Position
     {
         public Position(int x, int y)

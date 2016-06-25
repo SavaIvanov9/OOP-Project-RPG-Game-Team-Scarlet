@@ -3,6 +3,7 @@
     using Characters;
     using Interfaces;
     using Map;
+    using Models.Characters.Bots.Creature;
 
     //Factory Pattern
     public class CreatureFactory : ICreatureFactory

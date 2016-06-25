@@ -3,6 +3,7 @@
     using Characters;
     using Interfaces;
     using Map;
+    using Models.Characters.Bots.Boss;
 
     //Factory Pattern
     public class BossFactory : IBossFactory

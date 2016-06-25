@@ -1,14 +1,12 @@
-﻿
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Models.Characters.Bots.Creature
 {
     using System;
     using Interfaces;
-    using Models.Characters.Bot;
-    using Items;
+    using RPG_ConsoleGame.Characters;
+    using Models.Items;
     using Map;
-    
 
+    [Serializable()]
     public class Creature: Bot, ICreature
     {
         //private readonly List<Item> inventory;

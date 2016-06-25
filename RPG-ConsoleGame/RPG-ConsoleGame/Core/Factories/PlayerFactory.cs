@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core.Factories
+﻿using RPG_ConsoleGame.Models.Characters.Players;
+
+namespace RPG_ConsoleGame.Core.Factories
 {
     using Characters;
     using Interfaces;

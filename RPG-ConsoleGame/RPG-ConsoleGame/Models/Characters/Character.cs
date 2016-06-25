@@ -5,7 +5,9 @@
     using Map;
     using Interfaces;
     using Items;
+    using Models.Items;
 
+    [Serializable()]
     public abstract class Character : GameObject, ICharacter
     {
         private string name;
