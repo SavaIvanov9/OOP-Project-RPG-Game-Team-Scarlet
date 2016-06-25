@@ -123,6 +123,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 map.AppendLine();
             }
 
+            Console.ForegroundColor = ConsoleColor.Green;
             render.PrintScreen(map);
         }
 

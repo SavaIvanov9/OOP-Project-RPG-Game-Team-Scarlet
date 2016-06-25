@@ -41,6 +41,7 @@
             }
             if (keyPressed.Key == ConsoleKey.S)
             {
+                input = "save";
             }
 
             return input;

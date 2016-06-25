@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Interfaces;
+    using Extensions;
 
     [Serializable()]
     public class GameDatabase : IGameDatabase
@@ -12,16 +13,17 @@
         private IList<ICreature> creatures = new List<ICreature>();
         private IList<IBoss> bosses = new List<IBoss>();
         private IList<IShop> shops = new List<IShop>();
+        private bool isLoaded = false;
 
         public IList<char[,]> Maps
         {
             get { return this.maps; }
             set { this.maps = value; }
-        } 
+        }
 
         public IList<IPlayer> Players
         {
-            get { return this.players; } 
+            get { return this.players; }
             set { this.players = value; }
         }
 
@@ -43,6 +45,12 @@
             set { this.bosses = value; }
         }
 
+        public bool IsLoaded
+        {
+            get { return this.isLoaded; }
+            set { this.isLoaded = value; }
+        }
+
         public void AddMap(char[,] map)
         {
             Maps.Add(map);
@@ -62,7 +70,7 @@
         {
             Shops.Add(shop);
         }
-        
+
         public void AddBoss(IBoss boss)
         {
             Bosses.Add(boss);
@@ -73,7 +81,17 @@
             this.Maps.Clear();
             this.Players.Clear();
             this.Creatures.Clear();
-            this.Bosses. Clear();
+            this.Bosses.Clear();
+        }
+
+        public void LoadData(IGameDatabase data)
+        {
+            ClearData();
+
+            this.Maps = data.Maps;
+            this.Players = data.Players;
+            this.Creatures = data.Creatures;
+            this.Bosses = data.Bosses;
         }
     }
 }

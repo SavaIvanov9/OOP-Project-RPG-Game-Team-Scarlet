@@ -50,6 +50,7 @@
     <Compile Include="Core\StateManager\StateConstants.cs" />
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
     <Compile Include="Interfaces\IBoss.cs" />
     <Compile Include="Interfaces\IBossFactory.cs" />

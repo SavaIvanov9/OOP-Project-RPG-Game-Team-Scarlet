@@ -42,7 +42,7 @@
                     BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.LoadGame:
-                    BackEngine.Instance.StartSinglePlayer();
+                    BackEngine.Instance.LoadGame();
                     break;
                 case StateConstants.Credits:
                     ViewEngine.Instance.RenderCredits();

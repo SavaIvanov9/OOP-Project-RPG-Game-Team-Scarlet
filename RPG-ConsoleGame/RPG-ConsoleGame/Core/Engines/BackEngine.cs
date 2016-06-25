@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -52,12 +53,19 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            database.ClearData();
+            //database.ClearData();
             database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-            
-            database.Players.Add(ViewEngine.Instance.GetPlayer());
 
-            PopulateMap(database.Maps[0]);
+            if (database.Players.Count == 0)
+            {
+                database.Players.Add(ViewEngine.Instance.GetPlayer());
+            }
+
+            if (database.IsLoaded == false)
+            {
+                PopulateMap(database.Maps[0]);
+            }
+           
            
             this.IsRunning = true;
 
@@ -473,6 +481,14 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
+        public void LoadGame()
+        {
+            database.ClearData();
+            database.LoadData(LoadData(@"..\..\GameSavedData\Data.xml"));
+
+            StartSinglePlayer();
+        }
+
         private static void SaveData(IGameDatabase data)
         {
             FileStream fs = new FileStream(@"..\..\GameSavedData\Data.xml", FileMode.Create);
@@ -502,6 +518,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 BinaryFormatter formatter = new BinaryFormatter();
                 
                 IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                obj.IsLoaded = true;
 
                 return obj;
             }
