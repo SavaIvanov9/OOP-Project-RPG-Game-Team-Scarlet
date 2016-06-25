@@ -261,6 +261,10 @@ namespace RPG_ConsoleGame.Core.Engines
                                 ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
                                     new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3,
                                     new StringBuilder("Press enter to continue"));
+
+                                StartMusic(SoundEffects.DefaultTheme);
+                                ViewEngine.Instance.NoMoreInGame();
+
                                 database.ClearData();
                                 ReturnBack("exit");
                             }
@@ -288,7 +292,10 @@ namespace RPG_ConsoleGame.Core.Engines
                                     ConsoleColor.Red, new StringBuilder(
                                         "You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
                                     3, new StringBuilder("Press enter or escape continue"));
+
                                 StartMusic(SoundEffects.DefaultTheme);
+                                ViewEngine.Instance.NoMoreInGame();
+
                                 database.ClearData();
                                 ReturnBack("exit");
                             }
@@ -386,6 +393,10 @@ namespace RPG_ConsoleGame.Core.Engines
                                     new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3,
                                     new StringBuilder("Press enter to continue"));
 
+                                StartMusic(SoundEffects.DefaultTheme);
+                                ViewEngine.Instance.NoMoreInGame();
+
+                                database.ClearData();
                                 ReturnBack("exit");
                             }
                             if (char2.Health <= 0 && char1.Health > 0)
@@ -412,8 +423,11 @@ namespace RPG_ConsoleGame.Core.Engines
                                     ConsoleColor.Red, new StringBuilder(
                                         "You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
                                     3, new StringBuilder("Press enter or escape continue"));
-                                StartMusic(SoundEffects.DefaultTheme);
 
+                                StartMusic(SoundEffects.DefaultTheme);
+                                ViewEngine.Instance.NoMoreInGame();
+
+                                database.ClearData();
                                 ReturnBack("exit");
                             }
                         }
@@ -531,6 +545,12 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 fs.Close();
             }
+        }
+
+        public void StartNewGame()
+        {
+            database.ClearData();
+            StartSinglePlayer();
         }
     }
 }

@@ -13,11 +13,12 @@ namespace RPG_ConsoleGame.Core.Engines
 
     public delegate void OnMenuClickHandler(string selectedValue);
 
-    public class ViewEngine 
+    public class ViewEngine
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
-        
+        private bool InsideGame = false;
+
         public event OnMenuClickHandler OnMenuClick;
 
         private void OnClick(string value)
@@ -46,33 +47,82 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void RenderMenu()
         {
-            render.Clear();
-
-            StringBuilder screen = new StringBuilder();
-
-            screen.AppendLine(
-                "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
-                "1. Single Player" + Environment.NewLine + Environment.NewLine +
-                "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                "4. Load Game" + Environment.NewLine + Environment.NewLine +
-                "5. Credits");
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            render.PrintScreen(screen);
-            string choice = reader.ReadLine();
-            render.WriteLine("");
-
-            string[] validChoises = { "1", "2", "3", "4", "5" };
-
-
-            while (!validChoises.Contains(choice))
+            if (InsideGame == false)
             {
-                render.WriteLine("Invalid choice, please re-enter.");
-                choice = reader.ReadLine();
-            }
+                render.Clear();
 
-            OnClick(choice);
+                StringBuilder screen = new StringBuilder();
+
+                screen.AppendLine(
+                    "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                    "1. Start New Single Player" + Environment.NewLine + Environment.NewLine +
+                    "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                    "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                    "4. Load Game" + Environment.NewLine + Environment.NewLine +
+                    "5. Credits");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                render.PrintScreen(screen);
+                string choice = reader.ReadLine();
+                render.WriteLine("");
+
+                string[] validChoises = { "1", "2", "3", "4", "5" };
+
+
+                while (!validChoises.Contains(choice))
+                {
+                    render.WriteLine("Invalid choice, please re-enter.");
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "1" || choice == "2")
+                {
+                    InsideGame = true;
+                }
+
+                OnClick(choice);
+            }
+            else
+            {
+                render.Clear();
+
+                StringBuilder screen = new StringBuilder();
+
+                screen.AppendLine(
+                    "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                    "1. New Game" + Environment.NewLine + Environment.NewLine +
+                    "2. Continue Game" + Environment.NewLine + Environment.NewLine +
+                    "3. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                    "4. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                    "5. Load Game" + Environment.NewLine + Environment.NewLine +
+                    "6. Credits");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                render.PrintScreen(screen);
+                string choice = reader.ReadLine();
+                render.WriteLine("");
+
+                string[] validChoises = { "1", "2", "3", "4", "5", "6" };
+
+
+                while (!validChoises.Contains(choice))
+                {
+                    render.WriteLine("Invalid choice, please re-enter.");
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "1")
+                {
+                    choice = "6";
+                }
+                else
+                {
+                    int number = int.Parse(choice) - 1;
+                    choice = number.ToString();
+                }
+
+                OnClick(choice);
+            }
         }
 
         public void RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
@@ -225,6 +275,11 @@ namespace RPG_ConsoleGame.Core.Engines
             render.PrintScreen(screen);
 
             StartTimer(time);
+        }
+
+        public void NoMoreInGame()
+        {
+            this.InsideGame = false;
         }
 
         public void StartTimer(int seconds)

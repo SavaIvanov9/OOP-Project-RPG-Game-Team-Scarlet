@@ -8,6 +8,6 @@
         public const string SurvivalMode = "3";
         public const string LoadGame = "4";
         public const string Credits = "5";
-        public const string ReturnBack = "6";
+        public const string NewGame = "6";
     }
 }

@@ -48,6 +48,9 @@
                     ViewEngine.Instance.RenderCredits();
                     ViewEngine.Instance.RenderMenu();
                     break;
+                case StateConstants.NewGame:
+                    BackEngine.Instance.StartNewGame();
+                    break;
                 default:
                     break;
             }
