@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace RPG_ConsoleGame.Core.Engines
 {
@@ -26,10 +29,11 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public bool IsRunning { get; private set; }
 
-        static Map mapMatrix = new Map();
+        //static Map mapMatrix = new Map();
 
-        char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
+        //char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
+        
         //Singleton patern
         private static BackEngine instance;
 
@@ -49,15 +53,17 @@ namespace RPG_ConsoleGame.Core.Engines
         public void StartSinglePlayer()
         {
             database.ClearData();
+            database.AddMap(new Map().ReadMap("../../../Map1.txt"));
+            
             database.Players.Add(ViewEngine.Instance.GetPlayer());
 
-            PopulateMap(map);
+            PopulateMap(database.Maps[0]);
            
             this.IsRunning = true;
 
             render.Clear();
 
-            ViewEngine.Instance.RenderMap(map);
+            ViewEngine.Instance.RenderMap(database.Maps[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
             while (this.IsRunning)
@@ -67,9 +73,9 @@ namespace RPG_ConsoleGame.Core.Engines
                     render.Clear();
                     string command = reader.ReadKey();
                     ReturnBack(command);
-                    database.Players[0].Move(map, command);
+                    database.Players[0].Move(database.Maps[0], command);
 
-                    ViewEngine.Instance.RenderMap(map);
+                    ViewEngine.Instance.RenderMap(database.Maps[0]);
                     ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
                     if (CheckForEnemies(database, "Bot"))
@@ -455,6 +461,26 @@ namespace RPG_ConsoleGame.Core.Engines
         private void StartMusic(SoundEffects stage)
         {
             sound.SFX(stage);
+        }
+
+        private void SaveGame(object root)
+        {
+            FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
+            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(fs, root);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
         }
     }
 }

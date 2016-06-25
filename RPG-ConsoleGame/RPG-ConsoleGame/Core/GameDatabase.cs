@@ -5,11 +5,18 @@
 
     public class GameDatabase : IGameDatabase
     {
+        private IList<char[,]> maps = new List<char[,]>();
         private IList<IPlayer> players = new List<IPlayer>();
         private IList<ICreature> creatures = new List<ICreature>();
         private IList<IBoss> bosses = new List<IBoss>();
         private IList<IShop> shops = new List<IShop>();
-        
+
+        public IList<char[,]> Maps
+        {
+            get { return this.maps; }
+            set { this.maps = value; }
+        } 
+
         public IList<IPlayer> Players
         {
             get { return this.players; } 
@@ -33,7 +40,12 @@
             get { return this.bosses; }
             set { this.bosses = value; }
         }
-        
+
+        public void AddMap(char[,] map)
+        {
+            Maps.Add(map);
+        }
+
         public void AddCreature(ICreature creature)
         {
             Creatures.Add(creature);
@@ -56,6 +68,7 @@
 
         public void ClearData()
         {
+            this.Maps.Clear();
             this.Players.Clear();
             this.Creatures.Clear();
             this.Bosses. Clear();
