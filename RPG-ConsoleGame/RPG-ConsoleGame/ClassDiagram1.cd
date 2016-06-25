@@ -12,7 +12,7 @@
     <Position X="5.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAEABAAAAIQCAABEAAAAhAAAAAAAAAAIQAAAAEAAAAA=</HashCode>
-      <FileName>Models\Characters\Player\Player.cs</FileName>
+      <FileName>Models\Characters\Players\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -34,7 +34,7 @@
   <Class Name="RPG_ConsoleGame.Core.Factories.PlayerFactory" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="9.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Factories\PlayerFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -178,7 +178,7 @@
   <Interface Name="RPG_ConsoleGame.Interfaces.IPlayerFactory" Collapsed="true">
     <Position X="13.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IPlayerFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -193,13 +193,13 @@
     <Position X="8" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAABAAAAAAAAAAAADAAAAAAAAAAAAAEAAAAAAIAAAA=</HashCode>
-      <FileName>Models\Characters\Player\PlayerRace.cs</FileName>
+      <FileName>Models\Characters\Players\PlayerRace.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="RPG_ConsoleGame.Items.ItemBodyPossition" Collapsed="true">
+  <Enum Name="RPG_ConsoleGame.Models.Items.ItemBodyPossition" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgBAAAAQAAAAAAABAAAACAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAAAEAAAAAAAAQAAAAgAAAAAAgAAAAI=</HashCode>
       <FileName>Models\Items\ItemBodyPosition.cs</FileName>
     </TypeIdentifier>
   </Enum>

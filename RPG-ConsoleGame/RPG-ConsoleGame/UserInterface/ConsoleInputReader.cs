@@ -39,6 +39,9 @@
             {
                 input = "skip";
             }
+            if (keyPressed.Key == ConsoleKey.S)
+            {
+            }
 
             return input;
         }

@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Models.Buildings
+﻿using RPG_ConsoleGame.Items;
+
+namespace RPG_ConsoleGame.Models.Buildings
 {
     using Interfaces;
     using System.Collections.Generic;
@@ -82,13 +84,13 @@
         {
             for (int i = 0; i < 3; i++)
             {
-                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.helmet, 50, 50, 50));
-                this.Chest.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.chest, 50, 50, 50));
-                this.Hands.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.hands, 50, 50, 50));
-                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.helmet, 50, 50, 50));
-                this.Weapons.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.weapon, 50, 50, 50));
-                this.Boots.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.boots, 50, 50, 50));
-                this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.inventory, 50, 50, 50));
+                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
+                this.Chest.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Chest, 50, 50, 50));
+                this.Hands.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Hands, 50, 50, 50));
+                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
+                this.Weapons.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Weapon, 50, 50, 50));
+                this.Boots.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Boots, 50, 50, 50));
+                this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Inventory, 50, 50, 50));
             }
         }
     }

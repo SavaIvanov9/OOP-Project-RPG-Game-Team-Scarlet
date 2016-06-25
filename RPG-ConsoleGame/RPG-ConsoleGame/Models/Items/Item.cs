@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Items
+﻿using RPG_ConsoleGame.Models.Items;
+
+namespace RPG_ConsoleGame.Items
 {
     using Map;
 

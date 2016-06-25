@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Models.Buildings
+﻿using RPG_ConsoleGame.Items;
+
+namespace RPG_ConsoleGame.Models.Buildings
 {
     using System;
     using Items;

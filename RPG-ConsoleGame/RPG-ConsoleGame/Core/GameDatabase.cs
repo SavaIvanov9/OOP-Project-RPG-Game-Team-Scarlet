@@ -53,5 +53,12 @@
         {
             Bosses.Add(boss);
         }
+
+        public void ClearData()
+        {
+            this.Players.Clear();
+            this.Creatures.Clear();
+            this.Bosses. Clear();
+        }
     }
 }

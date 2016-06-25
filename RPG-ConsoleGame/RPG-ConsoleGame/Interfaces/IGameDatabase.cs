@@ -13,5 +13,6 @@
         void AddCreature(ICreature creature);
         void AddShop(IShop shop);
         void AddBoss(IBoss boss);
+        void ClearData();
     }
 }

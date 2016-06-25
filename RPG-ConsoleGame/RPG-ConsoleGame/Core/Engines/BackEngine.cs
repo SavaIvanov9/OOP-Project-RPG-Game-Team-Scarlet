@@ -48,15 +48,11 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
+            database.ClearData();
             database.Players.Add(ViewEngine.Instance.GetPlayer());
 
             PopulateMap(map);
-            //database.AddBot(botFactory.CreateBot(new Position(2, 7), 'E', "demon", PlayerRace.Mage));
-            //database.AddPlayer(playerFactory.CreateHuman(new Position(5, 5), 'A', "Go6o", PlayerRace.Mage));
-            //database.AddBoss(bossFactory.CreateBoss(new Position(9, 11), 'B', "Boss1", BossRace.Boss1));
-            //Using ability
-            //abilitiesProcessor.ProcessCommand(database.Players[0].Abilities[0], database.Bots[0]);
-
+           
             this.IsRunning = true;
 
             render.Clear();
@@ -249,7 +245,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
                                     new StringBuilder("YOU HAVE DIED!! Give beer to admin to resurrect you :D"), 3,
                                     new StringBuilder("Press enter to continue"));
-
+                                database.ClearData();
                                 ReturnBack("exit");
                             }
                             if (char2.Health <= 0 && char1.Health > 0)
@@ -277,7 +273,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                         "You have killed the enemy, but you have died too... Give beer to admin to resurrect you :D"),
                                     3, new StringBuilder("Press enter or escape continue"));
                                 StartMusic(SoundEffects.DefaultTheme);
-
+                                database.ClearData();
                                 ReturnBack("exit");
                             }
                         }

@@ -1,12 +1,12 @@
-﻿namespace RPG_ConsoleGame.Items
+﻿namespace RPG_ConsoleGame.Models.Items
 {
     public enum ItemBodyPossition
     {
-        helmet,
-        chest,
-        hands,
-        weapon,
-        boots,
-        inventory
+        Helmet,
+        Chest,
+        Hands,
+        Weapon,
+        Boots,
+        Inventory
     }
 }
