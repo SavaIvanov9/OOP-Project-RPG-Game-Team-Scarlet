@@ -50,6 +50,11 @@
     <Compile Include="Core\StateManager\StateConstants.cs" />
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
+    <Compile Include="Exceptions\IncorrectName.cs" />
+    <Compile Include="Exceptions\IncorrectRace.cs" />
+    <Compile Include="Exceptions\NotExistingFile.cs" />
+    <Compile Include="Exceptions\ObjectOutOfBoundsException.cs" />
+    <Compile Include="Exceptions\OutOfAmount.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Interfaces\IAbilitiesProcessor.cs" />
     <Compile Include="Interfaces\IBoss.cs" />
@@ -101,9 +106,7 @@
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
