@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using RPG_ConsoleGame.Exceptions;
 
 //***********************************************
 //ima eksepshyn za fiksvane, no sa mi se spi.
@@ -61,9 +62,18 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             //database.ClearData();
             
-            if (database.Players.Count == 0)
+            //beshe if bez eksepshyna
+            while (database.Players.Count == 0)
             {
-                database.Players.Add(ViewEngine.Instance.GetPlayer());
+                try
+                {
+                    database.Players.Add(ViewEngine.Instance.GetPlayer());
+                }
+                catch (IncorrectNameException exception)
+                {
+                    render.WriteLine(exception.Message + Environment.NewLine);
+                    //database.Players.Add(ViewEngine.Instance.GetPlayer());
+                }
             }
 
             if (database.IsLoaded == false)
@@ -260,6 +270,34 @@ namespace RPG_ConsoleGame.Core.Engines
                                 turnsCount++;
                                 RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
+
+                                //player move
+                                ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                                if (keyPressed.Key == ConsoleKey.D1)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D2)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D3)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D4)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                                }
                             }
 
                             //check if someone died

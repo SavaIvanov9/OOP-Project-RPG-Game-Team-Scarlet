@@ -163,7 +163,7 @@
                     this.Damage = 15;
                     this.Health = 200;
                     this.Defense = 20;
-                    this.Reflexes = 200;
+                    this.Reflexes = 70;
                     break;
                 case PlayerRace.Archer:
                     //abilities

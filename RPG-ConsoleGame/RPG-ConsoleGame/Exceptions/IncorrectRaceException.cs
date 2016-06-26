@@ -2,11 +2,12 @@
 {
     using System;
 
-    public class OutOfAmount : Exception
+    public class IncorrectRaceException : Exception
     {
-        public OutOfAmount(string message)
+        public IncorrectRaceException(string message)
             : base(message)
         {
         }
     }
 }
+

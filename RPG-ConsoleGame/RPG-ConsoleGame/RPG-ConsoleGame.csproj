@@ -50,9 +50,9 @@
     <Compile Include="Core\StateManager\StateConstants.cs" />
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
-    <Compile Include="Exceptions\IncorrectName.cs" />
-    <Compile Include="Exceptions\IncorrectRace.cs" />
-    <Compile Include="Exceptions\NotExistingFile.cs" />
+    <Compile Include="Exceptions\IncorrectNameException.cs" />
+    <Compile Include="Exceptions\IncorrectRaceException.cs" />
+    <Compile Include="Exceptions\NotExistingFileException.cs" />
     <Compile Include="Exceptions\ObjectOutOfBoundsException.cs" />
     <Compile Include="Exceptions\OutOfAmount.cs" />
     <Compile Include="Extensions\Extensions.cs" />

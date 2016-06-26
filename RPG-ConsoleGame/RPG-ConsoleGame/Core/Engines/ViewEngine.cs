@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using RPG_ConsoleGame.Exceptions;
 using RPG_ConsoleGame.Models.Characters.Players;
 
 namespace RPG_ConsoleGame.Core.Engines
@@ -225,10 +226,16 @@ namespace RPG_ConsoleGame.Core.Engines
             render.WriteLine("Please enter your name:");
 
             string playerName = reader.ReadLine();
-            while (string.IsNullOrWhiteSpace(playerName))
+            //while (string.IsNullOrWhiteSpace(playerName))
+            //{
+            //    render.WriteLine("Player name cannot be empty. Please re-enter.");
+            //    //throw new IncorrectNameException("Player name cannot be empty. Please re-enter.");
+            //    playerName = reader.ReadLine();
+            //}
+
+            if (string.IsNullOrWhiteSpace(playerName))
             {
-                render.WriteLine("Player name cannot be empty. Please re-enter.");
-                playerName = reader.ReadLine();
+                throw new IncorrectNameException("Player name cannot be empty. Please re-enter.");
             }
 
             return playerName;

@@ -1,4 +1,4 @@
-﻿namespace SuperRpgGame.Exceptions
+﻿namespace RPG_ConsoleGame.Exceptions
 {
     using System;
 

@@ -2,11 +2,13 @@
 {
     using System;
 
-    public class OutOfAmount : Exception
+    public class NotExistingFileException : Exception
     {
-        public OutOfAmount(string message)
+        public NotExistingFileException(string message)
             : base(message)
         {
         }
     }
 }
+
+
