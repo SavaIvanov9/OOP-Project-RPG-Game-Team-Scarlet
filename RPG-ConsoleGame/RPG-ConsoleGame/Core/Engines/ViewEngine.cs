@@ -1,4 +1,7 @@
-﻿using RPG_ConsoleGame.Models.Characters.Players;
+﻿using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using RPG_ConsoleGame.Models.Characters.Players;
 
 namespace RPG_ConsoleGame.Core.Engines
 {
@@ -293,6 +296,101 @@ namespace RPG_ConsoleGame.Core.Engines
                     break;
                 }
             }
+        }
+
+        public string ChooseSaveSlot()
+        {
+            render.Clear();
+            StringBuilder screen = new StringBuilder();
+
+            screen.AppendLine("Choose slot to save the game:"
+                              + Environment.NewLine + Environment.NewLine + "1"
+                              + Environment.NewLine + Environment.NewLine + "2"
+                              + Environment.NewLine + Environment.NewLine + "3"
+                              + Environment.NewLine + Environment.NewLine + "4"
+                              + Environment.NewLine + Environment.NewLine + "5");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            render.PrintScreen(screen);
+
+            string choice = reader.ReadLine();
+
+            string[] validChoises = { "1", "2", "3", "4", "5", "6" };
+            while (!validChoises.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            return choice;
+        }
+
+        public string ChooseSavedGameSlot()
+        {
+            render.Clear();
+
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine("Choose saved game slot:");
+
+            for (int i = 1; i <= 5; i++)
+            {
+                try
+                {
+                    FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{i}.xml", FileMode.Open);
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                                      $"{i}. Game saved on {obj.Date}");
+                    fs.Close();
+                }
+                catch (Exception)
+                {
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
+                }
+            }
+
+            screen.AppendLine(Environment.NewLine + Environment.NewLine + "6. Return To Menu");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            render.PrintScreen(screen);
+
+            string choice = reader.ReadLine();
+            
+            bool correctDecision = false;
+            while (!correctDecision)
+            {
+                try
+                {
+                    FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{choice}.xml", FileMode.Open);
+
+                    //BinaryFormatter formatter = new BinaryFormatter();
+
+                    //IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                    fs.Close();
+                    correctDecision = true;
+
+                }
+                catch (Exception)
+                {
+                    render.WriteLine("Invalid choice, please re-enter." + Environment.NewLine);
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "6")
+                {
+                    choice = "exit";
+                    correctDecision = true;
+                }
+            }
+          
+            return choice;
+        }
+
+        public void DisplayMessage(string message)
+        {
+            render.WriteLine(message);
         }
     }
 }

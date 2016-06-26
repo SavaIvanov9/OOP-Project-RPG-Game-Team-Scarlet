@@ -1,5 +1,6 @@
 ﻿namespace RPG_ConsoleGame.Interfaces
 {
+    using System;
     using System.Collections.Generic;
 
     public interface IGameDatabase
@@ -10,6 +11,7 @@
         IList<IShop> Shops { get; set; }
         IList<IBoss> Bosses { get; set; }
         bool IsLoaded { get; set; }
+        DateTime Date { get; set; }
 
         void AddMap(char[,] map);
         void AddPlayer(IPlayer player);

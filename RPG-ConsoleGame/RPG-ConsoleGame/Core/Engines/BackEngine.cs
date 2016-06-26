@@ -24,7 +24,7 @@ namespace RPG_ConsoleGame.Core.Engines
         private readonly ICreatureFactory creatureFactory = new CreatureFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
-        private readonly IGameDatabase database = new GameDatabase();
+        private static IGameDatabase database = new GameDatabase();
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
 
@@ -54,8 +54,7 @@ namespace RPG_ConsoleGame.Core.Engines
         public void StartSinglePlayer()
         {
             //database.ClearData();
-            database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-
+            
             if (database.Players.Count == 0)
             {
                 database.Players.Add(ViewEngine.Instance.GetPlayer());
@@ -63,10 +62,15 @@ namespace RPG_ConsoleGame.Core.Engines
 
             if (database.IsLoaded == false)
             {
+                database.AddMap(new Map().ReadMap("../../../Map1.txt"));
                 PopulateMap(database.Maps[0]);
             }
-           
-           
+
+            //For testing purposes 
+            //**********************************************************************************
+            database.Players[0].Health += 1000000;
+            //**********************************************************************************
+
             this.IsRunning = true;
 
             render.Clear();
@@ -491,31 +495,37 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             if (command == "save")
             {
-                SaveData(data);
+                data.Date = DateTime.Now;
+                SaveData(data, ViewEngine.Instance.ChooseSaveSlot());
+                render.Clear();
             }
         }
 
         public void LoadGame()
         {
+            string choice = ViewEngine.Instance.ChooseSavedGameSlot();
+            ReturnBack(choice);
             database.ClearData();
-            database.LoadData(LoadData(@"..\..\GameSavedData\Data.xml"));
-
-            StartSinglePlayer();
+            //database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
+            LoadData($@"..\..\GameSavedData\Save-{choice}.xml");
         }
 
-        private static void SaveData(IGameDatabase data)
+        private void SaveData(IGameDatabase data, string slot)
         {
-            FileStream fs = new FileStream(@"..\..\GameSavedData\Data.xml", FileMode.Create);
+            FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{slot}.xml", FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
 
             try
             {
+                data.IsLoaded = true;
                 formatter.Serialize(fs, data);
-                Console.WriteLine("Data saved");
+                ViewEngine.Instance.DisplayMessage("Data Saved");
+                ViewEngine.Instance.StartTimer(5);
             }
             catch (SerializationException e)
             {
-                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                ViewEngine.Instance.DisplayMessage("Failed to serialize. Reason: " + e.Message);
+                //Console.WriteLine("Failed to serialize. Reason: " + e.Message);
             }
             finally
             {
@@ -523,27 +533,25 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private static IGameDatabase LoadData(string path)
+        private void LoadData(string path)
         {
-            FileStream fs = new FileStream(path, FileMode.Open);
-
             try
             {
+                FileStream fs = new FileStream(path, FileMode.Open);
+
                 BinaryFormatter formatter = new BinaryFormatter();
                 
                 IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
                 obj.IsLoaded = true;
 
-                return obj;
-            }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
-                throw;
-            }
-            finally
-            {
                 fs.Close();
+
+                database.LoadData(obj);
+                StartSinglePlayer();
+            }
+            catch (Exception e)
+            {
+                ViewEngine.Instance.DisplayMessage("Failed to deserialize. Reason: " + e.Message);
             }
         }
 

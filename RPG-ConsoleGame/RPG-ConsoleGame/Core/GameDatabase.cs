@@ -14,6 +14,7 @@
         private IList<IBoss> bosses = new List<IBoss>();
         private IList<IShop> shops = new List<IShop>();
         private bool isLoaded = false;
+        private DateTime date = new DateTime();
 
         public IList<char[,]> Maps
         {
@@ -49,6 +50,12 @@
         {
             get { return this.isLoaded; }
             set { this.isLoaded = value; }
+        }
+
+        public DateTime Date
+        {
+            get { return this.date; }
+            set { this.date = value; }
         }
 
         public void AddMap(char[,] map)

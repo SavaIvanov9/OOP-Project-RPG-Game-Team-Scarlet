@@ -94,7 +94,7 @@
         private void Fireball(ICharacter player, ICharacter enemy)
         {
             player.Reflexes -= 20;
-            enemy.Health -= (player.Damage + 40);
+            enemy.Health -= (player.Damage + 4000);
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
