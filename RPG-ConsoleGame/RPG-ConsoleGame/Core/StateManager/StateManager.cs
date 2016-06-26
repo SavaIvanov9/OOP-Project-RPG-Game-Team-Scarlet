@@ -4,7 +4,7 @@ namespace RPG_ConsoleGame.Core.StateManager
 {
     using Engines;
 
-    public class StateManager 
+    public class StateManager
     {
         private readonly IGameDatabase database = new GameDatabase();
 
@@ -43,12 +43,12 @@ namespace RPG_ConsoleGame.Core.StateManager
                     BackEngine.Instance.LoadGame(database);
                     break;
                 case StateConstants.Multiplayer:
-                    BackEngine.Instance.StartSinglePlayer(database);
+                    BackEngine.Instance.StartMultiPlayer(database);
                     break;
                 case StateConstants.SurvivalMode:
                     BackEngine.Instance.StartSinglePlayer(database);
                     break;
-              case StateConstants.Credits:
+                case StateConstants.Credits:
                     ViewEngine.Instance.RenderCredits();
                     ViewEngine.Instance.RenderMenu();
                     break;

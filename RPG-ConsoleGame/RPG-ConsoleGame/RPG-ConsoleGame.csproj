@@ -50,6 +50,7 @@
     <Compile Include="Core\StateManager\StateConstants.cs" />
     <Compile Include="Core\StateManager\StateManager.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
+    <Compile Include="Exceptions\IncorrectChoiceException.cs" />
     <Compile Include="Exceptions\IncorrectNameException.cs" />
     <Compile Include="Exceptions\IncorrectRaceException.cs" />
     <Compile Include="Exceptions\NotExistingFileException.cs" />
