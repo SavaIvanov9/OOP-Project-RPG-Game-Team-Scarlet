@@ -229,6 +229,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     ExecuteBotDecision(turnsCount, char2, char1, history);
                                     turnsCount++;
                                     RegenerateStats(char2);
+                                    
                                 }
                                 if (keyPressed.Key == ConsoleKey.D2)
                                 {
@@ -267,9 +268,10 @@ namespace RPG_ConsoleGame.Core.Engines
                             if (char1.Reflexes < char2.Reflexes)
                             {
                                 //bot AI in action
-                                turnsCount++;
+                                //turnsCount++;
                                 RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
+                                turnsCount++;
 
                                 //player move
                                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
@@ -426,9 +428,38 @@ namespace RPG_ConsoleGame.Core.Engines
                             if (char1.Reflexes < char2.Reflexes)
                             {
                                 //bot AI in action
-                                turnsCount++;
+                                //turnsCount++;
                                 RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
+                                turnsCount++;
+
+                                //player move
+                                ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                                if (keyPressed.Key == ConsoleKey.D1)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D2)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D3)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D4)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                                }
                             }
 
                             //check if someone died
@@ -499,7 +530,7 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
-            history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
+            history.AppendLine($"{turn}. {player.Name} used ability {ability}");
         }
 
         private void RemoveDead(IGameDatabase database)
