@@ -20,7 +20,8 @@ namespace RPG_ConsoleGame.Core.Engines
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
-        private bool InsideGame = false;
+
+        public bool InsideGame = false;
 
         public event OnMenuClickHandler OnMenuClick;
 
@@ -280,10 +281,10 @@ namespace RPG_ConsoleGame.Core.Engines
             StartTimer(time);
         }
 
-        public void NoMoreInGame()
-        {
-            this.InsideGame = false;
-        }
+        //public void NoMoreInGame()
+        //{
+        //    this.InsideGame = false;
+        //}
 
         public void StartTimer(int seconds)
         {

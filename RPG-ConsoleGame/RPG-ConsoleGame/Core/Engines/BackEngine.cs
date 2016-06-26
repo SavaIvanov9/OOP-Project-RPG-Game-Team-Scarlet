@@ -267,7 +267,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     new StringBuilder("Press enter to continue"));
 
                                 StartMusic(SoundEffects.DefaultTheme);
-                                ViewEngine.Instance.NoMoreInGame();
+                                ViewEngine.Instance.InsideGame = false;
 
                                 database.ClearData();
                                 ReturnBack("exit");
@@ -298,7 +298,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     3, new StringBuilder("Press enter or escape continue"));
 
                                 StartMusic(SoundEffects.DefaultTheme);
-                                ViewEngine.Instance.NoMoreInGame();
+                                ViewEngine.Instance.InsideGame = false;
 
                                 database.ClearData();
                                 ReturnBack("exit");
@@ -398,7 +398,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     new StringBuilder("Press enter to continue"));
 
                                 StartMusic(SoundEffects.DefaultTheme);
-                                ViewEngine.Instance.NoMoreInGame();
+                                ViewEngine.Instance.InsideGame = false;
 
                                 database.ClearData();
                                 ReturnBack("exit");
@@ -429,7 +429,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     3, new StringBuilder("Press enter or escape continue"));
 
                                 StartMusic(SoundEffects.DefaultTheme);
-                                ViewEngine.Instance.NoMoreInGame();
+                                ViewEngine.Instance.InsideGame = false;
 
                                 database.ClearData();
                                 ReturnBack("exit");
@@ -541,23 +541,27 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 BinaryFormatter formatter = new BinaryFormatter();
                 
-                IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
-                obj.IsLoaded = true;
-
+                //IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                database = (IGameDatabase)formatter.Deserialize(fs);
+                database.IsLoaded = true;
+                //obj.IsLoaded = true;
+                ViewEngine.Instance.InsideGame = true;
+                
                 fs.Close();
 
-                database.LoadData(obj);
+                //database.LoadData(obj);
                 StartSinglePlayer();
             }
             catch (Exception e)
             {
-                ViewEngine.Instance.DisplayMessage("Failed to deserialize. Reason: " + e.Message);
+                ViewEngine.Instance.DisplayMessage(e.Message);
             }
         }
 
         public void StartNewGame()
         {
             database.ClearData();
+            database.IsLoaded = false;
             StartSinglePlayer();
         }
     }
