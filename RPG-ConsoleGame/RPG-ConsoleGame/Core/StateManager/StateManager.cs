@@ -1,9 +1,13 @@
-﻿namespace RPG_ConsoleGame.Core.StateManager
+﻿using RPG_ConsoleGame.Interfaces;
+
+namespace RPG_ConsoleGame.Core.StateManager
 {
     using Engines;
 
     public class StateManager 
     {
+        private readonly IGameDatabase database = new GameDatabase();
+
         public StateManager()
         {
             ViewEngine.Instance.OnMenuClick += StartState;
@@ -33,23 +37,26 @@
                     ViewEngine.Instance.RenderMenu();
                     break;
                 case StateConstants.SinglePlayer:
-                    BackEngine.Instance.StartSinglePlayer();
-                    break;
-                case StateConstants.Multiplayer:
-                    BackEngine.Instance.StartSinglePlayer();
-                    break;
-                case StateConstants.SurvivalMode:
-                    BackEngine.Instance.StartSinglePlayer();
+                    BackEngine.Instance.StartSinglePlayer(database);
                     break;
                 case StateConstants.LoadGame:
-                    BackEngine.Instance.LoadGame();
+                    BackEngine.Instance.LoadGame(database);
                     break;
-                case StateConstants.Credits:
+                case StateConstants.Multiplayer:
+                    BackEngine.Instance.StartSinglePlayer(database);
+                    break;
+                case StateConstants.SurvivalMode:
+                    BackEngine.Instance.StartSinglePlayer(database);
+                    break;
+              case StateConstants.Credits:
                     ViewEngine.Instance.RenderCredits();
                     ViewEngine.Instance.RenderMenu();
                     break;
                 case StateConstants.NewGame:
-                    BackEngine.Instance.StartNewGame();
+                    BackEngine.Instance.StartNewGame(database);
+                    break;
+                case StateConstants.SaveGame:
+                    BackEngine.Instance.SaveGame("save", database);
                     break;
                 default:
                     break;

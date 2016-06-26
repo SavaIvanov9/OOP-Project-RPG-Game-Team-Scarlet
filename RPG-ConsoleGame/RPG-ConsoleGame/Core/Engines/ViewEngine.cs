@@ -60,9 +60,9 @@ namespace RPG_ConsoleGame.Core.Engines
                 screen.AppendLine(
                     "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
                     "1. Start New Single Player" + Environment.NewLine + Environment.NewLine +
-                    "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                    "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                    "4. Load Game" + Environment.NewLine + Environment.NewLine +
+                    "2. Load Game" + Environment.NewLine + Environment.NewLine +
+                    "3. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                    "4. Survival Mode" + Environment.NewLine + Environment.NewLine +
                     "5. Credits");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -95,18 +95,19 @@ namespace RPG_ConsoleGame.Core.Engines
                 screen.AppendLine(
                     "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
                     "1. New Game" + Environment.NewLine + Environment.NewLine +
-                    "2. Continue Game" + Environment.NewLine + Environment.NewLine +
-                    "3. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                    "4. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                    "5. Load Game" + Environment.NewLine + Environment.NewLine +
-                    "6. Credits");
+                    "2. Save Game" + Environment.NewLine + Environment.NewLine +
+                    "3. Continue Game" + Environment.NewLine + Environment.NewLine +
+                    "4. Load Game" + Environment.NewLine + Environment.NewLine +
+                    "5. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                    "6. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                    "7. Credits");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 render.PrintScreen(screen);
                 string choice = reader.ReadLine();
                 render.WriteLine("");
 
-                string[] validChoises = { "1", "2", "3", "4", "5", "6" };
+                string[] validChoises = { "1", "2", "3", "4", "5", "6", "7" };
 
 
                 while (!validChoises.Contains(choice))
@@ -119,9 +120,13 @@ namespace RPG_ConsoleGame.Core.Engines
                 {
                     choice = "6";
                 }
+                else if (choice == "2")
+                {
+                    choice = "7";
+                }
                 else
                 {
-                    int number = int.Parse(choice) - 1;
+                    int number = int.Parse(choice) - 2;
                     choice = number.ToString();
                 }
 
@@ -304,12 +309,27 @@ namespace RPG_ConsoleGame.Core.Engines
             render.Clear();
             StringBuilder screen = new StringBuilder();
 
-            screen.AppendLine("Choose slot to save the game:"
-                              + Environment.NewLine + Environment.NewLine + "1"
-                              + Environment.NewLine + Environment.NewLine + "2"
-                              + Environment.NewLine + Environment.NewLine + "3"
-                              + Environment.NewLine + Environment.NewLine + "4"
-                              + Environment.NewLine + Environment.NewLine + "5");
+            screen.AppendLine("Choose slot to save the game:");
+
+            for (int i = 1; i <= 5; i++)
+            {
+                try
+                {
+                    FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{i}.xml", FileMode.Open);
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                                      $"{i}. Game saved on {obj.Date}");
+                    fs.Close();
+                }
+                catch (Exception)
+                {
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
+                }
+            }
 
             Console.ForegroundColor = ConsoleColor.Green;
             render.PrintScreen(screen);
@@ -322,6 +342,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 render.WriteLine("Invalid choice, please re-enter.");
                 choice = reader.ReadLine();
             }
+
 
             return choice;
         }

@@ -4,6 +4,12 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//***********************************************
+//ima eksepshyn za fiksvane, no sa mi se spi.
+//kato bota ima pove4e refleksi i udrq pryv, udrq dokato ne se izrawnqt refleksite na dwamata...
+//dobawi hod na pleyra sled toq slu4ai
+//************************************************
+
 namespace RPG_ConsoleGame.Core.Engines
 {
     using Characters;
@@ -24,7 +30,7 @@ namespace RPG_ConsoleGame.Core.Engines
         private readonly ICreatureFactory creatureFactory = new CreatureFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
-        private static IGameDatabase database = new GameDatabase();
+        
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
 
@@ -51,7 +57,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public void StartSinglePlayer()
+        public void StartSinglePlayer(IGameDatabase database)
         {
             //database.ClearData();
             
@@ -63,7 +69,7 @@ namespace RPG_ConsoleGame.Core.Engines
             if (database.IsLoaded == false)
             {
                 database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-                PopulateMap(database.Maps[0]);
+                PopulateMap(database.Maps[0], database);
             }
 
             //For testing purposes 
@@ -106,7 +112,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void PopulateMap(char[,] map)
+        private void PopulateMap(char[,] map, IGameDatabase database)
         {
             Random random = new Random();
             
@@ -491,7 +497,7 @@ namespace RPG_ConsoleGame.Core.Engines
             sound.SFX(stage);
         }
 
-        private void SaveGame(string command, IGameDatabase data)
+        public void SaveGame(string command, IGameDatabase data)
         {
             if (command == "save")
             {
@@ -501,13 +507,13 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public void LoadGame()
+        public void LoadGame(IGameDatabase database)
         {
             string choice = ViewEngine.Instance.ChooseSavedGameSlot();
             ReturnBack(choice);
             database.ClearData();
             //database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
-            LoadData($@"..\..\GameSavedData\Save-{choice}.xml");
+            LoadData($@"..\..\GameSavedData\Save-{choice}.xml", database);
         }
 
         private void SaveData(IGameDatabase data, string slot)
@@ -533,7 +539,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void LoadData(string path)
+        private void LoadData(string path, IGameDatabase database)
         {
             try
             {
@@ -550,7 +556,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 fs.Close();
 
                 //database.LoadData(obj);
-                StartSinglePlayer();
+                StartSinglePlayer(database);
             }
             catch (Exception e)
             {
@@ -558,11 +564,11 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public void StartNewGame()
+        public void StartNewGame(IGameDatabase database)
         {
             database.ClearData();
             database.IsLoaded = false;
-            StartSinglePlayer();
+            StartSinglePlayer(database);
         }
     }
 }
