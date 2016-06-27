@@ -231,12 +231,53 @@ namespace RPG_ConsoleGame.Core.Engines
             render.Clear();
             StringBuilder screen = new StringBuilder();
             screen.AppendLine();
-            screen.AppendLine("You have entered in battle!!");
+            screen.AppendLine("Battle has started!!");
             screen.AppendLine();
             screen.AppendLine(new string('-', 60));
             screen.AppendLine();
             screen.AppendLine(char1.ToString());
             screen.AppendLine(char2.ToString());
+
+            screen.AppendLine();
+            screen.AppendLine("Choose number to cast ability:");
+
+            for (int i = 0; i < char1.Abilities.Count; i++)
+            {
+                var ability = char1.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
+
+            screen.AppendLine();
+            screen.Append(history);
+            render.PrintScreen(screen);
+        }
+
+        public void RenderBattleStatsMultiPlayer(ICharacter char1, ICharacter char2, StringBuilder history)
+        {
+            render.Clear();
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine();
+            screen.AppendLine("Battle has started!!");
+            screen.AppendLine();
+            screen.AppendLine(new string('-', 60));
+            screen.AppendLine();
+            screen.AppendLine("IT IS " + char1.Name + "'S TURN TO HIT");
+            //player1 stats
+            screen.AppendLine(char1.ToString());
+            //player1 abilities
+            for (int i = 0; i < char1.Abilities.Count; i++)
+            {
+                var ability = char1.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
+            //player2 stats
+            screen.AppendLine(char2.ToString());
+            //player2 abilities
+            for (int i = 0; i < char2.Abilities.Count; i++)
+            {
+                var ability = char2.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
 
             screen.AppendLine();
             screen.AppendLine("Choose number to cast ability:");
@@ -291,6 +332,19 @@ namespace RPG_ConsoleGame.Core.Engines
             return newPlayer;
         }
 
+        public IPlayer GetMultiPlayer(int number)
+        {
+            render.Clear();
+            render.WriteLine("");
+            var playerName = this.GetMultiPlayersNames(number);
+            render.WriteLine("");
+            PlayerRace race = this.GetPlayerRace();
+            IPlayer newPlayer1 = new Player(new Position(), 'P', playerName, race);
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            return newPlayer1;
+        }
+
         private PlayerRace GetPlayerRace()
         {
             render.WriteLine("Choose a race:");
@@ -317,6 +371,27 @@ namespace RPG_ConsoleGame.Core.Engines
 
         private string GetPlayerName()
         {
+            render.WriteLine("Please enter your name:");
+
+            string playerName = reader.ReadLine();
+            //while (string.IsNullOrWhiteSpace(playerName))
+            //{
+            //    render.WriteLine("Player name cannot be empty. Please re-enter.");
+            //    //throw new IncorrectNameException("Player name cannot be empty. Please re-enter.");
+            //    playerName = reader.ReadLine();
+            //}
+
+            if (string.IsNullOrWhiteSpace(playerName))
+            {
+                throw new IncorrectNameException("Player name cannot be empty. Please re-enter.");
+            }
+
+            return playerName;
+        }
+
+        private string GetMultiPlayersNames(int number)
+        {
+            Console.WriteLine("Register player {0}:", number);
             render.WriteLine("Please enter your name:");
 
             string playerName = reader.ReadLine();
@@ -515,7 +590,7 @@ namespace RPG_ConsoleGame.Core.Engines
                     choice = reader.ReadLine();
                 }
 
-                
+
             }
 
             return choice;
