@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using RPG_ConsoleGame.Core.StateManager;
 using RPG_ConsoleGame.Exceptions;
 using RPG_ConsoleGame.Models.Characters.Players;
 
@@ -56,23 +57,22 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 render.Clear();
 
-                StringBuilder screen = new StringBuilder();
+                render.WriteLine("");
+                StringBuilder screen1 = new StringBuilder();
 
-                screen.AppendLine(
+                screen1.AppendLine(
                     "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
-                    "1. Start New Single Player" + Environment.NewLine + Environment.NewLine +
+                    "1. New Game" + Environment.NewLine + Environment.NewLine +
                     "2. Load Game" + Environment.NewLine + Environment.NewLine +
-                    "3. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                    "4. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                    "5. Credits");
+                    "3. Credits");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                render.PrintScreen(screen);
+                render.PrintScreen(screen1);
+
                 string choice = reader.ReadLine();
                 render.WriteLine("");
 
-                string[] validChoises = { "1", "2", "3", "4", "5" };
-
+                string[] validChoises = { "1", "2", "3" };
 
                 while (!validChoises.Contains(choice))
                 {
@@ -80,9 +80,58 @@ namespace RPG_ConsoleGame.Core.Engines
                     choice = reader.ReadLine();
                 }
 
-                if (choice == "1" || choice == "2")
+                if (choice == "1")
+                {
+                    render.Clear();
+                    render.WriteLine("");
+
+                    StringBuilder screen2 = new StringBuilder();
+
+                    screen2.AppendLine(
+                        "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                        "1. Single Player" + Environment.NewLine + Environment.NewLine +
+                        "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                        "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                        "4. Return Back");
+
+                    render.PrintScreen(screen2);
+                    choice = reader.ReadLine();
+
+                    string[] validChoises2 = { "1", "2", "3", "4" };
+
+                    while (!validChoises2.Contains(choice))
+                    {
+                        render.WriteLine("Invalid choice, please re-enter.");
+                        choice = reader.ReadLine();
+                    }
+
+                    if (choice == "1")
+                    {
+                        choice = StateConstants.NewSinglePlayer;
+                    }
+                    if (choice == "2")
+                    {
+                        choice = StateConstants.NewMultiplayer;
+                    }
+                    if (choice == "3")
+                    {
+                        choice = StateConstants.NewSurvival;
+                    }
+                    if (choice == "4")
+                    {
+                        RenderMenu();
+                    }
+
+                    InsideGame = true;
+                }
+                else if (choice == "2")
                 {
                     InsideGame = true;
+                    choice = StateConstants.LoadGame;
+                }
+                else if (choice == "3")
+                {
+                    choice = StateConstants.Credits;
                 }
 
                 OnClick(choice);
@@ -95,21 +144,18 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 screen.AppendLine(
                     "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
-                    "1. New Game" + Environment.NewLine + Environment.NewLine +
-                    "2. Save Game" + Environment.NewLine + Environment.NewLine +
-                    "3. Continue Game" + Environment.NewLine + Environment.NewLine +
+                    "1. Continue Game" + Environment.NewLine + Environment.NewLine +
+                    "2. New Game" + Environment.NewLine + Environment.NewLine +
+                    "3. Save Game" + Environment.NewLine + Environment.NewLine +
                     "4. Load Game" + Environment.NewLine + Environment.NewLine +
-                    "5. Multiplayer" + Environment.NewLine + Environment.NewLine +
-                    "6. Survival Mode" + Environment.NewLine + Environment.NewLine +
-                    "7. Credits");
+                    "5. Credits");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 render.PrintScreen(screen);
                 string choice = reader.ReadLine();
                 render.WriteLine("");
 
-                string[] validChoises = { "1", "2", "3", "4", "5", "6", "7" };
-
+                string[] validChoises = { "1", "2", "3", "4", "5" };
 
                 while (!validChoises.Contains(choice))
                 {
@@ -119,16 +165,61 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 if (choice == "1")
                 {
-                    choice = "6";
+                    choice = StateConstants.SinglePlayer;
                 }
                 else if (choice == "2")
                 {
-                    choice = "7";
+                    render.Clear();
+                    render.WriteLine("");
+
+                    StringBuilder screen2 = new StringBuilder();
+
+                    screen2.AppendLine(
+                        "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                        "1. Single Player" + Environment.NewLine + Environment.NewLine +
+                        "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                        "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
+                        "4. Return Back");
+
+                    render.PrintScreen(screen2);
+                    choice = reader.ReadLine();
+
+                    string[] validChoises2 = { "1", "2", "3", "4" };
+
+                    while (!validChoises2.Contains(choice))
+                    {
+                        render.WriteLine("Invalid choice, please re-enter.");
+                        choice = reader.ReadLine();
+                    }
+
+                    if (choice == "1")
+                    {
+                        choice = StateConstants.NewSinglePlayer;
+                    }
+                    if (choice == "2")
+                    {
+                        choice = StateConstants.NewMultiplayer;
+                    }
+                    if (choice == "3")
+                    {
+                        choice = StateConstants.NewSurvival;
+                    }
+                    if (choice == "4")
+                    {
+                        RenderMenu();
+                    }
                 }
-                else
+                else if (choice == "3")
                 {
-                    int number = int.Parse(choice) - 2;
-                    choice = number.ToString();
+                    choice = StateConstants.SaveGame;
+                }
+                else if (choice == "4")
+                {
+                    choice = StateConstants.LoadGame;
+                }
+                else if (choice == "5")
+                {
+                    choice = StateConstants.Credits;
                 }
 
                 OnClick(choice);
@@ -189,7 +280,10 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public IPlayer GetPlayer()
         {
+            render.Clear();
+            render.WriteLine("");
             var playerName = this.GetPlayerName();
+            render.WriteLine("");
             PlayerRace race = this.GetPlayerRace();
             IPlayer newPlayer = new Player(new Position(), 'P', playerName, race);
             Console.ForegroundColor = ConsoleColor.Green;
@@ -246,8 +340,8 @@ namespace RPG_ConsoleGame.Core.Engines
             render.Clear();
 
             StringBuilder screen = new StringBuilder();
-            screen.AppendLine("Teleric Software Academy");
             screen.AppendLine();
+            screen.AppendLine("Teleric Software Academy");
             screen.AppendLine();
             screen.AppendLine("Team Scarlet");
             screen.AppendLine();
@@ -338,6 +432,9 @@ namespace RPG_ConsoleGame.Core.Engines
                 }
             }
 
+            screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                              "6. Return To Menu");
+
             Console.ForegroundColor = ConsoleColor.Green;
             render.PrintScreen(screen);
 
@@ -350,6 +447,10 @@ namespace RPG_ConsoleGame.Core.Engines
                 choice = reader.ReadLine();
             }
 
+            if (choice == "6")
+            {
+                RenderMenu();
+            }
 
             return choice;
         }
@@ -386,7 +487,7 @@ namespace RPG_ConsoleGame.Core.Engines
             render.PrintScreen(screen);
 
             string choice = reader.ReadLine();
-            
+
             bool correctDecision = false;
             while (!correctDecision)
             {
@@ -413,7 +514,7 @@ namespace RPG_ConsoleGame.Core.Engines
                     correctDecision = true;
                 }
             }
-          
+
             return choice;
         }
 

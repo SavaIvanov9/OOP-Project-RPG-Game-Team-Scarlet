@@ -180,6 +180,143 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
+        //MultiplayerBattle
+        private void StartMultiplayerBattle(IGameDatabase database)
+        {
+            IPlayer player1 = database.Players[0];
+            IPlayer player2 = database.Players[1];
+
+            StartMusic(SoundEffects.BattleStart);
+            ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
+                new StringBuilder("BATTLE IS STARTING!!"), 3);
+
+            StartMusic(SoundEffects.BattleTheme);
+
+            var isInBattle = true;
+            var history = new StringBuilder();
+            var turnsCount = 0;
+
+            while (isInBattle)
+            {
+                ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
+                if (player1.Reflexes >= player2.Reflexes)
+                {
+                    //player1 move
+                    Console.WriteLine("PLAYER {0}'S TURN", player1.Name);
+                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                    if (keyPressed.Key == ConsoleKey.D1)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player1);
+                        ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.D2)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player1);
+                        ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.D3)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player1);
+                        ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
+
+                    }
+                    if (keyPressed.Key == ConsoleKey.D4)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player1);
+                        ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
+
+                    }
+                }
+                if (player1.Reflexes < player2.Reflexes)
+                {
+                    //player2 move
+                    Console.WriteLine("PLAYER {0}'S TURN", player2.Name);
+                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                    if (keyPressed.Key == ConsoleKey.D1)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player2);
+                        ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D2)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player2);
+                        ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D3)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player2);
+                        ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
+                    }
+                    if (keyPressed.Key == ConsoleKey.D4)
+                    {
+                        turnsCount++;
+                        RegenerateStats(player2);
+                        ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
+                    }
+                }
+
+                //check if someone died
+                if (player1.Health <= 0 && player2.Health > 0)
+                {
+                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
+                    StartMusic(SoundEffects.BattleStart);
+                    ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
+                        new StringBuilder("PLAYER " + player2.Name + "WINS, PLAYER " + player1.Name + " HAS DIED!! Give beer to admin to resurrect you :D"), 3,
+                        new StringBuilder("Press enter to continue"));
+
+                    StartMusic(SoundEffects.DefaultTheme);
+                    ViewEngine.Instance.InsideGame = false;
+
+                    database.ClearData();
+                    ReturnBack("exit");
+                }
+                if (player2.Health <= 0 && player1.Health > 0)
+                {
+                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
+                    StartMusic(SoundEffects.EnemyIsDestroyed);
+                    ViewEngine.Instance.RenderWarningScreen(
+                        ConsoleColor.Red, new StringBuilder("PLAYER " + player1.Name + "WINS, PLAYER" + player2.Name + " HAS DIED!! Give beer to admin to resurrect you :D"),
+                        2, new StringBuilder("Press enter to continue."));
+
+                    StartMusic(SoundEffects.DefaultTheme);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    isInBattle = false;
+                }
+                if (player1.Health <= 0 && player2.Health <= 0)
+                {
+                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
+                    StartMusic(SoundEffects.BattleStart);
+                    ViewEngine.Instance.RenderWarningScreen(
+                        ConsoleColor.Red, new StringBuilder(
+                            "You both died... Give beer to admin to resurrect you :D"),
+                        3, new StringBuilder("Press enter or escape continue"));
+
+                    StartMusic(SoundEffects.DefaultTheme);
+                    ViewEngine.Instance.InsideGame = false;
+
+                    database.ClearData();
+                    ReturnBack("exit");
+                }
+            }
+        }
+
+
         private void PopulateMap(char[,] map, IGameDatabase database)
         {
             Random random = new Random();
@@ -287,6 +424,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                     ExecuteBotDecision(turnsCount, char2, char1, history);
                                     turnsCount++;
                                     RegenerateStats(char2);
+
                                 }
                                 if (keyPressed.Key == ConsoleKey.D2)
                                 {
@@ -325,9 +463,10 @@ namespace RPG_ConsoleGame.Core.Engines
                             if (char1.Reflexes < char2.Reflexes)
                             {
                                 //bot AI in action
-                                turnsCount++;
+                                //turnsCount++;
                                 RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
+                                turnsCount++;
 
                                 //player move
                                 ConsoleKeyInfo keyPressed = Console.ReadKey(true);
@@ -484,9 +623,38 @@ namespace RPG_ConsoleGame.Core.Engines
                             if (char1.Reflexes < char2.Reflexes)
                             {
                                 //bot AI in action
-                                turnsCount++;
+                                //turnsCount++;
                                 RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
+                                turnsCount++;
+
+                                //player move
+                                ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                                if (keyPressed.Key == ConsoleKey.D1)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D2)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D3)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
+                                }
+                                if (keyPressed.Key == ConsoleKey.D4)
+                                {
+                                    turnsCount++;
+                                    RegenerateStats(char1);
+                                    ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
+                                }
                             }
 
                             //check if someone died
@@ -542,142 +710,6 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        //MultiplayerBattle
-        private void StartMultiplayerBattle(IGameDatabase database)
-        {
-            IPlayer player1 = database.Players[0];
-            IPlayer player2 = database.Players[1];
-
-            StartMusic(SoundEffects.BattleStart);
-            ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
-                new StringBuilder("BATTLE IS STARTING!!"), 3);
-
-            StartMusic(SoundEffects.BattleTheme);
-
-            var isInBattle = true;
-            var history = new StringBuilder();
-            var turnsCount = 0;
-
-            while (isInBattle)
-            {
-                ViewEngine.Instance.RenderBattleStats(player1, player2, history);
-
-                if (player1.Reflexes >= player2.Reflexes)
-                {
-                    //player1 move
-                    Console.WriteLine("PLAYER {0}'S TURN", player1.Name);
-                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-
-                    if (keyPressed.Key == ConsoleKey.D1)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player1);
-                        ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
-
-                    }
-                    if (keyPressed.Key == ConsoleKey.D2)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player1);
-                        ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
-
-                    }
-                    if (keyPressed.Key == ConsoleKey.D3)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player1);
-                        ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
-
-                    }
-                    if (keyPressed.Key == ConsoleKey.D4)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player1);
-                        ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
-
-                    }
-                }
-                if (player1.Reflexes < player2.Reflexes)
-                {
-                    //player2 move
-                    Console.WriteLine("PLAYER {0}'S TURN", player2.Name);
-                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-
-                    if (keyPressed.Key == ConsoleKey.D1)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
-                    }
-                    if (keyPressed.Key == ConsoleKey.D2)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
-                    }
-                    if (keyPressed.Key == ConsoleKey.D3)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
-                    }
-                    if (keyPressed.Key == ConsoleKey.D4)
-                    {
-                        turnsCount++;
-                        RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
-                    }
-                }
-
-                //check if someone died
-                if (player1.Health <= 0 && player2.Health > 0)
-                {
-                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
-
-                    StartMusic(SoundEffects.BattleStart);
-                    ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
-                        new StringBuilder("PLAYER " + player2.Name + "WINS, PLAYER " + player1.Name + " HAS DIED!! Give beer to admin to resurrect you :D"), 3,
-                        new StringBuilder("Press enter to continue"));
-
-                    StartMusic(SoundEffects.DefaultTheme);
-                    ViewEngine.Instance.InsideGame = false;
-
-                    database.ClearData();
-                    ReturnBack("exit");
-                }
-                if (player2.Health <= 0 && player1.Health > 0)
-                {
-                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
-
-                    StartMusic(SoundEffects.EnemyIsDestroyed);
-                    ViewEngine.Instance.RenderWarningScreen(
-                        ConsoleColor.Red, new StringBuilder("PLAYER " + player1.Name + "WINS, PLAYER" + player2.Name + " HAS DIED!! Give beer to admin to resurrect you :D"),
-                        2, new StringBuilder("Press enter to continue."));
-
-                    StartMusic(SoundEffects.DefaultTheme);
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    isInBattle = false;
-                }
-                if (player1.Health <= 0 && player2.Health <= 0)
-                {
-                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
-
-                    StartMusic(SoundEffects.BattleStart);
-                    ViewEngine.Instance.RenderWarningScreen(
-                        ConsoleColor.Red, new StringBuilder(
-                            "You both died... Give beer to admin to resurrect you :D"),
-                        3, new StringBuilder("Press enter or escape continue"));
-
-                    StartMusic(SoundEffects.DefaultTheme);
-                    ViewEngine.Instance.InsideGame = false;
-
-                    database.ClearData();
-                    ReturnBack("exit");
-                }
-            }
-        }
-
         private void RegenerateStats(ICharacter player)
         {
             player.Reflexes += 5;
@@ -693,7 +725,7 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
-            history.AppendLine($"{turn}. {player.Name} used ability {ability} on {enemy.Name}");
+            history.AppendLine($"{turn}. {player.Name} used ability {ability}");
         }
 
         private void RemoveDead(IGameDatabase database)
@@ -788,7 +820,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 fs.Close();
 
                 //database.LoadData(obj);
-                StartSinglePlayer(database);
+                StartLoadedGame(database);
             }
             catch (Exception e)
             {
@@ -796,10 +828,52 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public void StartNewGame(IGameDatabase database)
+        public void StartLoadedGame(IGameDatabase database)
         {
-            database.ClearData();
-            database.IsLoaded = false;
+            //For testing purposes 
+            //**********************************************************************************
+            database.Players[0].Health += 1000000;
+            //**********************************************************************************
+
+            this.IsRunning = true;
+
+            render.Clear();
+
+            ViewEngine.Instance.RenderMap(database.Maps[0]);
+            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+
+            while (this.IsRunning)
+            {
+                if (Console.KeyAvailable)
+                {
+                    render.Clear();
+                    string command = reader.ReadKey();
+                    ReturnBack(command);
+                    SaveGame(command, database);
+
+                    database.Players[0].Move(database.Maps[0], command);
+
+                    ViewEngine.Instance.RenderMap(database.Maps[0]);
+                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+
+                    if (CheckForEnemies(database, "Bot"))
+                    {
+                        CheckForBattle(database.Players[0], database, "Bot");
+                    }
+                    if (CheckForEnemies(database, "Boss"))
+                    {
+                        CheckForBattle(database.Players[0], database, "Boss");
+                    }
+
+                    RemoveDead(database);
+                }
+            }
+        }
+
+        public void StartNewSinglePlayer(IGameDatabase database)
+        {
+            database = new GameDatabase { IsLoaded = false };
+            //database.ClearData();
             StartSinglePlayer(database);
         }
     }

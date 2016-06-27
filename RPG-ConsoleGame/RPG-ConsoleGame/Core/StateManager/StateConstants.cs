@@ -2,13 +2,16 @@
 {
     public class StateConstants
     {
-        public const string BeginGame = "0";
-        public const string SinglePlayer = "1";
-        public const string LoadGame = "2";
-        public const string Multiplayer = "3";
-        public const string SurvivalMode = "4";
-        public const string Credits = "5";
-        public const string NewGame = "6";
-        public const string SaveGame = "7";
+        public const string BeginGame = "BeginGame";
+        public const string NewSinglePlayer = "NewSinglePlayer";
+        public const string NewMultiplayer = "NewMultiplayer";
+        public const string NewSurvival = "NewSurvival";
+        public const string SinglePlayer = "SinglePlayer";
+        public const string Multiplayer = "Multiplayer";
+        public const string SurvivalMode = "SurvivalMode";
+        public const string SaveGame = "SaveGame";
+        public const string LoadGame = "LoadGame";
+        public const string Credits = "Credits";
+
     }
 }
