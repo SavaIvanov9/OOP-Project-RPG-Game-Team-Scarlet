@@ -130,14 +130,18 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 try
                 {
-                    database.Players.Add(ViewEngine.Instance.GetPlayer());
+                    if (database.Players.Count == 0)
+                        database.Players.Add(ViewEngine.Instance.GetMultiPlayer(1));
+                    else
+                    {
+                        database.Players.Add(ViewEngine.Instance.GetMultiPlayer(2));
+                    }
                 }
                 catch (IncorrectNameException exception)
                 {
                     render.WriteLine(exception.Message + Environment.NewLine);
                 }
             }
-            
             //For testing purposes 
             //**********************************************************************************
             database.Players[0].Health += 1000000;
@@ -146,10 +150,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
             this.IsRunning = true;
 
-            render.Clear();
-
-            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-            ViewEngine.Instance.RenderPlayerStats(database.Players[1]);
+            //render.Clear();
 
             while (this.IsRunning)
             {
@@ -159,9 +160,6 @@ namespace RPG_ConsoleGame.Core.Engines
                     string command = reader.ReadKey();
                     ReturnBack(command);
                     SaveGame(command, database);
-
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[1]);
 
                     StartMultiplayerBattle(database);
 
@@ -178,7 +176,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
             StartMusic(SoundEffects.BattleStart);
             ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
-                new StringBuilder("BATTLE IS STARTING!!"), 3);
+                new StringBuilder("BATTLE HAS STARTED!!"), 3);
 
             StartMusic(SoundEffects.BattleTheme);
 
@@ -188,14 +186,11 @@ namespace RPG_ConsoleGame.Core.Engines
 
             while (isInBattle)
             {
-
-
                 if (player1.Reflexes >= player2.Reflexes)
                 {
-                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
 
-                    //player1 move
-                    Console.WriteLine("IT IS {0}'S TURN TO HIT", player1.Name);
+                    ViewEngine.Instance.RenderBattleStatsMultiPlayer(player1, player2, history);
+
                     ConsoleKeyInfo keyPressed = Console.ReadKey(true);
 
                     if (keyPressed.Key == ConsoleKey.D1)
@@ -224,15 +219,13 @@ namespace RPG_ConsoleGame.Core.Engines
                         turnsCount++;
                         RegenerateStats(player1);
                         ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
-
                     }
+
                 }
                 if (player1.Reflexes < player2.Reflexes)
                 {
-                    ViewEngine.Instance.RenderBattleStats(player2, player1, history);
+                    ViewEngine.Instance.RenderBattleStatsMultiPlayer(player1, player2, history);
 
-                    //player2 move
-                    Console.WriteLine("IT IS {0}'S TURN TO HIT", player2.Name);
                     ConsoleKeyInfo keyPressed = Console.ReadKey(true);
 
                     if (keyPressed.Key == ConsoleKey.D1)
@@ -259,6 +252,8 @@ namespace RPG_ConsoleGame.Core.Engines
                         RegenerateStats(player2);
                         ExecutePlayerAbility(player2.Abilities[3], player2, player1, turnsCount, history);
                     }
+                    ViewEngine.Instance.RenderBattleStats(player2, player1, history);
+
                 }
 
                 //check if someone died
