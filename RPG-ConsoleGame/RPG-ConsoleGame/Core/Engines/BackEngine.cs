@@ -135,26 +135,19 @@ namespace RPG_ConsoleGame.Core.Engines
                 catch (IncorrectNameException exception)
                 {
                     render.WriteLine(exception.Message + Environment.NewLine);
-                    //database.Players.Add(ViewEngine.Instance.GetPlayer());
                 }
             }
-
-            /*if (database.IsLoaded == false)
-            {
-                database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-                PopulateMap(database.Maps[0], database);
-            }
-            */
+            
             //For testing purposes 
             //**********************************************************************************
             database.Players[0].Health += 1000000;
+            database.Players[1].Health += 1000000;
             //**********************************************************************************
 
             this.IsRunning = true;
 
             render.Clear();
 
-            //ViewEngine.Instance.RenderMap(database.Maps[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[1]);
 
@@ -167,9 +160,6 @@ namespace RPG_ConsoleGame.Core.Engines
                     ReturnBack(command);
                     SaveGame(command, database);
 
-                    //database.Players[0].Move(database.Maps[0], command);
-
-                    //ViewEngine.Instance.RenderMap(database.Maps[0]);
                     ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
                     ViewEngine.Instance.RenderPlayerStats(database.Players[1]);
 
@@ -198,12 +188,14 @@ namespace RPG_ConsoleGame.Core.Engines
 
             while (isInBattle)
             {
-                ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
 
                 if (player1.Reflexes >= player2.Reflexes)
                 {
+                    ViewEngine.Instance.RenderBattleStats(player1, player2, history);
+
                     //player1 move
-                    Console.WriteLine("PLAYER {0}'S TURN", player1.Name);
+                    Console.WriteLine("IT IS {0}'S TURN TO HIT", player1.Name);
                     ConsoleKeyInfo keyPressed = Console.ReadKey(true);
 
                     if (keyPressed.Key == ConsoleKey.D1)
@@ -237,33 +229,35 @@ namespace RPG_ConsoleGame.Core.Engines
                 }
                 if (player1.Reflexes < player2.Reflexes)
                 {
+                    ViewEngine.Instance.RenderBattleStats(player2, player1, history);
+
                     //player2 move
-                    Console.WriteLine("PLAYER {0}'S TURN", player2.Name);
+                    Console.WriteLine("IT IS {0}'S TURN TO HIT", player2.Name);
                     ConsoleKeyInfo keyPressed = Console.ReadKey(true);
 
                     if (keyPressed.Key == ConsoleKey.D1)
                     {
                         turnsCount++;
                         RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
+                        ExecutePlayerAbility(player2.Abilities[0], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D2)
                     {
                         turnsCount++;
                         RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
+                        ExecutePlayerAbility(player2.Abilities[1], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D3)
                     {
                         turnsCount++;
                         RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
+                        ExecutePlayerAbility(player2.Abilities[2], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D4)
                     {
                         turnsCount++;
                         RegenerateStats(player2);
-                        ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
+                        ExecutePlayerAbility(player2.Abilities[3], player2, player1, turnsCount, history);
                     }
                 }
 
@@ -274,7 +268,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
                     StartMusic(SoundEffects.BattleStart);
                     ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Red,
-                        new StringBuilder("PLAYER " + player2.Name + "WINS, PLAYER " + player1.Name + " HAS DIED!! Give beer to admin to resurrect you :D"), 3,
+                        new StringBuilder("PLAYER " + player2.Name + " WINS, PLAYER " + player1.Name + " HAS DIED!! Give beer to admin to resurrect you :D"), 3,
                         new StringBuilder("Press enter to continue"));
 
                     StartMusic(SoundEffects.DefaultTheme);
@@ -289,7 +283,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
                     StartMusic(SoundEffects.EnemyIsDestroyed);
                     ViewEngine.Instance.RenderWarningScreen(
-                        ConsoleColor.Red, new StringBuilder("PLAYER " + player1.Name + "WINS, PLAYER" + player2.Name + " HAS DIED!! Give beer to admin to resurrect you :D"),
+                        ConsoleColor.Red, new StringBuilder("PLAYER " + player1.Name + " WINS, PLAYER " + player2.Name + " HAS DIED!! Give beer to admin to resurrect you :D"),
                         2, new StringBuilder("Press enter to continue."));
 
                     StartMusic(SoundEffects.DefaultTheme);
@@ -822,13 +816,13 @@ namespace RPG_ConsoleGame.Core.Engines
                 obj.IsLoaded = true;
                 //database = (IGameDatabase)formatter.Deserialize(fs);
                 //database.IsLoaded = true;
-                database.LoadData(obj); 
+                database.LoadData(obj);
                 ViewEngine.Instance.InsideGame = true;
 
                 fs.Close();
 
                 //database.LoadData(obj);
-                
+
             }
             catch (Exception e)
             {
