@@ -123,17 +123,13 @@ namespace RPG_ConsoleGame.Core.Engines
         //StartMultiPlayer
         public void StartMultiPlayer()
         {
-
+            database.ClearData();
             while (database.Players.Count <= 1)
             {
                 try
                 {
-                    if (database.Players.Count == 0)
-                        database.Players.Add(ViewEngine.Instance.GetMultiPlayer(1));
-                    else
-                    {
-                        database.Players.Add(ViewEngine.Instance.GetMultiPlayer(2));
-                    }
+                    database.Players.Add(ViewEngine.Instance.GetMultiPlayer(1));
+                    database.Players.Add(ViewEngine.Instance.GetMultiPlayer(2));
                 }
                 catch (IncorrectNameException exception)
                 {

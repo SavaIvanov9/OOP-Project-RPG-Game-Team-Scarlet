@@ -225,34 +225,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 OnClick(choice);
             }
         }
-
-        public void RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
-        {
-            render.Clear();
-            StringBuilder screen = new StringBuilder();
-            screen.AppendLine();
-            screen.AppendLine("Battle has started!!");
-            screen.AppendLine();
-            screen.AppendLine(new string('-', 60));
-            screen.AppendLine();
-            screen.AppendLine(char1.ToString());
-            screen.AppendLine(char2.ToString());
-
-            screen.AppendLine();
-            screen.AppendLine("Choose number to cast ability:");
-
-            for (int i = 0; i < char1.Abilities.Count; i++)
-            {
-                var ability = char1.Abilities[i];
-                screen.AppendLine($"{i + 1} -> {ability}");
-            }
-
-            screen.AppendLine();
-            screen.Append(history);
-            render.PrintScreen(screen);
-        }
-
-
+        
         public string ChooseSavedGameSlot()
         {
             render.Clear();
@@ -281,6 +254,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
 
             screen.AppendLine(Environment.NewLine + Environment.NewLine + "6. Return To Menu");
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             render.PrintScreen(screen);
 
@@ -289,6 +263,12 @@ namespace RPG_ConsoleGame.Core.Engines
             bool correctDecision = false;
             while (!correctDecision)
             {
+                if (choice == "6")
+                {
+                    InsideGame = false;
+                    choice = "exit";
+                    return choice;
+                }
                 try
                 {
                     FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{choice}.xml", FileMode.Open);
@@ -305,18 +285,43 @@ namespace RPG_ConsoleGame.Core.Engines
                     render.WriteLine("Invalid choice, please re-enter." + Environment.NewLine);
                     choice = reader.ReadLine();
                 }
-
-                if (choice == "6")
-                {
-                    choice = "exit";
-                    correctDecision = true;
-                }
             }
 
             return choice;
         }
 
+        public void RenderPlayerStats(IPlayer player)
+        {
+            render.WriteLine("");
+            render.WriteLine(player.ToString());
+        }
 
+        public void RenderBattleStats(ICharacter char1, ICharacter char2, StringBuilder history)
+        {
+            render.Clear();
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine();
+            screen.AppendLine("Battle has started!!");
+            screen.AppendLine();
+            screen.AppendLine(new string('-', 60));
+            screen.AppendLine();
+            screen.AppendLine(char1.ToString());
+            screen.AppendLine(char2.ToString());
+
+            screen.AppendLine();
+            screen.AppendLine("Choose number to cast ability:");
+
+            for (int i = 0; i < char1.Abilities.Count; i++)
+            {
+                var ability = char1.Abilities[i];
+                screen.AppendLine($"{i + 1} -> {ability}");
+            }
+
+            screen.AppendLine();
+            screen.Append(history);
+            render.PrintScreen(screen);
+        }
+        
         public void RenderBattleStatsMultiPlayer(ICharacter char1, ICharacter char2, StringBuilder history)
         {
             render.Clear();
@@ -489,13 +494,7 @@ namespace RPG_ConsoleGame.Core.Engines
             render.PrintScreen(screen);
             StartTimer(5);
         }
-
-        public void RenderPlayerStats(IPlayer player)
-        {
-            render.WriteLine("");
-            render.WriteLine(player.ToString());
-        }
-
+        
         public void RenderWarningScreen(ConsoleColor color, StringBuilder message1, int time, StringBuilder message2 = null)
         {
             render.Clear();
