@@ -95,10 +95,34 @@
         {
             ClearData();
 
-            this.Maps = data.Maps;
-            this.Players = data.Players;
-            this.Creatures = data.Creatures;
-            this.Bosses = data.Bosses;
+            for (int i = 0; i < data.Maps.Count; i++)
+            {
+                this.Maps.Add(data.Maps[i]);
+            }
+
+            for (int i = 0; i < data.Players.Count; i++)
+            {
+                this.Players.Add(data.Players[i]);
+            }
+
+            for (int i = 0; i < data.Maps.Count; i++)
+            {
+                this.Creatures.Add(data.Creatures[i]);
+            }
+
+            for (int i = 0; i < data.Maps.Count; i++)
+            {
+                this.Bosses.Add(data.Bosses[i]);
+            }
+            //this.Maps = data.Maps;
+            //this.Players = data.Players;
+            //this.Creatures = data.Creatures;
+            //this.Bosses = data.Bosses;
+
+            //this.Maps = data.Maps;
+            //data.Players.Clone();
+            //this.Creatures = data.Creatures;
+            //this.Bosses = data.Bosses;
         }
     }
 }

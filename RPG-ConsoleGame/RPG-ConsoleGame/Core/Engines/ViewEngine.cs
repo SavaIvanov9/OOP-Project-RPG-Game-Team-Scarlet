@@ -455,7 +455,7 @@ namespace RPG_ConsoleGame.Core.Engines
             return choice;
         }
 
-        public string ChooseSavedGameSlot()
+        public string LoadSavedGameSlot()
         {
             render.Clear();
 
@@ -491,6 +491,13 @@ namespace RPG_ConsoleGame.Core.Engines
             bool correctDecision = false;
             while (!correctDecision)
             {
+                if (choice == "6")
+                {
+                    InsideGame = false;
+                    choice = "exit";
+                    correctDecision = true;
+                }
+
                 try
                 {
                     FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{choice}.xml", FileMode.Open);
@@ -508,11 +515,7 @@ namespace RPG_ConsoleGame.Core.Engines
                     choice = reader.ReadLine();
                 }
 
-                if (choice == "6")
-                {
-                    choice = "exit";
-                    correctDecision = true;
-                }
+                
             }
 
             return choice;

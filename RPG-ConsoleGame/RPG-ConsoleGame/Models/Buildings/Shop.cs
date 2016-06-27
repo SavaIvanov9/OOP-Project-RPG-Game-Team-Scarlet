@@ -94,5 +94,10 @@
                 this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Inventory, 50, 50, 50));
             }
         }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

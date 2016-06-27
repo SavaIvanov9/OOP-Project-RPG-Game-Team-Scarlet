@@ -773,11 +773,18 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void LoadGame(IGameDatabase database)
         {
-            string choice = ViewEngine.Instance.ChooseSavedGameSlot();
-            ReturnBack(choice);
-            database.ClearData();
-            //database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
-            LoadData($@"..\..\GameSavedData\Save-{choice}.xml", database);
+            string choice = ViewEngine.Instance.LoadSavedGameSlot();
+
+            if (choice == "exit")
+            {
+                ReturnBack(choice);
+            }
+            else
+            {
+                database.ClearData();
+                //database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
+                LoadData($@"..\..\GameSavedData\Save-{choice}.xml", database);
+            }
         }
 
         private void SaveData(IGameDatabase data, string slot)
@@ -811,21 +818,24 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                //IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
-                database = (IGameDatabase)formatter.Deserialize(fs);
-                database.IsLoaded = true;
-                //obj.IsLoaded = true;
+                IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                obj.IsLoaded = true;
+                //database = (IGameDatabase)formatter.Deserialize(fs);
+                //database.IsLoaded = true;
+                database.LoadData(obj); 
                 ViewEngine.Instance.InsideGame = true;
 
                 fs.Close();
 
                 //database.LoadData(obj);
-                StartLoadedGame(database);
+                
             }
             catch (Exception e)
             {
                 ViewEngine.Instance.DisplayMessage(e.Message);
             }
+
+            StartLoadedGame(database);
         }
 
         public void StartLoadedGame(IGameDatabase database)
@@ -838,7 +848,7 @@ namespace RPG_ConsoleGame.Core.Engines
             this.IsRunning = true;
 
             render.Clear();
-
+            //render.WriteLine("gosho");
             ViewEngine.Instance.RenderMap(database.Maps[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
