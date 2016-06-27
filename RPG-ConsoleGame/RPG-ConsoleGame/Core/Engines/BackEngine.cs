@@ -32,6 +32,8 @@ namespace RPG_ConsoleGame.Core.Engines
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
 
+        private readonly IGameDatabase database = new GameDatabase();
+
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
         private readonly ISound sound = new Sound();
 
@@ -58,7 +60,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public void StartSinglePlayer(IGameDatabase database)
+        public void StartSinglePlayer()
         {
             //database.ClearData();
 
@@ -68,18 +70,14 @@ namespace RPG_ConsoleGame.Core.Engines
                 try
                 {
                     database.Players.Add(ViewEngine.Instance.GetPlayer());
+                    database.AddMap(new Map().ReadMap("../../../Map1.txt"));
+                    PopulateMap(database.Maps[0]);
                 }
                 catch (IncorrectNameException exception)
                 {
                     render.WriteLine(exception.Message + Environment.NewLine);
                     //database.Players.Add(ViewEngine.Instance.GetPlayer());
                 }
-            }
-
-            if (database.IsLoaded == false)
-            {
-                database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-                PopulateMap(database.Maps[0], database);
             }
 
             //For testing purposes 
@@ -101,29 +99,29 @@ namespace RPG_ConsoleGame.Core.Engines
                     render.Clear();
                     string command = reader.ReadKey();
                     ReturnBack(command);
-                    SaveGame(command, database);
+                    SaveGame(command);
 
                     database.Players[0].Move(database.Maps[0], command);
 
                     ViewEngine.Instance.RenderMap(database.Maps[0]);
                     ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
-                    if (CheckForEnemies(database, "Bot"))
+                    if (CheckForEnemies("Bot"))
                     {
-                        CheckForBattle(database.Players[0], database, "Bot");
+                        CheckForBattle(database.Players[0], "Bot");
                     }
-                    if (CheckForEnemies(database, "Boss"))
+                    if (CheckForEnemies("Boss"))
                     {
-                        CheckForBattle(database.Players[0], database, "Boss");
+                        CheckForBattle(database.Players[0], "Boss");
                     }
 
-                    RemoveDead(database);
+                    RemoveDead();
                 }
             }
         }
 
         //StartMultiPlayer
-        public void StartMultiPlayer(IGameDatabase database)
+        public void StartMultiPlayer()
         {
 
             while (database.Players.Count <= 1)
@@ -159,17 +157,17 @@ namespace RPG_ConsoleGame.Core.Engines
                     render.Clear();
                     string command = reader.ReadKey();
                     ReturnBack(command);
-                    SaveGame(command, database);
+                    SaveGame(command);
 
-                    StartMultiplayerBattle(database);
+                    StartMultiplayerBattle();
 
-                    RemoveDead(database);
+                    RemoveDead();
                 }
             }
         }
 
         //MultiplayerBattle
-        private void StartMultiplayerBattle(IGameDatabase database)
+        private void StartMultiplayerBattle()
         {
             IPlayer player1 = database.Players[0];
             IPlayer player2 = database.Players[1];
@@ -306,7 +304,7 @@ namespace RPG_ConsoleGame.Core.Engines
         }
 
 
-        private void PopulateMap(char[,] map, IGameDatabase database)
+        private void PopulateMap(char[,] map)
         {
             Random random = new Random();
 
@@ -347,7 +345,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private bool CheckForEnemies(IGameDatabase database, string enemy)
+        private bool CheckForEnemies(string enemy)
         {
             bool result = false;
 
@@ -374,7 +372,7 @@ namespace RPG_ConsoleGame.Core.Engines
             return result;
         }
 
-        private void CheckForBattle(ICharacter char1, IGameDatabase database, string enemyType)
+        private void CheckForBattle(ICharacter char1, string enemyType)
         {
             if (enemyType.Equals("Bot"))
             {
@@ -717,7 +715,7 @@ namespace RPG_ConsoleGame.Core.Engines
             history.AppendLine($"{turn}. {player.Name} used ability {ability}");
         }
 
-        private void RemoveDead(IGameDatabase database)
+        private void RemoveDead()
         {
             for (int index = 0; index < database.Creatures.Count; index++)
             {
@@ -750,29 +748,13 @@ namespace RPG_ConsoleGame.Core.Engines
             sound.SFX(stage);
         }
 
-        public void SaveGame(string command, IGameDatabase data)
+        public void SaveGame(string command)
         {
             if (command == "save")
             {
-                data.Date = DateTime.Now;
-                SaveData(data, ViewEngine.Instance.ChooseSaveSlot());
+                database.Date = DateTime.Now;
+                SaveData(database, ViewEngine.Instance.ChooseSaveSlot());
                 render.Clear();
-            }
-        }
-
-        public void LoadGame(IGameDatabase database)
-        {
-            string choice = ViewEngine.Instance.LoadSavedGameSlot();
-
-            if (choice == "exit")
-            {
-                ReturnBack(choice);
-            }
-            else
-            {
-                database.ClearData();
-                //database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
-                LoadData($@"..\..\GameSavedData\Save-{choice}.xml", database);
             }
         }
 
@@ -799,7 +781,18 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void LoadData(string path, IGameDatabase database)
+
+        public void LoadGame()
+        {
+            string choice = ViewEngine.Instance.ChooseSavedGameSlot();
+            ReturnBack(choice);
+            database.ClearData();
+            database.LoadData(LoadData($@"..\..\GameSavedData\Save-{choice}.xml"));
+            //LoadData($@"..\..\GameSavedData\Save-{choice}.xml", database);
+            StartSinglePlayer();
+        }
+
+        private IGameDatabase LoadData(string path)
         {
             try
             {
@@ -807,73 +800,35 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
-                obj.IsLoaded = true;
-                //database = (IGameDatabase)formatter.Deserialize(fs);
-                //database.IsLoaded = true;
-                database.LoadData(obj);
+                //IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                IGameDatabase data = (IGameDatabase)formatter.Deserialize(fs);
+                data.IsLoaded = true;
+                //obj.IsLoaded = true;
                 ViewEngine.Instance.InsideGame = true;
 
                 fs.Close();
 
+                return data;
                 //database.LoadData(obj);
-
+                //StartLoadedGame(data);
             }
             catch (Exception e)
             {
                 ViewEngine.Instance.DisplayMessage(e.Message);
-            }
-
-            StartLoadedGame(database);
-        }
-
-        public void StartLoadedGame(IGameDatabase database)
-        {
-            //For testing purposes 
-            //**********************************************************************************
-            database.Players[0].Health += 1000000;
-            //**********************************************************************************
-
-            this.IsRunning = true;
-
-            render.Clear();
-            //render.WriteLine("gosho");
-            ViewEngine.Instance.RenderMap(database.Maps[0]);
-            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-
-            while (this.IsRunning)
-            {
-                if (Console.KeyAvailable)
-                {
-                    render.Clear();
-                    string command = reader.ReadKey();
-                    ReturnBack(command);
-                    SaveGame(command, database);
-
-                    database.Players[0].Move(database.Maps[0], command);
-
-                    ViewEngine.Instance.RenderMap(database.Maps[0]);
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-
-                    if (CheckForEnemies(database, "Bot"))
-                    {
-                        CheckForBattle(database.Players[0], database, "Bot");
-                    }
-                    if (CheckForEnemies(database, "Boss"))
-                    {
-                        CheckForBattle(database.Players[0], database, "Boss");
-                    }
-
-                    RemoveDead(database);
-                }
+                return database;
             }
         }
 
-        public void StartNewSinglePlayer(IGameDatabase database)
+        public void StartLoadedGame(IGameDatabase data)
         {
-            database = new GameDatabase { IsLoaded = false };
-            //database.ClearData();
-            StartSinglePlayer(database);
+            LoadGame();
+            StartSinglePlayer();
+        }
+
+        public void StartNewSinglePlayer()
+        {
+            database.ClearData();
+            StartSinglePlayer();
         }
     }
 }

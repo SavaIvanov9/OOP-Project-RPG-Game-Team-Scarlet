@@ -6,7 +6,7 @@ namespace RPG_ConsoleGame.Core.StateManager
 
     public class StateManager
     {
-        private readonly IGameDatabase database = new GameDatabase();
+        //private static readonly IGameDatabase database = new GameDatabase();
 
         public StateManager()
         {
@@ -38,34 +38,34 @@ namespace RPG_ConsoleGame.Core.StateManager
                     break;
                 case StateConstants.NewSinglePlayer:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartNewSinglePlayer(database);
+                    BackEngine.Instance.StartNewSinglePlayer();
                     break;
                 case StateConstants.NewMultiplayer:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartMultiPlayer(database);
+                    BackEngine.Instance.StartMultiPlayer();
                     break;
                 case StateConstants.NewSurvival:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartNewSinglePlayer(database);
+                    BackEngine.Instance.StartNewSinglePlayer();
                     break;
                 case StateConstants.SinglePlayer:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartSinglePlayer(database);
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.Multiplayer:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartLoadedGame(database);
+                    BackEngine.Instance.StartMultiPlayer();
                     break;
                 case StateConstants.SurvivalMode:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.StartSinglePlayer(database);
+                    BackEngine.Instance.StartSinglePlayer();
                     break;
                 case StateConstants.SaveGame:
-                    BackEngine.Instance.SaveGame("save", database);
+                    BackEngine.Instance.SaveGame("save");
                     break;
                 case StateConstants.LoadGame:
                     //ViewEngine.Instance.InsideGame = true;
-                    BackEngine.Instance.LoadGame(database);
+                    BackEngine.Instance.LoadGame();
                     break;
                 case StateConstants.Credits:
                     ViewEngine.Instance.RenderCredits();

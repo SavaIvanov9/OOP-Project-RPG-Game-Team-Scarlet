@@ -252,6 +252,71 @@ namespace RPG_ConsoleGame.Core.Engines
             render.PrintScreen(screen);
         }
 
+
+        public string ChooseSavedGameSlot()
+        {
+            render.Clear();
+
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine("Choose saved game slot:");
+
+            for (int i = 1; i <= 5; i++)
+            {
+                try
+                {
+                    FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{i}.xml", FileMode.Open);
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                                      $"{i}. Game saved on {obj.Date}");
+                    fs.Close();
+                }
+                catch (Exception)
+                {
+                    screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
+                }
+            }
+
+            screen.AppendLine(Environment.NewLine + Environment.NewLine + "6. Return To Menu");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            render.PrintScreen(screen);
+
+            string choice = reader.ReadLine();
+
+            bool correctDecision = false;
+            while (!correctDecision)
+            {
+                try
+                {
+                    FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{choice}.xml", FileMode.Open);
+
+                    //BinaryFormatter formatter = new BinaryFormatter();
+
+                    //IGameDatabase obj = (IGameDatabase)formatter.Deserialize(fs);
+                    fs.Close();
+                    correctDecision = true;
+
+                }
+                catch (Exception)
+                {
+                    render.WriteLine("Invalid choice, please re-enter." + Environment.NewLine);
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "6")
+                {
+                    choice = "exit";
+                    correctDecision = true;
+                }
+            }
+
+            return choice;
+        }
+
+
         public void RenderBattleStatsMultiPlayer(ICharacter char1, ICharacter char2, StringBuilder history)
         {
             render.Clear();
