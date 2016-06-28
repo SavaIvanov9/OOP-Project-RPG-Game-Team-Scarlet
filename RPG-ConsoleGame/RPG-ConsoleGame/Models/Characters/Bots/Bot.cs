@@ -8,9 +8,9 @@
     [Serializable()]
     public abstract class Bot : Character, IBot
     {
-        protected Bot(Position position, char objectSymbol, string name,
-            int damage, int health, int defence, int reflexes)
-            : base(position, objectSymbol, name, damage, health, defence, reflexes)
+        protected Bot(Position position, char objectSymbol, string name, int health,
+            int damage, int defence, int energy, int reflexes)
+            : base(position, objectSymbol, name, health, damage, defence, energy, reflexes)
         {
         }
 

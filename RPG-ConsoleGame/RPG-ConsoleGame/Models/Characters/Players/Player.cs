@@ -16,10 +16,9 @@
         private int currentCol = 1;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
-            : base(position, objectSymbol, name, 0, 0, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
         {
             this.Race = race;
-            
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
@@ -131,11 +130,13 @@
         public override string ToString()
         {
             return string.Format(
-                "Player {0} ({1}): Damage ({2}), Health ({3}), Reflexes: ({4})",
+                "Player {0} ({1}): Health ({2}),  Damage ({3}), Defence({4}), Energy ({5}), Reflexes: ({6})",
                 this.Name,
                 this.Race,
-                this.Damage,
                 this.Health,
+                this.Damage,
+                this.Defence,
+                this.Energy,
                 this.Reflexes);
         }
 
@@ -149,10 +150,12 @@
                     Abilities.Add("Hellfire");
                     Abilities.Add("Reflect");
                     //passives
-                    this.Damage = 10;
-                    this.Health = 100;
-                    this.Defense = 10;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 600;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 50;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
@@ -160,10 +163,12 @@
                     Abilities.Add("Enrage");
                     Abilities.Add("ShieldWall");
                     //passeives
-                    this.Damage = 15;
-                    this.Health = 200;
-                    this.Defense = 20;
-                    this.Reflexes = 70;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 50;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 60;
                     break;
                 case PlayerRace.Archer:
                     //abilities
@@ -171,10 +176,12 @@
                     Abilities.Add("Heavyshot");
                     Abilities.Add("Venomousarrow");
                     //passives
-                    this.Damage = 40;
-                    this.Health = 130;
-                    this.Defense = 15;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 500;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
@@ -182,10 +189,12 @@
                     Abilities.Add("SharpenBlades");
                     Abilities.Add("Execute");
                     //passive                   
-                    this.Damage = 30;
-                    this.Health = 130;
-                    this.Defense = 10;
-                    this.Reflexes = 300;
+                    //stats
+                    this.Health = 600;
+                    this.Damage = 90;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 100;
                     break;
                 case PlayerRace.Paladin:
                     //abilities
@@ -193,10 +202,12 @@
                     Abilities.Add("Exorcism");
                     Abilities.Add("Heal");
                     //passive                   
-                    this.Damage = 20;
-                    this.Health = 180;
-                    this.Defense = 20;
-                    this.Reflexes = 200;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 50;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 60;
                     break;
                 case PlayerRace.Warlock:
                     //abilities
@@ -204,10 +215,12 @@
                     Abilities.Add("LifeTap");
                     Abilities.Add("ShadowBolt");
                     //passive                   
-                    this.Damage = 10;
-                    this.Health = 200;
-                    this.Defense = 0;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 500;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 50;
                     break;
 
                 default:

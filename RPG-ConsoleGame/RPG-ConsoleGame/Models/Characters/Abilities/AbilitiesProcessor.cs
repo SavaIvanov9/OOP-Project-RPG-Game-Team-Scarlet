@@ -93,20 +93,20 @@
         //Mage
         private void Fireball(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
-            enemy.Health -= (player.Damage + 4000);
+            player.Energy -= 20;
+            enemy.Health -= (player.Damage + 40);
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= (player.Damage + 15);
             // TO ADD BURN EFFECT
         }
 
         private void Reflect(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }
@@ -115,37 +115,37 @@
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
-            enemy.Health -= player.Damage + 10 - enemy.Defense;
+            player.Energy -= 20;
+            enemy.Health -= player.Damage + 10 - enemy.Defence;
         }
 
         private void Enrage(ICharacter player)
         {
-            player.Reflexes -= 10;
+            player.Energy -= 10;
             player.Damage *= 2;
         }
 
         private void ShieldWall(ICharacter player)
         {
-            player.Reflexes -= 10;
-            player.Defense += 10;
+            player.Energy -= 10;
+            player.Defence += 10;
         }
         //TO ADD WARRIOR PASSIVE(LAST STAND)
         //Archer
         private void MarkTarget(ICharacter enemy)
         {
-            enemy.Defense -= 15;
+            enemy.Defence -= 15;
         }
 
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= (player.Damage + 10);
         }
 
         private void Venomousarrow(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 15;
+            player.Energy -= 15;
             enemy.Health -= player.Damage;
             //TO DO POISON EFFECT
         }
@@ -153,13 +153,13 @@
         // Rogue
         private void Backstab(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 40;
+            player.Energy -= 40;
             enemy.Health -= (player.Damage * 2);
         }
 
         private void SharpenBlades(ICharacter player)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             player.Damage += 15;
         }
 
@@ -177,7 +177,7 @@
             if (player.Health > 180)
                 player.Health = 180;
 
-            player.Reflexes -= 20;
+            player.Energy -= 20;
         }
         private void Exorcism(ICharacter player, ICharacter enemy)
         {
@@ -191,7 +191,7 @@
             if (player.Health > 180)
                 player.Health = 180;
 
-            player.Reflexes -= 20;
+            player.Energy -= 20;
         }
         //TO ADD PASSIVE ABILITY(HolyRegeneration)
 
@@ -205,33 +205,33 @@
             player.Health -= 10;
             //TO ADD Reflexes REGEN
 
-            player.Reflexes += 50;
+            player.Energy += 50;
         }
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
             enemy.Health -= (player.Damage + 40);
 
-            player.Reflexes -= 20;
+            player.Energy -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
 
         //Boss1
         private void Ability1(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= (player.Damage + 40);
         }
 
         private void Ability2(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= (player.Damage + 15);
 
         }
 
         private void Ability3(ICharacter player, ICharacter enemy)
         {
-            player.Reflexes -= 20;
+            player.Energy -= 20;
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }

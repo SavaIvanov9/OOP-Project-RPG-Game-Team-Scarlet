@@ -478,13 +478,24 @@ namespace RPG_ConsoleGame.Core.Engines
 
         private PlayerRace GetPlayerRace()
         {
-            render.WriteLine("Choose a race:");
-            render.WriteLine("1. Mage (damage: 50, health: 100, defense: 10)");
-            render.WriteLine("2. Warrior (damage: 20, health: 300, defense: 20)");
-            render.WriteLine("3. Archer (damage: 40, health: 150, defense: 15)");
-            render.WriteLine("4. Rogue (damage: 30, health: 200, defense: 10)");
-            render.WriteLine("5. Paladin (damage: 20, health: 180, defense: 20)");
-            render.WriteLine("6. Warlock (damage: 10, health: 200, defense: 0");
+            StringBuilder screen = new StringBuilder();
+            screen.AppendLine("Choose a race:" 
+                + Environment.NewLine);
+            screen.AppendLine("1. Mage (Health: 600, Damage: 100, Defence: 10, Energy: 100, Reflexes: 50)"
+                + Environment.NewLine);
+            screen.AppendLine("2. Warrior (Health: 800, Damage: 50, Defence: 10, Energy: 100, Reflexes: 60)"
+                + Environment.NewLine);
+            screen.AppendLine("3. Archer (Health: 500, Damage: 100, Defence: 10, Energy: 100, Reflexes: 70)"
+                + Environment.NewLine);
+            screen.AppendLine("4. Rogue (Health: 600, Damage: 90, Defence: 10, Energy: 100, Reflexes: 100)"
+                + Environment.NewLine);
+            screen.AppendLine("5. Paladin (Health: 800, Damage: 50, Defence: 10, Energy: 100, Reflexes: 60)"
+                + Environment.NewLine);
+            screen.AppendLine("6. Warlock (Health: 500, Damage: 100, Defence: 10, Energy: 100, Reflexes: 50)"
+                + Environment.NewLine);
+
+            render.PrintScreen(screen);
+
             string choice = reader.ReadLine();
 
             string[] validChoises = { "1", "2", "3", "4", "5", "6" };

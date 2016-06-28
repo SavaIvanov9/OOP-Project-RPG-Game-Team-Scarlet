@@ -12,7 +12,7 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
     {
 
         public Boss(Position position, char objectSymbol, string name, BossRace race)
-            : base(position, objectSymbol, name, 0, 0, 0, 0)
+            : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
         {
             this.Race = race;
             this.SetPlayerStats();
@@ -28,11 +28,13 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
         public override string ToString()
         {
             return string.Format(
-                "Boss {0} ({1}): Damage ({2}), Health ({3}), Reflexes: ({4})",
+                "Player {0} ({1}): Health ({2}),  Damage ({3}), Defence({4}), Energy ({5}), Reflexes: ({6})",
                 this.Name,
                 this.Race,
-                this.Damage,
                 this.Health,
+                this.Damage,
+                this.Defence,
+                this.Energy,
                 this.Reflexes);
         }
 
@@ -46,10 +48,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("Ability2");
                     Abilities.Add("Ability3");
                     //passives
-                    this.Damage = 10;
-                    this.Health = 100;
-                    this.Defense = 10;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case BossRace.Boss2:
                     //abilities
@@ -57,10 +61,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("Enrage");
                     Abilities.Add("ShieldWall");
                     //passeives
-                    this.Damage = 15;
-                    this.Health = 200;
-                    this.Defense = 20;
-                    this.Reflexes = 200;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case BossRace.Boss3:
                     //abilities
@@ -68,10 +74,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("Heavyshot");
                     Abilities.Add("Venomousarrow");
                     //passives
-                    this.Damage = 40;
-                    this.Health = 130;
-                    this.Defense = 15;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case BossRace.Boss4:
                     //abilities
@@ -79,10 +87,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("SharpenBlades");
                     Abilities.Add("Execute");
                     //passive                   
-                    this.Damage = 30;
-                    this.Health = 130;
-                    this.Defense = 10;
-                    this.Reflexes = 300;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case BossRace.Boss5:
                     //abilities
@@ -90,10 +100,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("Exorcism");
                     Abilities.Add("Heal");
                     //passive                   
-                    this.Damage = 20;
-                    this.Health = 180;
-                    this.Defense = 20;
-                    this.Reflexes = 200;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
                 case BossRace.Boss6:
                     //abilities
@@ -101,10 +113,12 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
                     Abilities.Add("LifeTap");
                     Abilities.Add("ShadowBolt");
                     //passive                   
-                    this.Damage = 10;
-                    this.Health = 200;
-                    this.Defense = 0;
-                    this.Reflexes = 100;
+                    //stats
+                    this.Health = 800;
+                    this.Damage = 100;
+                    this.Defence = 10;
+                    this.Energy = 100;
+                    this.Reflexes = 70;
                     break;
 
                 default:

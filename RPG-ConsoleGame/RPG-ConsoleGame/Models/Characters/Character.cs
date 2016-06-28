@@ -12,27 +12,96 @@
     {
         private string name;
         private int health;
+        private int damage;
         private int defense;
+        private int energy;
         private int reflexes;
         private IList<string> abilities;
         private IList<Item> inventory;
 
-        protected Character(Position position, char objectSymbol, string name, 
-            int damage, int health, int defence, int reflexes)
+        protected Character(Position position, char objectSymbol, string name,
+            int health, int damage, int defence, int energy, int reflexes)
             : base(position, objectSymbol)
         {
-            this.Damage = damage;
-            this.Health = health;
             this.Name = name;
-            this.Defense = defense;
+            this.Health = health;
+            this.Damage = damage;
+            this.Defence = defence;
+            this.Energy = energy;
             this.Reflexes = reflexes;
             this.Abilities = new List<string>();
             this.Inventory = new List<Item>();
         }
+        
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
 
-        public int Damage { get; set; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("name", "Name cannot be null, empty or whitespace.");
+                }
 
-        public int Health { get; set; }
+                this.name = value;
+            }
+        }
+        
+        public int Health
+        {
+            get { return this.health; }
+            set { this.health = value; }
+        }
+
+        public int Damage
+        {
+            get { return this.damage; }
+            set { this.damage = value; }
+        }
+
+        public int Defence
+        {
+            get
+            {
+                return this.defense;
+
+            }
+            set
+            {
+                if (value + this.defense >= 85)
+                {
+                    this.defense = 85;
+                }
+                else
+                {
+                    if (this.defense + value <= 0)
+                    {
+                        this.defense = 0;
+                    }
+                    else
+                    {
+                        this.defense = value;
+                    }
+                }
+            }
+
+        }
+
+        public int Energy
+        {
+            get { return energy; }
+            set { energy = value; }
+        }
+
+        public int Reflexes
+        {
+            get { return reflexes; }
+            set { reflexes = value; }
+        }
 
         public IList<string> Abilities
         {
@@ -57,59 +126,7 @@
                 inventory = value;
             }
         }
-
-        public int Defense
-        {
-            get
-            {
-                return this.defense;
-
-            }
-            set 
-            {
-                if (value+this.defense>=85)
-                {
-                    this.defense = 85;
-                }
-                else
-                {
-                    if (this.defense+value<=0)
-                    {
-                        this.defense = 0;
-                    }
-                    else
-                    {
-                        this.defense = value;
-                    }
-                }
-            }
-
-        }
-
-        public string Name
-        {
-            get
-            {
-                return this.name;
-            }
-
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException("name", "Name cannot be null, empty or whitespace.");
-                }
-
-                this.name = value;
-            }
-        }
-
-        public int Reflexes
-        {
-            get { return reflexes; }
-            set { reflexes = value; }
-        }
-
+        
         public void Attack(ICharacter enemy)
         {
             enemy.Health -= this.Damage;
