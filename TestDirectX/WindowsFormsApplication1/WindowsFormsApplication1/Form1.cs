@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
@@ -20,7 +21,11 @@ namespace WindowsFormsApplication1
         Microsoft.DirectX.Direct3D.Font font;
         int x = 0;
         int y = 0;
-        private float rotation = 0;
+        float rotation = 0;
+        int fps = 0;
+        int frames =0;
+        private long timeStarted = Environment.TickCount;
+        private Thread thread;
 
         public Form1()
         {
@@ -98,59 +103,90 @@ namespace WindowsFormsApplication1
 
         private void Render()
         {
-            device.Clear(ClearFlags.Target, Color.CornflowerBlue, 0, 1);
-            device.BeginScene();
-            using (Sprite s = new Sprite(device))
+            while (true)
             {
-                s.Begin(SpriteFlags.AlphaBlend);
-                s.Draw2D(texture, new Rectangle(0, 0, device.Viewport.Width, device.Viewport.Height),
-                    new SizeF(),
-                    new Point(), 0f,
-                    new Point(0, 0),
-                    Color.White);
+                UpdateInput();
 
-                Matrix matrix = new Matrix();
-                matrix = Matrix.Transformation2D(
-                    new Vector2(0, 0), 0.0f,
-                    new Vector2(1.0f, 1.0f),
-                    new Vector2(x + 260, y + 200),
-                    rotation, new Vector2(0, 0));
-                s.Transform = matrix;
+                device.Clear(ClearFlags.Target, Color.CornflowerBlue, 0, 1);
+                device.BeginScene();
+                using (Sprite s = new Sprite(device))
+                {
+                    s.Begin(SpriteFlags.AlphaBlend);
+                    s.Draw2D(texture, new Rectangle(0, 0, device.Viewport.Width, device.Viewport.Height),
+                        new SizeF(),
+                        new Point(), 0f,
+                        new Point(0, 0),
+                        Color.White);
 
-                //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
-                //  new SizeF(),
-                //  new Point(), 0f,
-                //  new Point(0, 0),
-                //  Color.White);
+                    Matrix matrix = new Matrix();
+                    matrix = Matrix.Transformation2D(
+                        new Vector2(0, 0), 0.0f,
+                        new Vector2(1.0f, 1.0f),
+                        new Vector2(x + 260, y + 200),
+                        rotation, new Vector2(0, 0));
+                    s.Transform = matrix;
 
-                s.Draw(texture2,
-                    new Rectangle(0, 0, 0, 0),
-                    new Vector3(0, 0, 0),
-                    new Vector3(x, y, 0),
-                    Color.White);
+                    //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
+                    //  new SizeF(),
+                    //  new Point(), 0f,
+                    //  new Point(0, 0),
+                    //  Color.White);
 
-                // font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
-                s.End();
+                    s.Draw(texture2,
+                        new Rectangle(0, 0, 0, 0),
+                        new Vector3(0, 0, 0),
+                        new Vector3(x, y, 0),
+                        Color.White);
+
+                    // font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+                    s.End();
+                }
+                using (Sprite b = new Sprite(device))
+                {
+                    b.Begin(SpriteFlags.AlphaBlend);
+                    font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
+                    font.DrawText(b, "FPS:" + fps, new Point(0, 30), Color.White);
+                    b.End();
+                }
+                device.EndScene();
+                device.Present();
+
+                if (Environment.TickCount >= timeStarted + 1000)
+                {
+                    fps = frames;
+                    frames = 0;
+                    timeStarted = Environment.TickCount;
+                }
+
+                frames++;
             }
-            using (Sprite b = new Sprite(device))
-            {
-                b.Begin(SpriteFlags.AlphaBlend);
-                font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
-                b.End();
-            }
-            device.EndScene();
-            device.Present();
+        }
+        
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    UpdateInput();
+        //    Render();
+        //}
+
+        private void StartThread()
+        {
+            thread = new Thread(new ThreadStart(Render));
+            thread.Start();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //Render();
+            StartThread();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            UpdateInput();
-            Render();
+            StopThread();
+        }
+
+        private void StopThread()
+        {
+            thread.Abort();
         }
     }
 }
