@@ -17,9 +17,11 @@ namespace WindowsFormsApplication1
         Microsoft.DirectX.Direct3D.Device device;
         Microsoft.DirectX.DirectInput.Device keyboard;
         Microsoft.DirectX.Direct3D.Texture texture, texture2;
+        Microsoft.DirectX.Direct3D.Font font;
         int x = 0;
         int y = 0;
-        Microsoft.DirectX.Direct3D.Font font;
+        private float rotation = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace WindowsFormsApplication1
                 1024, 1024, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
                 Color.Transparent.ToArgb());
             texture2 = TextureLoader.FromFile(device, @"..\..\Content\wiz2.png",
-                200, 200, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
+                260, 200, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
                 Color.Transparent.ToArgb());
         }
 
@@ -69,19 +71,27 @@ namespace WindowsFormsApplication1
             {
                 if (k == Key.D)
                 {
-                    x -= 5;
+                    x += 5;
                 }
                 if (k == Key.S)
                 {
-                    y -= 5;
+                    y += 5;
                 }
                 if (k == Key.A)
                 {
-                    x += 5;
+                    x -= 5;
                 }
                 if (k == Key.W)
                 {
-                    y += 5;
+                    y -= 5;
+                }
+                if (k == Key.Left)
+                {
+                    rotation -= 0.1f;
+                }
+                if (k == Key.Right)
+                {
+                    rotation += 0.1f;
                 }
             }
         }
@@ -98,15 +108,35 @@ namespace WindowsFormsApplication1
                     new Point(), 0f,
                     new Point(0, 0),
                     Color.White);
-                
-                s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
-                  new SizeF(),
-                  new Point(), 0f,
-                  new Point(0, 0),
-                  Color.White);
 
-                font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+                Matrix matrix = new Matrix();
+                matrix = Matrix.Transformation2D(
+                    new Vector2(0, 0), 0.0f,
+                    new Vector2(1.0f, 1.0f),
+                    new Vector2(x + 260, y + 200),
+                    rotation, new Vector2(0, 0));
+                s.Transform = matrix;
+
+                //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
+                //  new SizeF(),
+                //  new Point(), 0f,
+                //  new Point(0, 0),
+                //  Color.White);
+
+                s.Draw(texture2,
+                    new Rectangle(0, 0, 0, 0),
+                    new Vector3(0, 0, 0),
+                    new Vector3(x, y, 0),
+                    Color.White);
+
+                // font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
                 s.End();
+            }
+            using (Sprite b = new Sprite(device))
+            {
+                b.Begin(SpriteFlags.AlphaBlend);
+                font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
+                b.End();
             }
             device.EndScene();
             device.Present();
