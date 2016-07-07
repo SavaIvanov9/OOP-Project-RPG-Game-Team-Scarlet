@@ -26,6 +26,7 @@ namespace WindowsFormsApplication1
         int frames =0;
         private long timeStarted = Environment.TickCount;
         private Thread thread;
+        private float cameraX, cameraY, cameraZ;
 
         public Form1()
         {
@@ -36,13 +37,28 @@ namespace WindowsFormsApplication1
             LoadTexture();
         }
 
+        private void UpdateCamera()
+        {
+            cameraX = x;
+            cameraY = y;
+
+            device.Transform.Projection = Matrix.OrthoLH(
+                device.Viewport.Width,
+                device.Viewport.Height,
+                0.1f, 1000f);
+            device.Transform.View = Matrix.LookAtLH(
+                new Vector3(cameraX, cameraY, 50),
+                new Vector3(x, y, 0),
+                new Vector3(0, -1, 0));
+        }
+
         private void LoadTexture()
         {
             texture = TextureLoader.FromFile(device, @"..\..\Content\grass1.jpg",
                 1024, 1024, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
                 Color.Transparent.ToArgb());
             texture2 = TextureLoader.FromFile(device, @"..\..\Content\wiz2.png",
-                260, 200, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
+                169, 130, 1, 0, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.Point,
                 Color.Transparent.ToArgb());
         }
 
@@ -112,9 +128,9 @@ namespace WindowsFormsApplication1
                 using (Sprite s = new Sprite(device))
                 {
                     s.Begin(SpriteFlags.AlphaBlend);
-                    s.Draw2D(texture, new Rectangle(0, 0, device.Viewport.Width, device.Viewport.Height),
-                        new SizeF(),
-                        new Point(), 0f,
+                    s.Draw2D(texture, new Rectangle(0, 0, 0, 0),
+                        new SizeF(device.Viewport.Width, device.Viewport.Height),
+                        new Point(0, 0), 0f,
                         new Point(0, 0),
                         Color.White);
 
@@ -122,7 +138,7 @@ namespace WindowsFormsApplication1
                     matrix = Matrix.Transformation2D(
                         new Vector2(0, 0), 0.0f,
                         new Vector2(1.0f, 1.0f),
-                        new Vector2(x + 260, y + 200),
+                        new Vector2(x, y),
                         rotation, new Vector2(0, 0));
                     s.Transform = matrix;
 
@@ -138,14 +154,15 @@ namespace WindowsFormsApplication1
                         new Vector3(x, y, 0),
                         Color.White);
 
-                    // font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+                    //font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+                    UpdateCamera();
                     s.End();
                 }
                 using (Sprite b = new Sprite(device))
                 {
                     b.Begin(SpriteFlags.AlphaBlend);
                     font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
-                    font.DrawText(b, "FPS:" + fps, new Point(0, 30), Color.White);
+                    font.DrawText(b, "FPS: " + fps, new Point(0, 30), Color.White);
                     b.End();
                 }
                 device.EndScene();
