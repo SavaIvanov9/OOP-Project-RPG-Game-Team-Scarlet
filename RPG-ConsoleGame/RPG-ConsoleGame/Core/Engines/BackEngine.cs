@@ -44,7 +44,7 @@ namespace RPG_ConsoleGame.Core.Engines
         //char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
 
-        //Singleton patern
+        //Singleton pattern
         private static BackEngine instance;
 
         public static BackEngine Instance

@@ -35,7 +35,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        //Singleton patern
+        //Singleton pattern
         private static ViewEngine instance;
 
         public static ViewEngine Instance
@@ -61,7 +61,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 StringBuilder screen1 = new StringBuilder();
 
                 screen1.AppendLine(
-                    "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                    "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
                     "1. New Game" + Environment.NewLine + Environment.NewLine +
                     "2. Load Game" + Environment.NewLine + Environment.NewLine +
                     "3. Credits");
@@ -88,9 +88,9 @@ namespace RPG_ConsoleGame.Core.Engines
                     StringBuilder screen2 = new StringBuilder();
 
                     screen2.AppendLine(
-                        "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                        "Enter number to make your chaise:" + Environment.NewLine + Environment.NewLine +
                         "1. Single Player" + Environment.NewLine + Environment.NewLine +
-                        "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                        "2. Multi-player" + Environment.NewLine + Environment.NewLine +
                         "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
                         "4. Return Back");
 
@@ -143,7 +143,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 StringBuilder screen = new StringBuilder();
 
                 screen.AppendLine(
-                    "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                    "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
                     "1. Continue Game" + Environment.NewLine + Environment.NewLine +
                     "2. New Game" + Environment.NewLine + Environment.NewLine +
                     "3. Save Game" + Environment.NewLine + Environment.NewLine +
@@ -175,9 +175,9 @@ namespace RPG_ConsoleGame.Core.Engines
                     StringBuilder screen2 = new StringBuilder();
 
                     screen2.AppendLine(
-                        "Enter number to make your choise:" + Environment.NewLine + Environment.NewLine +
+                        "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
                         "1. Single Player" + Environment.NewLine + Environment.NewLine +
-                        "2. Multiplayer" + Environment.NewLine + Environment.NewLine +
+                        "2. Multi-player" + Environment.NewLine + Environment.NewLine +
                         "3. Survival Mode" + Environment.NewLine + Environment.NewLine +
                         "4. Return Back");
 
@@ -481,17 +481,17 @@ namespace RPG_ConsoleGame.Core.Engines
             StringBuilder screen = new StringBuilder();
             screen.AppendLine("Choose a race:" 
                 + Environment.NewLine);
-            screen.AppendLine("1. Mage (Health: 600, Damage: 100, Defence: 10, Energy: 100, Reflexes: 50)"
+            screen.AppendLine("1. Mage (Health: 600, Damage: 100, Defense: 10, Energy: 100, Reflexes: 50)"
                 + Environment.NewLine);
-            screen.AppendLine("2. Warrior (Health: 800, Damage: 50, Defence: 10, Energy: 100, Reflexes: 60)"
+            screen.AppendLine("2. Warrior (Health: 800, Damage: 50, Defense: 10, Energy: 100, Reflexes: 60)"
                 + Environment.NewLine);
-            screen.AppendLine("3. Archer (Health: 500, Damage: 100, Defence: 10, Energy: 100, Reflexes: 70)"
+            screen.AppendLine("3. Archer (Health: 500, Damage: 100, Defense: 10, Energy: 100, Reflexes: 70)"
                 + Environment.NewLine);
-            screen.AppendLine("4. Rogue (Health: 600, Damage: 90, Defence: 10, Energy: 100, Reflexes: 100)"
+            screen.AppendLine("4. Rogue (Health: 600, Damage: 90, Defense: 10, Energy: 100, Reflexes: 100)"
                 + Environment.NewLine);
-            screen.AppendLine("5. Paladin (Health: 800, Damage: 50, Defence: 10, Energy: 100, Reflexes: 60)"
+            screen.AppendLine("5. Paladin (Health: 800, Damage: 50, Defense: 10, Energy: 100, Reflexes: 60)"
                 + Environment.NewLine);
-            screen.AppendLine("6. Warlock (Health: 500, Damage: 100, Defence: 10, Energy: 100, Reflexes: 50)"
+            screen.AppendLine("6. Warlock (Health: 500, Damage: 100, Defense: 10, Energy: 100, Reflexes: 50)"
                 + Environment.NewLine);
 
             render.PrintScreen(screen);
