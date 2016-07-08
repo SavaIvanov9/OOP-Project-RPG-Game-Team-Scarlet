@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Exceptions
+﻿namespace WindowsFormsApplication1.Exceptions
 {
-    class ObjectOutOfBoundsException
+    using System;
+
+    public class ObjectOutOfBoundsException : Exception
     {
+        public ObjectOutOfBoundsException(string message)
+            : base(message)
+        {
+            //used in GameObject Position, but currently is commented there
+        }
     }
 }

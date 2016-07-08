@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Exceptions
+﻿namespace WindowsFormsApplication1.Exceptions
 {
-    class OutOfAmountException
+    using System;
+
+    public class OutOfAmount : Exception
     {
+        public OutOfAmount(string message)
+            : base(message)
+        {
+        }
     }
 }

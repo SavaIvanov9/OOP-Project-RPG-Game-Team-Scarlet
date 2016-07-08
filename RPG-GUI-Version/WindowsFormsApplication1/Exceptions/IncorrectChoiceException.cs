@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Exceptions
+﻿namespace WindowsFormsApplication1.Exceptions
 {
-    class IncorrectChoiceException
+    using System;
+
+    public class IncorrectChoiceException : Exception
     {
+        public IncorrectChoiceException(string message)
+            : base(message)
+        {
+        }
     }
 }

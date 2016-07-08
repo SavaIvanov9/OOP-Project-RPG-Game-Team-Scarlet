@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Exceptions
+﻿namespace WindowsFormsApplication1.Exceptions
 {
-    class NotExistingFileException
+    using System;
+
+    public class NotExistingFileException : Exception
     {
+        public NotExistingFileException(string message)
+            : base(message)
+        {
+        }
     }
 }
+
+
