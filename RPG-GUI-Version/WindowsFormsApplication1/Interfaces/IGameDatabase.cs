@@ -1,7 +1,5 @@
-﻿namespace RPG_ConsoleGame.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    using WindowsFormsApplication1.Interfaces;
-
     using System;
     using System.Collections.Generic;
 
