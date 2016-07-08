@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class ICreatureFactory
+    using Map;
+    using Models.Characters.PlayerControlled;
+
+    public interface ICreatureFactory
     {
+        ICreature CreateCreature(Position position, char objectSymbol, string name, PlayerRace race);
     }
 }

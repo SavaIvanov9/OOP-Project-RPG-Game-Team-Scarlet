@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IPlayerFactory
+    using Map;
+    using Models.Characters.PlayerControlled;
+
+    interface IPlayerFactory
     {
+        IPlayer CreatePlayer(Position position, char objectSymbol, string name, PlayerRace race);
     }
 }

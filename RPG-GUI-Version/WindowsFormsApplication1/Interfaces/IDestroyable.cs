@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IDestroyable
+    public interface IDestroyable
     {
+        int Health { get; set; }
     }
 }

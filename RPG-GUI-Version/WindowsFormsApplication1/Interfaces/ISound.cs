@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WindowsFormsApplication1.Sound;
 
 namespace WindowsFormsApplication1.Interfaces
 {
-    class ISound
+    public interface ISound
     {
+        void SFX(SoundEffects stage);
     }
 }

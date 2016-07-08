@@ -1,10 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Map
+﻿namespace WindowsFormsApplication1.Map
 {
-    class Position
+    using System;
+
+    [Serializable()]
+    public struct Position
     {
+        public Position(int x, int y)
+            : this()
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
     }
 }

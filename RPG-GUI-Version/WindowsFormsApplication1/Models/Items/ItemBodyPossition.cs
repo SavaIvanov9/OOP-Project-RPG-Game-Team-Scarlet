@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Models.Items
+﻿namespace WindowsFormsApplication1.Models.Items
 {
-    class ItemBodyPossition
+    public enum ItemBodyPossition
     {
+        Helmet,
+        Chest,
+        Hands,
+        Weapon,
+        Boots,
+        Inventory
     }
 }

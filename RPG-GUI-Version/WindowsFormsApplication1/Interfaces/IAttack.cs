@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IAttack
+    public interface IAttack
     {
+        int Damage { get; set; }
+
+        void Attack(ICharacter enemy);
     }
 }

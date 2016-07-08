@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IBot
+    public interface IBot : ICharacter
     {
+        string MakeDecision();
     }
 }

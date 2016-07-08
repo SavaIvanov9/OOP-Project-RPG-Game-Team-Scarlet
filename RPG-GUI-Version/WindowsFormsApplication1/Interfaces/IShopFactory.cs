@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IShopFactory
+    using Map;
+
+    public interface IShopFactory
     {
+        IShop CreateShop(Position position, char objectSymbol, string name);
     }
 }

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Models.Characters.PlayerControlled
+﻿namespace WindowsFormsApplication1.Models.Characters.PlayerControlled
 {
-    class PlayerRace
+    public enum PlayerRace
     {
+        Mage = 1,
+        Warrior = 2,
+        Archer = 3,
+        Rogue = 4,
+        Paladin = 5,
+        Warlock = 6
     }
 }

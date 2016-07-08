@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Sound
+﻿namespace WindowsFormsApplication1.Sound
 {
-    class SoundEffects
+    public enum SoundEffects
     {
+        DefaultTheme,
+        BattleStart,
+        BattleTheme,
+        BattleOver,
+        EnemyIsDestroyed,
+        BossIsDestroyed,
+        RecieveBonus,
+        GameOver
     }
 }

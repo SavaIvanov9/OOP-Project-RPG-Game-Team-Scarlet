@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IAbilitiesProcessor
+    public interface IAbilitiesProcessor
     {
+        void ProcessCommand(string command, ICharacter player, ICharacter enemy);
     }
 }

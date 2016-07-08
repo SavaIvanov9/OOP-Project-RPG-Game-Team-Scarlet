@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class ICollect
+    public interface ICollect
     {
+        //IEnumerable<Item> Inventory { get; }
+
+        //void AddItemToInventory(Item item);
     }
 }

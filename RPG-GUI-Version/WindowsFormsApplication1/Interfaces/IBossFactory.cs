@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Interfaces
+﻿namespace WindowsFormsApplication1.Interfaces
 {
-    class IBossFactory
+    using Map;
+    using Models.Characters.AI.Boss;
+                                   
+    public interface IBossFactory
     {
+        IBoss CreateBoss(Position position, char objectSymbol, string name, BossRace race);
     }
 }
