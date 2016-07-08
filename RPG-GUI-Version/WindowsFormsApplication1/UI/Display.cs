@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1
             {
                 if (k == Key.D)
                 {
-                    x += 5;
+                    x += 50;
                 }
                 if (k == Key.S)
                 {
