@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Core.Factories
+﻿namespace WindowsFormsApplication1.Core.Factories
 {
-    class CreatureFactory
+    using Interfaces;
+    using Map;
+    using Models.Characters.AI.Creature;
+    using Models.Characters.PlayerControlled;
+
+    //Factory Pattern
+    public class CreatureFactory : ICreatureFactory
     {
+        public ICreature CreateCreature(Position position, char objectSymbol, string name, PlayerRace race)
+        {
+            var creature = new Creature(position, objectSymbol, name, race);
+
+            return creature;
+        }
     }
 }

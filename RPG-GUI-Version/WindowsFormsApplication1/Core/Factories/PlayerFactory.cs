@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Core.Factories
+﻿namespace WindowsFormsApplication1.Core.Factories
 {
-    class PlayerFactory
+    using Interfaces;
+    using Map;
+    using Models.Characters.PlayerControlled;
+          
+    //Factory Pattern
+    public class PlayerFactory : IPlayerFactory
     {
+        public IPlayer CreatePlayer(Position position, char objectSymbol, string name, PlayerRace race)
+        {
+            var player = new Player(position, objectSymbol, name, race);
+
+            return player;
+        }
     }
 }

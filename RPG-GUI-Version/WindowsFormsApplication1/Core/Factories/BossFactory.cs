@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Core.Factories
+﻿namespace WindowsFormsApplication1.Core.Factories
 {
-    class BossFactory
+    using Interfaces;
+    using Map;
+    using Models.Characters.AI.Boss;
+
+    //Factory Pattern
+    public class BossFactory : IBossFactory
     {
+        public IBoss CreateBoss(Position position, char objectSymbol, string name, BossRace race)
+        {
+            var boss = new Boss(position, objectSymbol, name, race);
+
+            return boss;
+        }
     }
 }

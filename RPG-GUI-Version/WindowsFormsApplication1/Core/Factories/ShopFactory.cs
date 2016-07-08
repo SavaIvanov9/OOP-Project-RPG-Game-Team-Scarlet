@@ -1,10 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WindowsFormsApplication1.Core.Factories
+﻿namespace WindowsFormsApplication1.Core.Factories
 {
-    class ShopFactory
+    using Interfaces;
+    using Map;
+    using Models.Buildings;
+
+    //Factory Pattern
+    public class ShopFactory : IShopFactory
     {
+        public IShop CreateShop(Position position, char objectSymbol, string name)
+        {
+            Shop shop = new Shop(position, objectSymbol, name);
+
+            shop.PopulateShop();
+
+            return shop;
+        }
     }
 }
