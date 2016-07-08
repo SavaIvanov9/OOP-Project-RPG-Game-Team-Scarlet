@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Media;
-using System.Threading;
-using WindowsFormsApplication1.Interfaces;
-
-namespace WindowsFormsApplication1.Sound
+﻿namespace WindowsFormsApplication1.Sound
 {
+    using System;
+    using System.IO;
+    using System.Media;
+    using System.Threading;
+    using Interfaces;
+
     public class Sound : ISound
     {
         static int[,] musicSheet;

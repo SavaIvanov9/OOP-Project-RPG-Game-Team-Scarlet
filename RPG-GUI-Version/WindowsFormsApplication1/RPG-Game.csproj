@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Engines\BackEngine.cs" />
-    <Compile Include="Core\Engines\MainEngine.cs" />
+    <Compile Include="Core\Engines\CoreGameEngine.cs" />
     <Compile Include="Core\Engines\ViewEngine.cs" />
     <Compile Include="Core\Factories\BossFactory.cs" />
     <Compile Include="Core\Factories\CreatureFactory.cs" />
