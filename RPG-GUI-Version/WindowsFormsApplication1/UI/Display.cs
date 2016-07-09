@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Core.StateManager;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 using Microsoft.DirectX.DirectInput;
@@ -119,64 +120,68 @@ namespace WindowsFormsApplication1
 
         private void Render()
         {
-            while (true)
-            {
-                UpdateInput();
+            //StateManager.Instance.StartState(StateConstants.BeginGame);
+            StateManager.Instance.StartState(StateConstants.SinglePlayer);
 
-                device.Clear(ClearFlags.Target, Color.CornflowerBlue, 0, 1);
-                device.BeginScene();
-                using (Sprite s = new Sprite(device))
-                {
-                    s.Begin(SpriteFlags.AlphaBlend);
-                    s.Draw2D(texture, new Rectangle(0, 0, 0, 0),
-                        new SizeF(device.Viewport.Width, device.Viewport.Height),
-                        new Point(0, 0), 0f,
-                        new Point(0, 0),
-                        Color.White);
 
-                    Matrix matrix = new Matrix();
-                    matrix = Matrix.Transformation2D(
-                        new Vector2(0, 0), 0.0f,
-                        new Vector2(1.0f, 1.0f),
-                        new Vector2(x, y),
-                        rotation, new Vector2(0, 0));
-                    s.Transform = matrix;
+            //while (true)
+            //{
+            //    UpdateInput();
 
-                    //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
-                    //  new SizeF(),
-                    //  new Point(), 0f,
-                    //  new Point(0, 0),
-                    //  Color.White);
+            //    device.Clear(ClearFlags.Target, Color.CornflowerBlue, 0, 1);
+            //    device.BeginScene();
+            //    using (Sprite s = new Sprite(device))
+            //    {
+            //        s.Begin(SpriteFlags.AlphaBlend);
+            //        s.Draw2D(texture, new Rectangle(0, 0, 0, 0),
+            //            new SizeF(device.Viewport.Width, device.Viewport.Height),
+            //            new Point(0, 0), 0f,
+            //            new Point(0, 0),
+            //            Color.White);
 
-                    s.Draw(texture2,
-                        new Rectangle(0, 0, 0, 0),
-                        new Vector3(0, 0, 0),
-                        new Vector3(x, y, 0),
-                        Color.White);
+            //        Matrix matrix = new Matrix();
+            //        matrix = Matrix.Transformation2D(
+            //            new Vector2(0, 0), 0.0f,
+            //            new Vector2(1.0f, 1.0f),
+            //            new Vector2(x, y),
+            //            rotation, new Vector2(0, 0));
+            //        s.Transform = matrix;
 
-                    //font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
-                    UpdateCamera();
-                    s.End();
-                }
-                using (Sprite b = new Sprite(device))
-                {
-                    b.Begin(SpriteFlags.AlphaBlend);
-                    font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
-                    font.DrawText(b, "FPS: " + fps, new Point(0, 30), Color.White);
-                    b.End();
-                }
-                device.EndScene();
-                device.Present();
+            //        //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
+            //        //  new SizeF(),
+            //        //  new Point(), 0f,
+            //        //  new Point(0, 0),
+            //        //  Color.White);
 
-                if (Environment.TickCount >= timeStarted + 1000)
-                {
-                    fps = frames;
-                    frames = 0;
-                    timeStarted = Environment.TickCount;
-                }
+            //        s.Draw(texture2,
+            //            new Rectangle(0, 0, 0, 0),
+            //            new Vector3(0, 0, 0),
+            //            new Vector3(x, y, 0),
+            //            Color.White);
 
-                frames++;
-            }
+            //        //font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+            //        UpdateCamera();
+            //        s.End();
+            //    }
+            //    using (Sprite b = new Sprite(device))
+            //    {
+            //        b.Begin(SpriteFlags.AlphaBlend);
+            //        font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
+            //        font.DrawText(b, "FPS: " + fps, new Point(0, 30), Color.White);
+            //        b.End();
+            //    }
+            //    device.EndScene();
+            //    device.Present();
+
+            //    if (Environment.TickCount >= timeStarted + 1000)
+            //    {
+            //        fps = frames;
+            //        frames = 0;
+            //        timeStarted = Environment.TickCount;
+            //    }
+
+            //    frames++;
+            //}
         }
         
         //private void timer1_Tick(object sender, EventArgs e)

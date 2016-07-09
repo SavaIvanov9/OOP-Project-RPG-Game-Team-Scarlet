@@ -9,5 +9,17 @@
         //{
         //    return listToClone.Select(item => (T)item.Clone()).ToList();
         //}
+
+        public static bool Contains(string[] arr, string item)
+        {
+            foreach (string i in arr)
+            {
+                if (i.Equals(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

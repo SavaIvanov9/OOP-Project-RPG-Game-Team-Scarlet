@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using WindowsFormsApplication1.Core.StateManager;
 using WindowsFormsApplication1.Exceptions;
 using WindowsFormsApplication1.Interfaces;
@@ -70,7 +72,7 @@ namespace WindowsFormsApplication1.Core.Engines
 
                 string[] validChoises = { "1", "2", "3" };
 
-                while (!validChoises.Contains(choice))
+                while (!((IList) validChoises).Contains(choice))
                 {
                     render.WriteLine("Invalid choice, please re-enter.");
                     choice = reader.ReadLine();
@@ -95,7 +97,7 @@ namespace WindowsFormsApplication1.Core.Engines
 
                     string[] validChoises2 = { "1", "2", "3", "4" };
 
-                    while (!validChoises2.Contains(choice))
+                    while (!((IList) validChoises2).Contains(choice))
                     {
                         render.WriteLine("Invalid choice, please re-enter.");
                         choice = reader.ReadLine();
@@ -153,7 +155,7 @@ namespace WindowsFormsApplication1.Core.Engines
 
                 string[] validChoises = { "1", "2", "3", "4", "5" };
 
-                while (!validChoises.Contains(choice))
+                while (!((IList) validChoises).Contains(choice))
                 {
                     render.WriteLine("Invalid choice, please re-enter.");
                     choice = reader.ReadLine();
@@ -182,7 +184,7 @@ namespace WindowsFormsApplication1.Core.Engines
 
                     string[] validChoises2 = { "1", "2", "3", "4" };
 
-                    while (!validChoises2.Contains(choice))
+                    while (!((IList) validChoises2).Contains(choice))
                     {
                         render.WriteLine("Invalid choice, please re-enter.");
                         choice = reader.ReadLine();
@@ -496,7 +498,7 @@ namespace WindowsFormsApplication1.Core.Engines
 
             string[] validChoises = { "1", "2", "3", "4", "5", "6" };
 
-            while (!validChoises.Contains(choice))
+            while (!((IList) validChoises).Contains(choice))
             {
                 render.WriteLine("Invalid choice of race, please re-enter.");
                 choice = reader.ReadLine();
@@ -519,7 +521,7 @@ namespace WindowsFormsApplication1.Core.Engines
             //    playerName = reader.ReadLine();
             //}
 
-            if (string.IsNullOrWhiteSpace(playerName))
+            if (string.IsNullOrEmpty(playerName))
             {
                 throw new IncorrectNameException("Player name cannot be empty. Please re-enter.");
             }
@@ -627,7 +629,7 @@ namespace WindowsFormsApplication1.Core.Engines
             string choice = reader.ReadLine();
 
             string[] validChoises = { "1", "2", "3", "4", "5", "6" };
-            while (!validChoises.Contains(choice))
+            while (!((IList) validChoises).Contains(choice))
             {
                 render.WriteLine("Invalid choice, please re-enter.");
                 choice = reader.ReadLine();
@@ -711,5 +713,6 @@ namespace WindowsFormsApplication1.Core.Engines
         {
             render.WriteLine(message);
         }
-    }
+       
+}
 }

@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApplication1.Core.Engines
+﻿using System.Windows.Forms;
+
+namespace WindowsFormsApplication1.Core.Engines
 {
     using System;
     using StateManager;
@@ -29,9 +31,12 @@
 
         public void Run()
         {
-            AdjustSettings();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Display());
+            //AdjustSettings();
 
-            StateManager.Instance.StartState(StateConstants.BeginGame);
+            //StateManager.Instance.StartState(StateConstants.BeginGame);
         }
 
         private void AdjustSettings()

@@ -79,7 +79,7 @@
 
             //For testing purposes 
             //**********************************************************************************
-            database.Players[0].Health += 1000000;
+            database.Players[0].Health += 100000;
             //**********************************************************************************
 
             this.IsRunning = true;
@@ -787,7 +787,7 @@
             history.AppendLine($"{turn}. {player.Name} used ability {ability}");
         }
 
-        private void RemoveDead()
+        void RemoveDead()
         {
             for (int index = 0; index < database.Creatures.Count; index++)
             {

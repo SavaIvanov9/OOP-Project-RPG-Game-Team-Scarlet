@@ -12,6 +12,8 @@
 
         private int currentRow = 1;
         private int currentCol = 1;
+        private bool insideBuilding = false;
+        private char inBuildingSymbol;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
@@ -228,71 +230,211 @@
 
         private void MoveLeft(char[,] map)
         {
-            if ((map[currentRow, currentCol - 1] != '.') &&
-                            (map[currentRow, currentCol - 1] != 'w'))
+            if (insideBuilding)
             {
-                char previousPosition = 'P';
+                if ((map[currentRow, currentCol - 1] != '.') &&
+                          (map[currentRow, currentCol - 1] != 'w'))
+                {
+                    char previousPosition = 'P';
 
-                map[currentRow, currentCol] = ' ';
+                    map[currentRow, currentCol] = inBuildingSymbol;
+                    this.insideBuilding = false;
 
-                map[currentRow, currentCol - 1] = previousPosition;
-                currentCol--;
+                    map[currentRow, currentCol - 1] = previousPosition;
+                    currentCol--;
 
-                position.X = currentRow;
-                position.Y = currentCol;
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
             }
+            else
+            {
+                if ((map[currentRow, currentCol - 1] != '.') &&
+                          (map[currentRow, currentCol - 1] != 'w'))
+                {
+                    char previousPosition = 'P';
+
+                    if (map[currentRow, currentCol - 1] == 'S')
+                    {
+                        this.inBuildingSymbol = 'S';
+                        this.insideBuilding = true;
+                    }
+                    else if (map[currentRow, currentCol - 1] == 'F')
+                    {
+                        this.inBuildingSymbol = 'F';
+                        this.insideBuilding = true;
+                    }
+
+                    map[currentRow, currentCol] = ' ';
+
+                    map[currentRow, currentCol - 1] = previousPosition;
+                    currentCol--;
+
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
+            }
+
         }
 
         private void MoveRight(char[,] map)
         {
-            if ((map[currentRow, currentCol + 1] != '.') &&
-                            (map[currentRow, currentCol + 1] != 'w'))
+            if (insideBuilding)
             {
-                char previousPosition = 'P';
+                if ((map[currentRow, currentCol + 1] != '.') &&
+                           (map[currentRow, currentCol + 1] != 'w'))
+                {
+                    char previousPosition = 'P';
 
-                map[currentRow, currentCol] = ' ';
+                    map[currentRow, currentCol] = inBuildingSymbol;
+                    this.insideBuilding = false;
 
-                map[currentRow, currentCol + 1] = previousPosition;
-                currentCol++;
+                    map[currentRow, currentCol + 1] = previousPosition;
+                    currentCol++;
 
-                position.X = currentRow;
-                position.Y = currentCol;
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
             }
+            else
+            {
+                if ((map[currentRow, currentCol + 1] != '.') &&
+                           (map[currentRow, currentCol + 1] != 'w'))
+                {
+                    char previousPosition = 'P';
+
+                    if (map[currentRow, currentCol + 1] == 'S')
+                    {
+                        this.inBuildingSymbol = 'S';
+                        this.insideBuilding = true;
+                    }
+                    else if (map[currentRow, currentCol + 1] == 'F')
+                    {
+                        this.inBuildingSymbol = 'F';
+                        this.insideBuilding = true;
+                    }
+
+                    map[currentRow, currentCol] = ' ';
+
+                    map[currentRow, currentCol + 1] = previousPosition;
+                    currentCol++;
+
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
+            }
+
         }
 
         private void MoveUp(char[,] map)
         {
-            if ((map[currentRow - 1, currentCol] != 'w') &&
-                            ((currentRow - 1) > 0))
+            if (insideBuilding)
             {
-                char previousPosition = 'P';
+                if ((map[currentRow - 1, currentCol] != 'w') &&
+                            ((currentRow - 1) > 0))
+                {
+                    char previousPosition = 'P';
 
-                map[currentRow, currentCol] = ' ';
+                    map[currentRow, currentCol] = inBuildingSymbol;
+                    this.insideBuilding = false;
 
-                map[currentRow - 1, currentCol] = previousPosition;
-                currentRow--;
+                    map[currentRow - 1, currentCol] = previousPosition;
+                    currentRow--;
 
-                position.X = currentRow;
-                position.Y = currentCol;
-                //Position = new Position(CurrentRow, currentCol);
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                    //Position = new Position(CurrentRow, currentCol);
+                }
             }
+            else
+            {
+                if ((map[currentRow - 1, currentCol] != 'w') &&
+                            ((currentRow - 1) > 0))
+                {
+                    char previousPosition = 'P';
+
+                    if (map[currentRow - 1, currentCol] == 'S')
+                    {
+                        this.inBuildingSymbol = 'S';
+                        this.insideBuilding = true;
+                    }
+                    else if (map[currentRow - 1, currentCol] == 'F')
+                    {
+                        this.inBuildingSymbol = 'F';
+                        this.insideBuilding = true;
+                    }
+
+                    map[currentRow, currentCol] = ' ';
+
+                    map[currentRow - 1, currentCol] = previousPosition;
+                    currentRow--;
+
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                    //Position = new Position(CurrentRow, currentCol);
+                }
+            }
+
         }
 
         private void MoveDown(char[,] map)
         {
-            if ((map[currentRow + 1, currentCol] != 'w') &&
-                            map[currentRow + 1, currentCol] != '.')
+            if (insideBuilding)
             {
-                char previousPosition = 'P';
+                if ((map[currentRow + 1, currentCol] != 'w') &&
+                            map[currentRow + 1, currentCol] != '.')
+                {
+                    char previousPosition = 'P';
 
-                map[currentRow, currentCol] = ' ';
+                    map[currentRow, currentCol] = inBuildingSymbol;
+                    this.insideBuilding = false;
+                    map[currentRow + 1, currentCol] = previousPosition;
+                    currentRow++;
 
-                map[currentRow + 1, currentCol] = previousPosition;
-                currentRow++;
-
-                position.X = currentRow;
-                position.Y = currentCol;
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
             }
+            else
+            {
+                if ((map[currentRow + 1, currentCol] != 'w') &&
+                            map[currentRow + 1, currentCol] != '.')
+                {
+                    char previousPosition = 'P';
+
+                    if (map[currentRow + 1, currentCol] == 'S')
+                    {
+                        this.inBuildingSymbol = 'S';
+                        this.insideBuilding = true;
+                    }
+                    else if (map[currentRow + 1, currentCol] == 'F')
+                    {
+                        this.inBuildingSymbol = 'F';
+                        this.insideBuilding = true;
+                    }
+
+                    map[currentRow, currentCol] = ' ';
+
+                    map[currentRow + 1, currentCol] = previousPosition;
+                    currentRow++;
+
+                    position.X = currentRow;
+                    position.Y = currentCol;
+                }
+            }
+            //if ((map[currentRow + 1, currentCol] != 'w') &&
+            //                map[currentRow + 1, currentCol] != '.')
+            //{
+            //    char previousPosition = 'P';
+
+            //    map[currentRow, currentCol] = ' ';
+
+            //    map[currentRow + 1, currentCol] = previousPosition;
+            //    currentRow++;
+
+            //    position.X = currentRow;
+            //    position.Y = currentCol;
+            //}
         }
 
         private void ItemsStatsToPlayerStat()

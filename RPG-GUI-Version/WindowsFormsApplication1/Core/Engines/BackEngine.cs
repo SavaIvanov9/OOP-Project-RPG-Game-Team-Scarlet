@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using WindowsFormsApplication1.Core.Factories;
 using WindowsFormsApplication1.Exceptions;
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
+using Microsoft.DirectX.DirectInput;
+
 namespace WindowsFormsApplication1.Core.Engines
 {
     using Interfaces;
@@ -37,10 +44,27 @@ namespace WindowsFormsApplication1.Core.Engines
 
         public bool IsRunning { get; private set; }
 
+        Microsoft.DirectX.Direct3D.Device device;
+        Microsoft.DirectX.DirectInput.Device keyboard;
+        Microsoft.DirectX.Direct3D.Texture texture, texture2;
+        Microsoft.DirectX.Direct3D.Font font;
+        int x = 0;
+        int y = 0;
+        float rotation = 0;
+        int fps = 0;
+        int frames = 0;
+        private long timeStarted = Environment.TickCount;
+        private Thread thread;
+        private float cameraX, cameraY, cameraZ;
+
         //static Map mapMatrix = new Map();
 
         //char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
 
+        //private BackEngine 
+        //{
+            
+        //}
 
         //Singleton pattern
         private static BackEngine instance;
@@ -60,62 +84,121 @@ namespace WindowsFormsApplication1.Core.Engines
 
         public void StartSinglePlayer()
         {
-            //database.ClearData();
-
-            //beshe if bez eksepshyna
-            while (database.Players.Count == 0)
+            while (true)
             {
-                try
+                UpdateInput();
+
+                device.Clear(ClearFlags.Target, Color.CornflowerBlue, 0, 1);
+                device.BeginScene();
+                using (Sprite s = new Sprite(device))
                 {
-                    database.Players.Add(ViewEngine.Instance.GetPlayer());
-                    database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-                    PopulateMap(database.Maps[0]);
+                    s.Begin(SpriteFlags.AlphaBlend);
+                    s.Draw2D(texture, new Rectangle(0, 0, 0, 0),
+                        new SizeF(device.Viewport.Width, device.Viewport.Height),
+                        new Point(0, 0), 0f,
+                        new Point(0, 0),
+                        Color.White);
+
+                    Matrix matrix = new Matrix();
+                    matrix = Matrix.Transformation2D(
+                        new Vector2(0, 0), 0.0f,
+                        new Vector2(1.0f, 1.0f),
+                        new Vector2(x, y),
+                        rotation, new Vector2(0, 0));
+                    s.Transform = matrix;
+
+                    //s.Draw2D(texture2, new Rectangle(x, y, device.Viewport.Width, device.Viewport.Height),
+                    //  new SizeF(),
+                    //  new Point(), 0f,
+                    //  new Point(0, 0),
+                    //  Color.White);
+
+                    s.Draw(texture2,
+                        new Rectangle(0, 0, 0, 0),
+                        new Vector3(0, 0, 0),
+                        new Vector3(x, y, 0),
+                        Color.White);
+
+                    //font.DrawText(s, "Best game ever", new Point(0, 0), Color.White);
+                    UpdateCamera();
+                    s.End();
                 }
-                catch (IncorrectNameException exception)
+                using (Sprite b = new Sprite(device))
                 {
-                    render.WriteLine(exception.Message + Environment.NewLine);
-                    //database.Players.Add(ViewEngine.Instance.GetPlayer());
+                    b.Begin(SpriteFlags.AlphaBlend);
+                    font.DrawText(b, "Best game ever", new Point(0, 0), Color.White);
+                    font.DrawText(b, "FPS: " + fps, new Point(0, 30), Color.White);
+                    b.End();
                 }
+                device.EndScene();
+                device.Present();
+
+                if (Environment.TickCount >= timeStarted + 1000)
+                {
+                    fps = frames;
+                    frames = 0;
+                    timeStarted = Environment.TickCount;
+                }
+
+                frames++;
             }
 
-            //For testing purposes 
-            //**********************************************************************************
-            database.Players[0].Health += 1000000;
-            //**********************************************************************************
+            ////database.ClearData();
 
-            this.IsRunning = true;
+            ////beshe if bez eksepshyna
+            //while (database.Players.Count == 0)
+            //{
+            //    try
+            //    {
+            //        database.Players.Add(ViewEngine.Instance.GetPlayer());
+            //        database.AddMap(new Map().ReadMap("../../../Map1.txt"));
+            //        PopulateMap(database.Maps[0]);
+            //    }
+            //    catch (IncorrectNameException exception)
+            //    {
+            //        render.WriteLine(exception.Message + Environment.NewLine);
+            //        //database.Players.Add(ViewEngine.Instance.GetPlayer());
+            //    }
+            //}
 
-            render.Clear();
+            ////For testing purposes 
+            ////**********************************************************************************
+            //database.Players[0].Health += 1000000;
+            ////**********************************************************************************
 
-            ViewEngine.Instance.RenderMap(database.Maps[0]);
-            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+            //this.IsRunning = true;
 
-            while (this.IsRunning)
-            {
-                if (Console.KeyAvailable)
-                {
-                    render.Clear();
-                    string command = reader.ReadKey();
-                    ReturnBack(command);
-                    SaveGame(command);
+            //render.Clear();
 
-                    database.Players[0].Move(database.Maps[0], command);
+            //ViewEngine.Instance.RenderMap(database.Maps[0]);
+            //ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
 
-                    ViewEngine.Instance.RenderMap(database.Maps[0]);
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+            //while (this.IsRunning)
+            //{
+            //    if (Console.KeyAvailable)
+            //    {
+            //        render.Clear();
+            //        string command = reader.ReadKey();
+            //        ReturnBack(command);
+            //        SaveGame(command);
 
-                    if (CheckForEnemies("Bot"))
-                    {
-                        CheckForBattle(database.Players[0], "Bot");
-                    }
-                    if (CheckForEnemies("Boss"))
-                    {
-                        CheckForBattle(database.Players[0], "Boss");
-                    }
+            //        database.Players[0].Move(database.Maps[0], command);
 
-                    RemoveDead();
-                }
-            }
+            //        ViewEngine.Instance.RenderMap(database.Maps[0]);
+            //        ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+
+            //        if (CheckForEnemies("Bot"))
+            //        {
+            //            CheckForBattle(database.Players[0], "Bot");
+            //        }
+            //        if (CheckForEnemies("Boss"))
+            //        {
+            //            CheckForBattle(database.Players[0], "Boss");
+            //        }
+
+            //        RemoveDead();
+            //    }
+            //}
         }
 
         //StartMultiPlayer
@@ -903,5 +986,74 @@ namespace WindowsFormsApplication1.Core.Engines
             database.ClearData();
             StartSinglePlayer();
         }
+
+        //DISP**************************************
+        private void UpdateInput()
+        {
+            foreach (Key k in keyboard.GetPressedKeys())
+            {
+                if (k == Key.D)
+                {
+                    x += 5;
+                }
+                if (k == Key.S)
+                {
+                    y += 5;
+                }
+                if (k == Key.A)
+                {
+                    x -= 5;
+                }
+                if (k == Key.W)
+                {
+                    y -= 5;
+                }
+                if (k == Key.Left)
+                {
+                    rotation -= 0.1f;
+                }
+                if (k == Key.Right)
+                {
+                    rotation += 0.1f;
+                }
+            }
+        }
+
+        //private void StartThread()
+        //{
+        //    thread = new Thread(new ThreadStart(Render));
+        //    thread.Start();
+        //}
+
+        //private void Form1_Paint(object sender, PaintEventArgs e)
+        //{
+        //    StartThread();
+        //}
+
+        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    StopThread();
+        //}
+
+        //private void StopThread()
+        //{
+        //    thread.Abort();
+        //}
+
+        private void UpdateCamera()
+        {
+            cameraX = x;
+            cameraY = y;
+
+            device.Transform.Projection = Matrix.OrthoLH(
+                device.Viewport.Width,
+                device.Viewport.Height,
+                0.1f, 1000f);
+            device.Transform.View = Matrix.LookAtLH(
+                new Vector3(cameraX, cameraY, 50),
+                new Vector3(x, y, 0),
+                new Vector3(0, -1, 0));
+        }
     }
 }
+
