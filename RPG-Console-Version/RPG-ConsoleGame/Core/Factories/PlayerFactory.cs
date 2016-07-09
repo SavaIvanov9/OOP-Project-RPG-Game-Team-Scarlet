@@ -1,4 +1,4 @@
-﻿using RPG_ConsoleGame.Models.Characters.Players;
+﻿using RPG_ConsoleGame.Models.Characters.PlayerControlled;
 
 namespace RPG_ConsoleGame.Core.Factories
 {

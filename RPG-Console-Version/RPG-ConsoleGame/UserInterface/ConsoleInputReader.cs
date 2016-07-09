@@ -43,6 +43,10 @@
             {
                 input = "save";
             }
+            if (keyPressed.Key == ConsoleKey.I)
+            {
+                input = "inventory";
+            }
 
             return input;
         }

@@ -1,11 +1,10 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Players
+﻿namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
     using System;
-    using Map;
-    using Interfaces;
-    using Items;
     using RPG_ConsoleGame.Characters;
-    using RPG_ConsoleGame.Items;
+    using Interfaces;
+    using Map;
+    using Items;
 
     [Serializable()]
     public class Player : Character, IPlayer
@@ -24,7 +23,7 @@
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-
+            
         }
 
         public int CurrentCol { get; set; }

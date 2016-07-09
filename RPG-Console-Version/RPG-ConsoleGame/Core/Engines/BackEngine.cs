@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core.Engines
+﻿using RPG_ConsoleGame.Models.Items;
+
+namespace RPG_ConsoleGame.Core.Engines
 {
     using Characters;
     using Factories;
@@ -88,6 +90,9 @@
 
             ViewEngine.Instance.RenderMap(database.Maps[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+            ViewEngine.Instance.DisplayMapDescription();
+
+            //database.Players[0].Inventory.Add();
 
             while (this.IsRunning)
             {
@@ -97,11 +102,13 @@
                     string command = reader.ReadKey();
                     ReturnBack(command);
                     SaveGame(command);
+                    OpenInventory(command, database.Players[0]);
 
                     database.Players[0].Move(database.Maps[0], command);
 
                     ViewEngine.Instance.RenderMap(database.Maps[0]);
                     ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+                    ViewEngine.Instance.DisplayMapDescription();
 
                     if (CheckForEnemies("Bot"))
                     {
@@ -319,7 +326,6 @@
             }
         }
 
-
         private void PopulateMap(char[,] map)
         {
             Random random = new Random();
@@ -433,7 +439,7 @@
                                 playerOnTurn = 2;
                             }
                         }
-                        
+
                         while (isInBattle)
                         {
                             ViewEngine.Instance.RenderBattleStats(char1, char2, history);
@@ -830,6 +836,14 @@
             }
         }
 
+        private void OpenInventory(string command, ICharacter player)
+        {
+            if (command == "inventory")
+            {
+                ViewEngine.Instance.RenderInventory(player);
+            }
+        }
+
         private void SaveData(IGameDatabase data, string slot)
         {
             FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{slot}.xml", FileMode.Create);
@@ -852,7 +866,6 @@
                 fs.Close();
             }
         }
-
 
         public void LoadGame()
         {

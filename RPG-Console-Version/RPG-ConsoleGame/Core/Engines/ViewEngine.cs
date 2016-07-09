@@ -1,4 +1,7 @@
-﻿namespace RPG_ConsoleGame.Core.Engines
+﻿using System.Collections.Generic;
+using RPG_ConsoleGame.Models.Characters.PlayerControlled;
+
+namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;
@@ -12,8 +15,6 @@
     using System.Runtime.Serialization.Formatters.Binary;
     using StateManager;
     using Exceptions;
-    using Models.Characters.Players;
-
 
     public delegate void OnMenuClickHandler(string selectedValue);
 
@@ -224,7 +225,7 @@
                 OnClick(choice);
             }
         }
-        
+
         public string ChooseSavedGameSlot()
         {
             render.Clear();
@@ -320,8 +321,8 @@
             screen.Append(history);
             render.PrintScreen(screen);
         }
-        
-        public void RenderBattleStatsMultiPlayer(ICharacter char1, ICharacter char2, 
+
+        public void RenderBattleStatsMultiPlayer(ICharacter char1, ICharacter char2,
             StringBuilder history, int playerOnTurn)
         {
             render.Clear();
@@ -463,7 +464,7 @@
 
             return newPlayer;
         }
-        
+
         private string GetPlayerNameInMulti(int number)
         {
             StringBuilder screen = new StringBuilder();
@@ -478,7 +479,7 @@
         private PlayerRace GetPlayerRace()
         {
             StringBuilder screen = new StringBuilder();
-            screen.AppendLine("Choose a race:" 
+            screen.AppendLine("Choose a race:"
                 + Environment.NewLine);
             screen.AppendLine("1. Mage (Health: 600, Damage: 100, Defense: 10, Energy: 100, Reflexes: 50)"
                 + Environment.NewLine);
@@ -544,7 +545,7 @@
             render.PrintScreen(screen);
             StartTimer(5);
         }
-        
+
         public void RenderWarningScreen(ConsoleColor color, StringBuilder message1, int time, StringBuilder message2 = null)
         {
             render.Clear();
@@ -703,8 +704,6 @@
                     render.WriteLine("Invalid choice, please re-enter." + Environment.NewLine);
                     choice = reader.ReadLine();
                 }
-
-
             }
 
             return choice;
@@ -713,6 +712,69 @@
         public void DisplayMessage(string message)
         {
             render.WriteLine(message);
+        }
+
+        public void DisplayMapDescription()
+        {
+            StringBuilder screen = new StringBuilder();
+
+            screen.AppendLine(Environment.NewLine +
+                              "P - Player" + Environment.NewLine +
+                              "E - Enemy" + Environment.NewLine +
+                              "B - Boss" + Environment.NewLine +
+                              "S - Shop" + Environment.NewLine +
+                              "W - Wall" + Environment.NewLine +
+                              "F - Regeneration Fountain" + Environment.NewLine +
+                              @"Press ""ESC"" key to return to the menu" + Environment.NewLine +
+                              @"Press ""I"" key to open the inventory" + Environment.NewLine);
+
+            render.PrintScreen(screen);
+        }
+
+        public void RenderInventory(ICharacter character)
+        {
+            render.Clear();
+
+            StringBuilder screen = new StringBuilder();
+
+            screen.AppendLine("Inventory: ");
+
+            for (int i = 0; i < character.Inventory.Count; i++)
+            {
+                screen.AppendLine($"Item {i}: " + character.Inventory[i]);
+            }
+
+            screen.AppendLine(Environment.NewLine + "Choose number to use item"
+                + Environment.NewLine + Environment.NewLine + "0. Return back");
+
+            render.PrintScreen(screen);
+
+            string choice = reader.ReadLine();
+
+            List<string> validChoises = new List<string> { "0" };
+
+            if (character.Inventory.Count > 0)
+            {
+                for (int i = 0; i <= character.Inventory.Count; i++)
+                {
+                    validChoises.Add((i + 1).ToString());
+                }
+            }
+
+            while (!validChoises.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            if (choice == "0")
+            {
+                StateManager.Instance.StartState(StateConstants.SinglePlayer);
+            }
+            else
+            {
+
+            }
         }
     }
 }

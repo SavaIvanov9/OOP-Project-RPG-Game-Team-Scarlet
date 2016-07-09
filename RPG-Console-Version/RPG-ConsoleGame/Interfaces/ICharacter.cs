@@ -1,5 +1,6 @@
 ﻿namespace RPG_ConsoleGame.Interfaces
 {
+    using Models.Items;
     using System.Collections.Generic;
     using Map;
 
@@ -12,6 +13,7 @@
         int Energy { get; set; }
         int Reflexes { get; set; }
         IList<string> Abilities { get; set; }
+        IList<Item> Inventory { get; set; }
         Position Position { get; set; }
     }
 }
