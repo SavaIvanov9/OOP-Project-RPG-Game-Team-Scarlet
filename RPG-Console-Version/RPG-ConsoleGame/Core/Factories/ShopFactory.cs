@@ -9,10 +9,8 @@
     {
         public IShop CreateShop(Position position, char objectSymbol, string name)
         {
-            Shop shop = new Shop(position, objectSymbol, name);
-
-            shop.PopulateShop();
-
+            var shop = new Shop(position, objectSymbol, name);
+            
             return shop;
         }
     }

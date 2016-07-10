@@ -22,7 +22,7 @@
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-
+            
         }
 
         public int CurrentCol { get; set; }

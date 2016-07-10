@@ -1,11 +1,11 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Bots.Creature
+﻿namespace RPG_ConsoleGame.Models.Characters.AI.Creature
 {
     using System;
-    using Interfaces;
     using RPG_ConsoleGame.Characters;
-    using Models.Items;
+    using Interfaces;
     using Map;
-
+    using Items;
+                          
     [Serializable()]
     public class Creature: Bot, ICreature
     {

@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IBoss.cs" />
     <Compile Include="Interfaces\IBossFactory.cs" />
     <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\IBuilding.cs" />
     <Compile Include="Interfaces\IConsumable.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IItemFactory.cs" />

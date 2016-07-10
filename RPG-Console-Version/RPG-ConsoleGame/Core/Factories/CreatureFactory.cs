@@ -1,9 +1,10 @@
-﻿namespace RPG_ConsoleGame.Core.Factories
+﻿using RPG_ConsoleGame.Models.Characters.AI.Creature;
+
+namespace RPG_ConsoleGame.Core.Factories
 {
     using Characters;
     using Interfaces;
     using Map;
-    using Models.Characters.Bots.Creature;
 
     //Factory Pattern
     public class CreatureFactory : ICreatureFactory

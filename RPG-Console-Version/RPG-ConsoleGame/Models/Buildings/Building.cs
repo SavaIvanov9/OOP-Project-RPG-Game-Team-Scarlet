@@ -1,11 +1,14 @@
-﻿namespace RPG_ConsoleGame.Models.Buildings
+﻿using RPG_ConsoleGame.Exceptions;
+
+namespace RPG_ConsoleGame.Models.Buildings
 {
     using System;
     using Map;
     using RPG_ConsoleGame.Items;
-
+    using Interfaces;
+    
     [Serializable()]
-    public abstract class Building : GameObject
+    public abstract class Building : GameObject, IBuilding
     {
         private string name;
 
@@ -25,7 +28,7 @@
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("name", "Name cannot be null, empty or whitespace.");
+                    throw new IncorrectNameException("Name cannot be null, empty or whitespace.");
                 }
 
                 this.name = value;

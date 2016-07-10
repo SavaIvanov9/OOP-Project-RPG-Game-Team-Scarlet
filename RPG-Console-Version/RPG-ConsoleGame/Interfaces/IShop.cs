@@ -4,18 +4,20 @@
     using Map;
     using Models.Items;
 
-    public interface IShop
+    public interface IShop : IBuilding
     {
-        IList<Item> Helmets { get; set; }
-        IList<Item> Chest { get; set; }
-        IList<Item> Hands { get; set; }
-        IList<Item> Weapons { get; set; }
-        IList<Item> Boots { get; set; }
-        IList<Item> Inventory { get; set; }
+        IList<IItem> Helmets { get; set; }
+        IList<IItem> Chests { get; set; }
+        IList<IItem> Hands { get; set; }
+        IList<IItem> Weapons { get; set; }
+        IList<IItem> Boots { get; set; }
+        IList<IItem> Potions { get; set; }
+        IList<IItem> Scrolls { get; set; }
+        IList<IItem> Bags { get; set; }
 
         Position Position { get; set; }
-        void AddItem(ICharacter player, string itemType);
-        void RemoveItem(ICharacter player, string itemType);
+        void TransferItemToCharacter(ICharacter character, ItemType type, int level);
+        void TransferItemToShop(ICharacter character, int index);
         void PopulateShop();
     }
 }

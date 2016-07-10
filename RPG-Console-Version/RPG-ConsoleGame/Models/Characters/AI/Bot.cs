@@ -1,4 +1,4 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Bots
+﻿namespace RPG_ConsoleGame.Models.Characters.AI
 {
     using System;
     using RPG_ConsoleGame.Characters;

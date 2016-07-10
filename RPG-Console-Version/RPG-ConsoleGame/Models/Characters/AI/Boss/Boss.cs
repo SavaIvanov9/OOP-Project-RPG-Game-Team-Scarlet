@@ -1,4 +1,6 @@
 ﻿
+using RPG_ConsoleGame.Models.Characters.AI;
+
 namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
 {
     using System;
