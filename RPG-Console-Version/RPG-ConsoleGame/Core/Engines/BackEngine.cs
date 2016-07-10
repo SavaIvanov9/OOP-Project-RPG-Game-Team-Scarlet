@@ -91,7 +91,7 @@ namespace RPG_ConsoleGame.Core.Engines
             ViewEngine.Instance.RenderMap(database.Maps[0]);
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
             ViewEngine.Instance.DisplayMapDescription();
-
+            
             //database.Players[0].Inventory.Add();
 
             while (this.IsRunning)

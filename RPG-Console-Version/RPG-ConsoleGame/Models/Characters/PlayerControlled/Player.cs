@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
+﻿using RPG_ConsoleGame.Exceptions;
+
+namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
     using System;
     using RPG_ConsoleGame.Characters;
@@ -85,7 +87,7 @@
 
         public void SetBodyItems(Item item)
         {
-            switch (item.itemposition)
+            switch (item)
             {
                 case ItemBodyPossition.Helmet:
                     ///Adding the item to helmet possition
@@ -226,7 +228,7 @@
                     break;
 
                 default:
-                    throw new ArgumentException("Unknown player race.");
+                    throw new IncorrectRaceException("Invalid character race.");
             }
         }
 

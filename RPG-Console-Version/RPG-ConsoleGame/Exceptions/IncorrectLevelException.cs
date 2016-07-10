@@ -2,9 +2,9 @@
 {
     using System;
 
-    public class OutOfAmount : Exception
+    public class IncorrectLevelException : Exception
     {
-        public OutOfAmount(string message)
+        public IncorrectLevelException(string message)
             : base(message)
         {
         }

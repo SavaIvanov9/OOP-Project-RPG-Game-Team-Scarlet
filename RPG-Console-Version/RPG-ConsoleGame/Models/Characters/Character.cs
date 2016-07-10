@@ -13,7 +13,7 @@
         private string name;
         private int health;
         private int damage;
-        private int defense;
+        private int defence;
         private int energy;
         private int reflexes;
         private IList<string> abilities;
@@ -67,24 +67,24 @@
         {
             get
             {
-                return this.defense;
+                return this.defence;
 
             }
             set
             {
-                if (value + this.defense >= 85)
+                if (value + this.defence >= 85)
                 {
-                    this.defense = 85;
+                    this.defence = 85;
                 }
                 else
                 {
-                    if (this.defense + value <= 0)
+                    if (this.defence + value <= 0)
                     {
-                        this.defense = 0;
+                        this.defence = 0;
                     }
                     else
                     {
-                        this.defense = value;
+                        this.defence = value;
                     }
                 }
             }

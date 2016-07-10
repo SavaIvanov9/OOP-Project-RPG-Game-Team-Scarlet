@@ -85,13 +85,13 @@
         {
             for (int i = 0; i < 3; i++)
             {
-                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
-                this.Chest.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Chest, 50, 50, 50));
-                this.Hands.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Hands, 50, 50, 50));
-                this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
-                this.Weapons.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Weapon, 50, 50, 50));
-                this.Boots.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Boots, 50, 50, 50));
-                this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Inventory, 50, 50, 50));
+                //this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
+                //this.Chest.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Chest, 50, 50, 50));
+                //this.Hands.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Hands, 50, 50, 50));
+                //this.Helmets.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Helmet, 50, 50, 50));
+                //this.Weapons.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Weapon, 50, 50, 50));
+                //this.Boots.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Boots, 50, 50, 50));
+                //this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Inventory, 50, 50, 50));
             }
         }
 

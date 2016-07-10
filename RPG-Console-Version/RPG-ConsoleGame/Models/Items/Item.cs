@@ -1,37 +1,55 @@
-﻿namespace RPG_ConsoleGame.Models.Items
+﻿using RPG_ConsoleGame.Exceptions;
+
+namespace RPG_ConsoleGame.Models.Items
 {
     using System;
-    using RPG_ConsoleGame.Items;
-    using Map;
-
+   
     [Serializable()]
-    public class Item : GameObject
+    public abstract class Item
     {
-        public ItemBodyPossition Type;
-        private int hp;
-        private int power;
-        private int defence;
-        public ItemBodyPossition itemposition;
+        private ItemType type;
+        private int level;
+        protected int health;
+        protected int damage;
+        protected int defence;
+        protected int energy;
+        protected int reflexes;
 
-        public Item(Position position, char objectSymbol, ItemBodyPossition itemBodyPosition, int hp, int defence, int power) 
-            : base(position, objectSymbol)
+        protected Item(ItemType type, int level)
         {
-            this.Hp = hp;
-            this.Defence = defence;
-            this.Power = power;
-            this.itemposition = itemBodyPosition;
+            this.Type = type;
+            this.Level = level;
         }
 
-        public int Hp { get; set; }
-        public int Power { get; set; }
-        public int Defence { get; set; }
-        /// TO DO Add Item, possition based on List<Items>
-        /// 0-Head
-        /// 1-Chest
-        /// 2-hands
-        /// 3-Wepon
-        /// 4-Boots
-        /// Enum of possition
-        /// 
+        public ItemType Type
+        {
+            get
+            {
+                return this.type;
+            }
+
+            set
+            {
+                this.type = value;
+            }
+        }
+
+        public int Level
+        {
+            get
+            {
+                return this.level;
+            }
+
+            set
+            {
+                if (level <= 0 || level > 3)
+                {
+                    throw new IncorrectLevelException("Invalid level. Level must be in range of [1:3]");
+                }
+
+                this.level = value;
+            }
+        }
     }
 }
