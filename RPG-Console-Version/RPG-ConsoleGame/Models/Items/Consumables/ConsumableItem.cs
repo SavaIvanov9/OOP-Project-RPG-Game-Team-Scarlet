@@ -9,9 +9,9 @@ using RPG_ConsoleGame.Interfaces;
 namespace RPG_ConsoleGame.Models.Items.Consumables
 {
     [Serializable()]
-    public class ConsumableItem : Item
+    public class ConsumableItem : Item, INonConsumable
     {
-        private bool used = false;
+        
         public ConsumableItem(ItemType type, int level) : base(type, level)
         {
             this.InitializeItem();
@@ -73,15 +73,17 @@ namespace RPG_ConsoleGame.Models.Items.Consumables
             }
         }
 
-        public void UseConsumable(ICharacter character)
-        {
-            if (!used)
-            {
-                character.Damage += this.damage;
-                character.Defence += this.defence;
-                character.Energy += this.energy;
-                character.Health += this.health;
-                character.Reflexes += this.reflexes;
+        public override void UseItem(int health, int damage, int defence, int energy, int reflexes)
+        {                            
+            if (!used)               
+            {                        
+                damage += this.damage;
+                defence += this.defence;
+                energy += this.energy;
+                health += this.health;
+                reflexes += this.reflexes;
+
+                this.used = true;
             }
             else
             {

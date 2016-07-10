@@ -1,11 +1,11 @@
-﻿using RPG_ConsoleGame.Exceptions;
-
-namespace RPG_ConsoleGame.Models.Items
+﻿namespace RPG_ConsoleGame.Models.Items
 {
     using System;
-   
+    using Exceptions;
+    using Interfaces;
+
     [Serializable()]
-    public abstract class Item
+    public abstract class Item : IItem
     {
         private ItemType type;
         private int level;
@@ -14,6 +14,7 @@ namespace RPG_ConsoleGame.Models.Items
         protected int defence;
         protected int energy;
         protected int reflexes;
+        protected bool used = false;
 
         protected Item(ItemType type, int level)
         {
@@ -51,5 +52,12 @@ namespace RPG_ConsoleGame.Models.Items
                 this.level = value;
             }
         }
+
+        //public void UseItem()
+        //{
+            
+        //}
+
+        public abstract void UseItem(int health, int damage, int defence, int energy, int reflexes);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using RPG_ConsoleGame.Exceptions;
+using RPG_ConsoleGame.Models.Items.Consumables;
 
 namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
@@ -11,7 +12,7 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
     [Serializable()]
     public class Player : Character, IPlayer
     {
-        private Item[] bodyItems = new Item[5];
+        private IItem[] bodyItems = new IItem[5];
 
         private int currentRow = 1;
         private int currentCol = 1;
@@ -25,7 +26,7 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-            
+
         }
 
         public int CurrentCol { get; set; }
@@ -35,37 +36,6 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 
         public void Move(char[,] map, string command)
         {
-            char prevObj;
-            //if (Console.KeyAvailable)
-            //{
-            //ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-            ////while (Console.KeyAvailable)
-            ////{
-            ////    Console.ReadKey(true);
-            ////}
-            //if (keyPressed.Key == ConsoleKey.LeftArrow)
-            //{
-            //    MoveLeft(map);
-            //}
-            //if (keyPressed.Key == ConsoleKey.RightArrow)
-            //{
-            //    MoveRight(map);
-            //}
-            //if (keyPressed.Key == ConsoleKey.DownArrow)
-            //{
-            //    MoveDown(map);
-            //}
-            //if (keyPressed.Key == ConsoleKey.UpArrow)
-            //{
-            //    MoveUp(map);
-            //}
-            //if (keyPressed.Key == ConsoleKey.Escape)
-            //{
-            //    render.Clear();
-            //    viewEngine.DrawMenu();
-            //}
-            //}
-
             if (command == "moveLeft")
             {
                 MoveLeft(map);
@@ -82,40 +52,62 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             {
                 MoveUp(map);
             }
-
         }
 
-        public void SetBodyItems(Item item)
+        private void SetBodyItem(IItem item)
         {
-            switch (item)
+            switch (item.Type)
             {
-                case ItemBodyPossition.Helmet:
-                    ///Adding the item to helmet possition
+                case ItemType.Helmet:
+                    //Adding the item to helmet possition
                     this.bodyItems[0] = item;
                     break;
-                case ItemBodyPossition.Chest:
-                    ///Adding the item to chest possition
+                case ItemType.Chest:
+                    //Adding the item to chest possition
                     this.bodyItems[1] = item;
                     break;
-                case ItemBodyPossition.Hands:
-                    ///Adding the item to hand possition
+                case ItemType.Hands:
+                    //Adding the item to hand possition
                     this.bodyItems[2] = item;
                     break;
-                case ItemBodyPossition.Weapon:
-                    ///Adding the item to WEAPON possition
+                case ItemType.Boots:
+                    //Adding the item to boots
                     this.bodyItems[3] = item;
                     break;
-                case ItemBodyPossition.Boots:
-                    ///Adding the item to boots
+                case ItemType.Weapon:
+                    //Adding the item to WEAPON possition
                     this.bodyItems[4] = item;
                     break;
-                case ItemBodyPossition.Inventory:
-                    this.Inventory.Add(item);
-                    break;
+                //case ItemType.Bag:
+                //    this.Inventory.Add(item);
+                //    break;
                 default:
                     throw new ArgumentException("ItemCollect Method error!");
 
             }
+        }
+
+        public void UseItem(int i)
+        {
+            if (this.Inventory[i].Type == ItemType.Helmet ||
+                this.Inventory[i].Type == ItemType.Chest ||
+                this.Inventory[i].Type == ItemType.Hands ||
+                this.Inventory[i].Type == ItemType.Boots ||
+                this.Inventory[i].Type == ItemType.Weapon)
+            {
+                SetBodyItem(this.Inventory[i]);
+                this.Inventory[i].UseItem(this.Health, this.Damage, this.Defence, this.Energy, this.Reflexes);
+                this.Inventory.RemoveAt(i);
+            }
+            else if(this.Inventory[i].Type == ItemType.PotionEnergy ||
+                this.Inventory[i].Type == ItemType.PotionHealth ||
+                this.Inventory[i].Type == ItemType.ScrollGuardian ||
+                    this.Inventory[i].Type == ItemType.ScrollDestruction)
+            {
+                this.Inventory[i].UseItem(this.Health, this.Damage, this.Defence, this.Energy, this.Reflexes);
+                this.Inventory.RemoveAt(i);
+            }
+
         }
 
         //public void Heal()
@@ -441,9 +433,5 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             //}
         }
 
-        private void ItemsStatsToPlayerStat()
-        {
-            ///write  a logic for thransforming item to play stats
-        }
     }
 }

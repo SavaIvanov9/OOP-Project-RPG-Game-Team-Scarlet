@@ -17,7 +17,7 @@
         private int energy;
         private int reflexes;
         private IList<string> abilities;
-        private IList<Item> inventory;
+        private IList<IItem> inventory;
 
         protected Character(Position position, char objectSymbol, string name,
             int health, int damage, int defence, int energy, int reflexes)
@@ -30,7 +30,7 @@
             this.Energy = energy;
             this.Reflexes = reflexes;
             this.Abilities = new List<string>();
-            this.Inventory = new List<Item>();
+            this.Inventory = new List<IItem>();
         }
         
         public string Name
@@ -115,7 +115,7 @@
             }
         }
 
-        public IList<Item> Inventory
+        public IList<IItem> Inventory
         {
             get
             {

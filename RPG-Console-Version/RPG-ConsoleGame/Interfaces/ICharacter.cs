@@ -13,7 +13,7 @@
         int Energy { get; set; }
         int Reflexes { get; set; }
         IList<string> Abilities { get; set; }
-        IList<Item> Inventory { get; set; }
+        IList<IItem> Inventory { get; set; }
         Position Position { get; set; }
     }
 }
