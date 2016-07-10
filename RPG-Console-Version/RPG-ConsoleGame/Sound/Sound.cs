@@ -26,6 +26,12 @@
                 case SoundEffects.EnemyIsDestroyed:
                     PlaySoundFromFile(@"..\..\Sound\EnemyIsDestroyed.wav");
                     break;
+                case SoundEffects.EnterShop:
+                    PlaySoundFromFile(@"..\..\Sound\EnterShop.wav");
+                    break;
+                case SoundEffects.ShopTheme:
+                    PlaySoundFromFile(@"..\..\Sound\ShopTheme.wav");
+                    break;
             }
         }
 

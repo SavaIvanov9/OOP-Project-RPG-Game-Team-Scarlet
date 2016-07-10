@@ -14,8 +14,8 @@
         IList<Item> Inventory { get; set; }
 
         Position Position { get; set; }
-        //void AddItem();
-        //void RemoveItem();
+        void AddItem(ICharacter player, string itemType);
+        void RemoveItem(ICharacter player, string itemType);
         void PopulateShop();
     }
 }

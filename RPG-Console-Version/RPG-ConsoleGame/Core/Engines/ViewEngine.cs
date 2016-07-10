@@ -51,6 +51,101 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
+        public string RenderShop()
+        {
+            render.Clear();
+
+            StringBuilder screen1 = new StringBuilder();
+
+            screen1.AppendLine(
+                "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
+                "1. Buy item" + Environment.NewLine + Environment.NewLine +
+                "2. Sell item" + Environment.NewLine + Environment.NewLine +
+                "3. Return back"
+                );
+
+            render.PrintScreen(screen1);
+
+            string choice = reader.ReadLine();
+
+            string[] validChoises = { "1", "2", "3" };
+
+            while (!validChoises.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            if (choice == "1")
+            {
+                render.Clear();
+
+                StringBuilder screen2 = new StringBuilder();
+
+                screen2.AppendLine(
+                    "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
+                    "1. Helmet" + Environment.NewLine + Environment.NewLine +
+                    "2. Chest" + Environment.NewLine + Environment.NewLine +
+                    "3. Hands" + Environment.NewLine + Environment.NewLine +
+                    "4. Weapon" + Environment.NewLine + Environment.NewLine +
+                    "5. Boots" + Environment.NewLine + Environment.NewLine +
+                    "6. Expand Inventory" + Environment.NewLine + Environment.NewLine +
+                    "7. Return back"
+                    );
+
+                render.PrintScreen(screen2);
+
+                choice = reader.ReadLine();
+
+                string[] validChoises2 = { "1", "2", "3", "4", "5", "6", "7" };
+
+                while (!validChoises2.Contains(choice))
+                {
+                    render.WriteLine("Invalid choice, please re-enter.");
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "1")
+                {
+                    choice = "buy_helmet";
+                }
+                else if (choice == "2")
+                {
+                    choice = "buy_chest";
+                }
+                else if (choice == "3")
+                {
+                    choice = "buy_hands";
+                }
+                else if (choice == "4")
+                {
+                    choice = "buy_weapon";
+                }
+                else if (choice == "5")
+                {
+                    choice = "buy_boots";
+                }
+                else if (choice == "6")
+                {
+                    choice = "expand_inventory";
+                }
+                else if (choice == "7")
+                {
+                    RenderShop();
+                }
+            }
+            else if (choice == "2")
+            {
+
+            }
+            else if (choice == "3")
+            {
+                BackEngine.Instance.StartSinglePlayer();
+            }
+
+            return choice;
+        }
+
         public void RenderMenu()
         {
             if (InsideGame == false)

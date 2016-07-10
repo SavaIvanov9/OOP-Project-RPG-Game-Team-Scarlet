@@ -9,6 +9,8 @@
         EnemyIsDestroyed,
         BossIsDestroyed,
         RecieveBonus,
-        GameOver
+        GameOver,
+        EnterShop,
+        ShopTheme
     }
 }

@@ -90,6 +90,8 @@ namespace RPG_ConsoleGame.Core.Engines
                         CheckForBattle(database.Players[0], "Boss");
                     }
 
+                    CheckForShop(database.Players[0]);
+
                     RemoveDead();
                 }
             }
@@ -101,6 +103,63 @@ namespace RPG_ConsoleGame.Core.Engines
             //    ViewEngine.Instance.StartTimer(5);
             //    Environment.Exit(0);
             //}
+        }
+
+        private void CheckForShop(ICharacter char1)
+        {
+
+            if (char1.Position.X == database.Shops[0].Position.X &&
+                char1.Position.Y == database.Shops[0].Position.Y)
+            {
+                render.Clear();
+                StartMusic(SoundEffects.EnterShop);
+
+                ViewEngine.Instance.RenderWarningScreen(ConsoleColor.Yellow,
+                            new StringBuilder("Welcome, you entered the shop"), 3);
+
+                render.Clear();
+                StartMusic(SoundEffects.ShopTheme);
+
+
+                string choice = ViewEngine.Instance.RenderShop();
+
+                var shop = database.Shops[0];
+
+                while (choice != "return_back")
+                {
+                    if (choice == "buy_helmet")
+                    {
+                        shop.RemoveItem(char1, choice);
+
+                        choice = ViewEngine.Instance.RenderShop();
+                    }
+                    else if (choice == "buy_chest")
+                    {
+                        shop.RemoveItem(char1, choice);
+                        choice = ViewEngine.Instance.RenderShop();
+
+                    }
+                    else if (choice == "buy_hands")
+                    {
+                        shop.RemoveItem(char1, choice);
+                        choice = ViewEngine.Instance.RenderShop();
+                    }
+                    else if (choice == "buy_weapon")
+                    {
+                        shop.RemoveItem(char1, choice);
+                        choice = ViewEngine.Instance.RenderShop();
+                    }
+                    else if (choice == "buy_boots")
+                    {
+                        shop.RemoveItem(char1, choice);
+                        choice = ViewEngine.Instance.RenderShop();
+                    }
+                    else if (choice == "return_back")
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         //StartMultiPlayer

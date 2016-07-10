@@ -71,14 +71,14 @@
             set { this.inventory = value; }
         }
 
-        public void AddItem(ICharacter player)
+        public void AddItem(ICharacter player, string itemType)
         {
-             
+
         }
 
-        public void RemoveItem(ICharacter player)
+        public void RemoveItem(ICharacter player, string itemType)
         {
-
+            player.Inventory.Add(ReturnItem(itemType));
         }
 
         public void PopulateShop()
@@ -92,6 +92,30 @@
                 //this.Weapons.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Weapon, 50, 50, 50));
                 //this.Boots.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Boots, 50, 50, 50));
                 //this.Inventory.Add(new Item(new Position(3, 3), 'I', ItemBodyPossition.Inventory, 50, 50, 50));
+            }
+        }
+
+        private Item ReturnItem(string itemType)
+        {
+            if (itemType == "buy_helmet")
+            {
+                return Helmets[0];
+            }
+            else if (itemType == "buy_chest")
+            {
+                return Chest[0];
+            }
+            else if (itemType == "buy_hands")
+            {
+                return Hands[0];
+            }
+            else if (itemType == "buy_weapon")
+            {
+                return Weapons[0];
+            }
+            else
+            {
+                return Boots[0];
             }
         }
 
