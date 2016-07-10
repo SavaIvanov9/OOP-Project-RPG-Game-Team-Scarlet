@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿using RPG_ConsoleGame.Models.Items.NonConsumables;
+
+namespace RPG_ConsoleGame.Characters
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +20,7 @@
         private int reflexes;
         private IList<string> abilities;
         private IList<IItem> inventory;
+        private Dictionary<ItemBodyPossition, IItem> bodyItems;
 
         protected Character(Position position, char objectSymbol, string name,
             int health, int damage, int defence, int energy, int reflexes)
@@ -31,8 +34,18 @@
             this.Reflexes = reflexes;
             this.Abilities = new List<string>();
             this.Inventory = new List<IItem>();
+            this.BodyItems = new Dictionary<ItemBodyPossition, IItem>();
         }
-        
+
+        public Dictionary<ItemBodyPossition, IItem> BodyItems
+        {
+            get { return this.bodyItems; }
+            protected set
+            {
+                this.bodyItems = value;
+            }
+        }
+
         public string Name
         {
             get

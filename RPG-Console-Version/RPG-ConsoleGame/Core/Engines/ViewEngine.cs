@@ -737,6 +737,18 @@ namespace RPG_ConsoleGame.Core.Engines
 
             StringBuilder screen = new StringBuilder();
 
+            screen.AppendLine("Equipped items: ");
+
+            //for (int i = 0; i < character.BodyItems.Keys.Count; i++)
+            //{
+            //    screen.AppendLine($"{character.BodyItems.Keys[i]}: " + character.Inventory[i]);
+            //}
+
+            foreach (var slot in character.BodyItems)
+            {
+                screen.AppendLine($"{slot.Key}: {slot.Value}");
+            }
+
             screen.AppendLine("Inventory: ");
 
             for (int i = 0; i < character.Inventory.Count; i++)

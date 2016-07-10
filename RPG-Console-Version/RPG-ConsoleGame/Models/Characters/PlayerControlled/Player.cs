@@ -1,5 +1,6 @@
 ﻿using RPG_ConsoleGame.Exceptions;
 using RPG_ConsoleGame.Models.Items.Consumables;
+using RPG_ConsoleGame.Models.Items.NonConsumables;
 
 namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
@@ -12,8 +13,6 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
     [Serializable()]
     public class Player : Character, IPlayer
     {
-        private IItem[] bodyItems = new IItem[5];
-
         private int currentRow = 1;
         private int currentCol = 1;
         private bool insideBuilding = false;
@@ -26,7 +25,7 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
-
+            SetDefaultEquippedItems();
         }
 
         public int CurrentCol { get; set; }
@@ -54,29 +53,39 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             }
         }
 
+        private void SetDefaultEquippedItems()
+        {
+            //BodyItems.Add(ItemBodyPossition.Helmet, new NonConsumableItem(ItemType.Helmet, 1));
+            BodyItems.Add(ItemBodyPossition.Helmet, null);
+            BodyItems.Add(ItemBodyPossition.Chest, null);
+            BodyItems.Add(ItemBodyPossition.Hands, null);
+            BodyItems.Add(ItemBodyPossition.Boots, null);
+            BodyItems.Add(ItemBodyPossition.Weapon,null);
+        }
+
         private void SetBodyItem(IItem item)
         {
             switch (item.Type)
             {
                 case ItemType.Helmet:
                     //Adding the item to helmet possition
-                    this.bodyItems[0] = item;
+                    this.BodyItems[ItemBodyPossition.Helmet] = item;
                     break;
                 case ItemType.Chest:
                     //Adding the item to chest possition
-                    this.bodyItems[1] = item;
+                    this.BodyItems[ItemBodyPossition.Chest] = item;
                     break;
                 case ItemType.Hands:
                     //Adding the item to hand possition
-                    this.bodyItems[2] = item;
+                    this.BodyItems[ItemBodyPossition.Hands] = item;
                     break;
                 case ItemType.Boots:
                     //Adding the item to boots
-                    this.bodyItems[3] = item;
+                    this.BodyItems[ItemBodyPossition.Boots] = item;
                     break;
                 case ItemType.Weapon:
                     //Adding the item to WEAPON possition
-                    this.bodyItems[4] = item;
+                    this.BodyItems[ItemBodyPossition.Weapon] = item;
                     break;
                 //case ItemType.Bag:
                 //    this.Inventory.Add(item);

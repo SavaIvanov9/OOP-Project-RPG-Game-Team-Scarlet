@@ -44,7 +44,7 @@
 
             set
             {
-                if (level <= 0 || level > 3)
+                if (value <= 0 || value > 3)
                 {
                     throw new IncorrectLevelException("Invalid level. Level must be in range of [1:3]");
                 }
