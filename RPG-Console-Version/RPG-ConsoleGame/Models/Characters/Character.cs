@@ -144,5 +144,7 @@ namespace RPG_ConsoleGame.Characters
         {
             enemy.Health -= this.Damage;
         }
+
+        public abstract void UseItem(int i);
     }
 }

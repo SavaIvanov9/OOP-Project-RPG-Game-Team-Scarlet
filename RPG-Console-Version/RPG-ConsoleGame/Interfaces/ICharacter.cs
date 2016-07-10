@@ -16,5 +16,6 @@
         IList<IItem> Inventory { get; set; }
         Dictionary<ItemBodyPossition, IItem> BodyItems { get; }
         Position Position { get; set; }
+        void UseItem(int i);
     }
 }

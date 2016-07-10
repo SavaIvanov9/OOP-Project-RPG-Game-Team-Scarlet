@@ -76,7 +76,7 @@ namespace RPG_ConsoleGame.Models.Items.Consumables
         public override void UseItem(int health, int damage, int defence, int energy, int reflexes)
         {                            
             if (!used)               
-            {                        
+            {
                 damage += this.damage;
                 defence += this.defence;
                 energy += this.energy;

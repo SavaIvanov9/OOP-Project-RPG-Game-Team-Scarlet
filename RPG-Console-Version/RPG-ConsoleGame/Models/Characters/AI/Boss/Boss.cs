@@ -130,5 +130,10 @@ namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
         {
             return this.Abilities[0];
         }
+
+        public override void UseItem(int i)
+        {
+            
+        }
     }
 }

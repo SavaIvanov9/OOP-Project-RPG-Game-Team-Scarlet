@@ -55,9 +55,10 @@
 
         //public void UseItem()
         //{
-            
+
         //}
 
+        //public abstract void UseItem(int health, int damage, int defence, int energy, int reflexes);
         public abstract void UseItem(int health, int damage, int defence, int energy, int reflexes);
     }
 }

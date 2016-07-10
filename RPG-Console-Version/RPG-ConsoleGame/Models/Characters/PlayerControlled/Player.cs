@@ -96,7 +96,7 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             }
         }
 
-        public void UseItem(int i)
+        public override void UseItem(int i)
         {
             if (this.Inventory[i].Type == ItemType.Helmet ||
                 this.Inventory[i].Type == ItemType.Chest ||

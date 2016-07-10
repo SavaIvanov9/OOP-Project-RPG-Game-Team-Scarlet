@@ -789,16 +789,30 @@ namespace RPG_ConsoleGame.Core.Engines
                     break;
                 }
 
-                character.Inventory[Convert.ToInt32(choice) - 1].UseItem(
-                    character.Health, 
-                    character.Damage,
-                    character.Defence,
-                    character.Energy,
-                    character.Reflexes);
+                character.UseItem(Convert.ToInt32(choice) - 1);
 
                 render.WriteLine($"item {choice}: {character.Inventory[Convert.ToInt32(choice) - 1].Type}" +
                                  $" level {character.Inventory[Convert.ToInt32(choice) - 1].Level} used");
+
+                validChoises.Clear();
+                validChoises.Add("0");
+                if (character.Inventory.Count > 0)
+                {
+                    for (int i = 0; i <= character.Inventory.Count; i++)
+                    {
+                        validChoises.Add((i + 1).ToString());
+                    }
+                }
+
                 choice = reader.ReadLine();
+
+                while (!validChoises.Contains(choice))
+                {
+                    render.WriteLine("Invalid choice, please re-enter.");
+                    choice = reader.ReadLine();
+                }
+
+
             }
         }
     }
