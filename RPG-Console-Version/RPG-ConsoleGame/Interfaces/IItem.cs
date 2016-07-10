@@ -11,6 +11,6 @@ namespace RPG_ConsoleGame.Interfaces
     {
         ItemType Type { get; set; }
         int Level { get; set; }
-        void UseItem(int health, int damage, int defence, int energy, int reflexes);
+        void UseItem(ICharacter character);
     }
 }

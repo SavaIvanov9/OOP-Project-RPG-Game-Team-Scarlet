@@ -100,7 +100,6 @@
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\Items\Consumables\ConsumableItem.cs" />
     <Compile Include="Models\Items\Item.cs" />
-    <Compile Include="Models\Items\ItemBodyPosition.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Position.cs" />

@@ -14,7 +14,7 @@
         int Reflexes { get; set; }
         IList<string> Abilities { get; set; }
         IList<IItem> Inventory { get; set; }
-        Dictionary<ItemBodyPossition, IItem> BodyItems { get; }
+        Dictionary<ItemType, IItem> BodyItems { get; }
         Position Position { get; set; }
         void UseItem(int i);
     }

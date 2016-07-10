@@ -61,39 +61,9 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            //database.ClearData();
-
-            //beshe if bez eksepshyna
-            while (database.Players.Count == 0)
-            {
-                try
-                {
-                    database.Players.Add(ViewEngine.Instance.GetPlayer());
-                    database.AddMap(new Map().ReadMap("../../../Map1.txt"));
-                    PopulateMap(database.Maps[0]);
-                }
-                catch (IncorrectNameException exception)
-                {
-                    render.WriteLine(exception.Message + Environment.NewLine);
-                    //database.Players.Add(ViewEngine.Instance.GetPlayer());
-                }
-            }
-
-            //For testing purposes 
-            //**********************************************************************************
-            database.Players[0].Health += 100000;
-            //**********************************************************************************
-
-            this.IsRunning = true;
-
-            render.Clear();
-
-            ViewEngine.Instance.RenderMap(database.Maps[0]);
-            ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-            ViewEngine.Instance.DisplayMapDescription();
-            
-            database.Players[0].Inventory.Add(itemFactory.CreateNonConsumableItem(ItemType.Helmet, 1));
-            database.Players[0].Inventory.Add(itemFactory.CreateConsumableItem(ItemType.PotionHealth, 1));
+            //try
+            //{
+            InitializeDefaultsSinglePlayer();
 
             while (this.IsRunning)
             {
@@ -123,10 +93,102 @@ namespace RPG_ConsoleGame.Core.Engines
                     RemoveDead();
                 }
             }
+            //}
+            //catch (Exception)
+            //{
+            //    render.Clear();
+            //    render.WriteLine("Problem has occurred. Restart the game.");
+            //    ViewEngine.Instance.StartTimer(5);
+            //    Environment.Exit(0);
+            //}
         }
 
         //StartMultiPlayer
         public void StartMultiPlayer()
+        {
+            try
+            {
+                InitializeDefaultsMultiplayer();
+
+                this.IsRunning = true;
+
+                //render.Clear();
+
+
+                while (this.IsRunning)
+                {
+                    if (Console.KeyAvailable)
+                    {
+                        render.Clear();
+                        string command = reader.ReadKey();
+                        ReturnBack(command);
+                        SaveGame(command);
+
+                        StartMultiplayerBattle();
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                StartMusic(SoundEffects.DefaultTheme);
+                database.ClearData();
+                ViewEngine.Instance.InsideGame = false;
+                ViewEngine.Instance.RenderMenu();
+            }
+            catch (Exception)
+            {
+                render.Clear();
+                render.WriteLine("Problem has occurred. Restart the game.");
+                ViewEngine.Instance.StartTimer(5);
+                Environment.Exit(0);
+            }
+        }
+
+        private void InitializeDefaultsSinglePlayer()
+        {
+            if (!IsRunning)
+            {
+                //database.ClearData();
+
+                //beshe if bez eksepshyna
+                while (database.Players.Count == 0)
+                {
+                    try
+                    {
+                        database.Players.Add(ViewEngine.Instance.GetPlayer());
+                        database.AddMap(new Map().ReadMap("../../../Map1.txt"));
+                        PopulateMap(database.Maps[0]);
+                    }
+                    catch (IncorrectNameException exception)
+                    {
+                        render.WriteLine(exception.Message + Environment.NewLine);
+                        //database.Players.Add(ViewEngine.Instance.GetPlayer());
+                    }
+                }
+
+                //For testing purposes 
+                //**********************************************************************************
+                database.Players[0].Health += 100000;
+                //**********************************************************************************
+
+                this.IsRunning = true;
+
+                render.Clear();
+
+                ViewEngine.Instance.RenderMap(database.Maps[0]);
+                ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+                ViewEngine.Instance.DisplayMapDescription();
+
+                if (database.Players[0].Inventory.Count >= 0)
+                {
+                    database.Players[0].Inventory.Add(itemFactory.CreateNonConsumableItem(ItemType.Helmet, 1));
+                    database.Players[0].Inventory.Add(itemFactory.CreateNonConsumableItem(ItemType.Helmet, 1));
+                    database.Players[0].Inventory.Add(itemFactory.CreateNonConsumableItem(ItemType.Weapon, 2));
+                    database.Players[0].Inventory.Add(itemFactory.CreateConsumableItem(ItemType.PotionHealth, 1));
+                }
+            }
+        }
+
+        private void InitializeDefaultsMultiplayer()
         {
             database.ClearData();
 
@@ -148,25 +210,6 @@ namespace RPG_ConsoleGame.Core.Engines
             database.Players[0].Health += 500;
             database.Players[1].Health += 500;
             //**********************************************************************************
-
-            this.IsRunning = true;
-
-            //render.Clear();
-
-            while (this.IsRunning)
-            {
-                if (Console.KeyAvailable)
-                {
-                    render.Clear();
-                    string command = reader.ReadKey();
-                    ReturnBack(command);
-                    SaveGame(command);
-
-                    StartMultiplayerBattle();
-
-                    RemoveDead();
-                }
-            }
         }
 
         //MultiplayerBattle
@@ -290,10 +333,8 @@ namespace RPG_ConsoleGame.Core.Engines
                         new StringBuilder("Player " + player2.Name + " has won the battle!!"), 3,
                         new StringBuilder("Press enter to continue"));
 
-                    StartMusic(SoundEffects.DefaultTheme);
-                    database.ClearData();
-                    ViewEngine.Instance.InsideGame = false;
-                    ViewEngine.Instance.RenderMenu();
+                    IsRunning = false;
+                    break;
                 }
                 if (player2.Health <= 0 && player1.Health > 0)
                 {
@@ -304,10 +345,8 @@ namespace RPG_ConsoleGame.Core.Engines
                         ConsoleColor.Red, new StringBuilder("Player " + player1.Name + " has won the battle!!"),
                         2, new StringBuilder("Press enter to continue."));
 
-                    StartMusic(SoundEffects.DefaultTheme);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    ViewEngine.Instance.InsideGame = false;
-                    ViewEngine.Instance.RenderMenu();
+                    IsRunning = false;
+                    break;
                 }
                 if (player1.Health <= 0 && player2.Health <= 0)
                 {
@@ -319,10 +358,8 @@ namespace RPG_ConsoleGame.Core.Engines
                             "You both died... Give beer to admin to resurrect you :D"),
                         3, new StringBuilder("Press enter or escape continue"));
 
-                    StartMusic(SoundEffects.DefaultTheme);
-                    database.ClearData();
-                    ViewEngine.Instance.InsideGame = false;
-                    ViewEngine.Instance.RenderMenu();
+                    IsRunning = false;
+                    break;
                 }
             }
         }
@@ -837,7 +874,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void OpenInventory(string command, ICharacter player)
+        private void OpenInventory(string command, IPlayer player)
         {
             if (command == "inventory")
             {

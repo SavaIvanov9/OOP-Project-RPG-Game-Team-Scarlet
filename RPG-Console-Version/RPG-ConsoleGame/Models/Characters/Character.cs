@@ -20,7 +20,7 @@ namespace RPG_ConsoleGame.Characters
         private int reflexes;
         private IList<string> abilities;
         private IList<IItem> inventory;
-        private Dictionary<ItemBodyPossition, IItem> bodyItems;
+        private Dictionary<ItemType, IItem> bodyItems;
 
         protected Character(Position position, char objectSymbol, string name,
             int health, int damage, int defence, int energy, int reflexes)
@@ -34,10 +34,10 @@ namespace RPG_ConsoleGame.Characters
             this.Reflexes = reflexes;
             this.Abilities = new List<string>();
             this.Inventory = new List<IItem>();
-            this.BodyItems = new Dictionary<ItemBodyPossition, IItem>();
+            this.BodyItems = new Dictionary<ItemType, IItem>();
         }
 
-        public Dictionary<ItemBodyPossition, IItem> BodyItems
+        public Dictionary<ItemType, IItem> BodyItems
         {
             get { return this.bodyItems; }
             protected set

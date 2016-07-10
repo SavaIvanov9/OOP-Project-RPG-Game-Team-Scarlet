@@ -9,7 +9,7 @@ using RPG_ConsoleGame.Interfaces;
 namespace RPG_ConsoleGame.Models.Items.Consumables
 {
     [Serializable()]
-    public class ConsumableItem : Item, INonConsumable
+    public class ConsumableItem : Item, IConsumable
     {
         
         public ConsumableItem(ItemType type, int level) : base(type, level)
@@ -72,23 +72,14 @@ namespace RPG_ConsoleGame.Models.Items.Consumables
                     throw new IncorrectLevelException("Invalid level. Level must be in range of [1:3]");
             }
         }
-
-        public override void UseItem(int health, int damage, int defence, int energy, int reflexes)
-        {                            
-            if (!used)               
-            {
-                damage += this.damage;
-                defence += this.defence;
-                energy += this.energy;
-                health += this.health;
-                reflexes += this.reflexes;
-
-                this.used = true;
-            }
-            else
-            {
-                throw new OutOfAmountException("Item alredy used");
-            }
+  
+        public override void UseItem(ICharacter character)
+        {
+                character.Damage += this.damage;
+                character.Defence += this.defence;
+                character.Energy += this.energy;
+                character.Health += this.health;
+                character.Reflexes += this.reflexes;
         }
     }
 }

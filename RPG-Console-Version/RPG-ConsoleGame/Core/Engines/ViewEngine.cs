@@ -731,7 +731,7 @@ namespace RPG_ConsoleGame.Core.Engines
             render.PrintScreen(screen);
         }
 
-        public void RenderInventory(ICharacter character)
+        public void RenderInventory(IPlayer character)
         {
             render.Clear();
 
@@ -746,11 +746,18 @@ namespace RPG_ConsoleGame.Core.Engines
 
             foreach (var slot in character.BodyItems)
             {
-                screen.AppendLine($"{slot.Key}: {slot.Value}");
+                if (slot.Value != null)
+                {
+                    screen.AppendLine($"{slot.Key}: {slot.Value.Type} level {slot.Value.Level}");
+                }
+                else
+                {
+                    screen.AppendLine($"{slot.Key}: Empty slot");
+                }
             }
 
             screen.AppendLine(Environment.NewLine + Environment.NewLine +
-                "Inventory: "+ Environment.NewLine);
+                "Inventory: " + Environment.NewLine);
 
             for (int i = 0; i < character.Inventory.Count; i++)
             {
@@ -758,62 +765,64 @@ namespace RPG_ConsoleGame.Core.Engines
             }
 
             screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to use item"
-                + Environment.NewLine );
+                + Environment.NewLine);
 
             render.PrintScreen(screen);
             RenderPlayerStats(character as IPlayer);
 
-            string choice = reader.ReadLine();
+            List<string> validChoises = new List<string>();
 
-            List<string> validChoises = new List<string> { "0" };
-
-            if (character.Inventory.Count > 0)
+            
+            for (int i = 0; i <= character.Inventory.Count; i++)
             {
-                for (int i = 0; i <= character.Inventory.Count; i++)
-                {
-                    validChoises.Add((i + 1).ToString());
-                }
+                validChoises.Add(i.ToString());
             }
+            
 
+            string choice = reader.ReadLine();
             while (!validChoises.Contains(choice))
             {
                 render.WriteLine("Invalid choice, please re-enter.");
                 choice = reader.ReadLine();
             }
-            
-            while (true)
+
+            //while (true)
+            //{
+            if (choice == "0")
             {
-                if (choice == "0")
-                {
-                    StateManager.Instance.StartState(StateConstants.SinglePlayer);
-                    break;
-                }
+                StateManager.Instance.StartState(StateConstants.SinglePlayer);
+            }
+            else
+            {
+                var item = character.Inventory[Convert.ToInt32(choice) - 1];
 
                 character.UseItem(Convert.ToInt32(choice) - 1);
 
-                render.WriteLine($"item {choice}: {character.Inventory[Convert.ToInt32(choice) - 1].Type}" +
-                                 $" level {character.Inventory[Convert.ToInt32(choice) - 1].Level} used");
+                render.WriteLine($"item {choice}: {item.Type}" +
+                                 $" level {item.Level} used");
 
-                validChoises.Clear();
-                validChoises.Add("0");
-                if (character.Inventory.Count > 0)
-                {
-                    for (int i = 0; i <= character.Inventory.Count; i++)
-                    {
-                        validChoises.Add((i + 1).ToString());
-                    }
-                }
+                StartTimer(2);
 
-                choice = reader.ReadLine();
+                RenderInventory(character);
+                //validChoises.Clear();
+                //validChoises.Add("0");
+                //if (character.Inventory.Count > 0)
+                //{
+                //    for (int i = 0; i <= character.Inventory.Count; i++)
+                //    {
+                //        validChoises.Add((i + 1).ToString());
+                //    }
+                //}
 
-                while (!validChoises.Contains(choice))
-                {
-                    render.WriteLine("Invalid choice, please re-enter.");
-                    choice = reader.ReadLine();
-                }
+                //choice = reader.ReadLine();
 
-
+                //while (!validChoises.Contains(choice))
+                //{
+                //    render.WriteLine("Invalid choice, please re-enter.");
+                //    choice = reader.ReadLine();
+                //}
             }
+
         }
     }
 }

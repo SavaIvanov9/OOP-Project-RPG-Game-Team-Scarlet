@@ -98,22 +98,22 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
             }
         }
 
-        public override void UseItem(int health, int damage, int defence, int energy, int reflexes)
+        public override void UseItem(ICharacter character)
         {
-            if (!used)
-            {
-                damage += this.damage;
-                defence += this.defence;
-                energy += this.energy;
-                health += this.health;
-                reflexes += this.reflexes;
+                character.Damage += this.damage;
+                character.Defence += this.defence;
+                character.Energy += this.energy;
+                character.Health += this.health;
+                character.Reflexes += this.reflexes;
+        }
 
-                this.used = true;
-            }
-            else
-            {
-                throw new OutOfAmountException("Item alredy used");
-            }
+        public void UnEquipItem(ICharacter character)
+        {
+            character.Damage -= this.damage;
+            character.Defence -= this.defence;
+            character.Energy -= this.energy;
+            character.Health -= this.health;
+            character.Reflexes -= this.reflexes;
         }
     }
 }

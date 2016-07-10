@@ -56,44 +56,28 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
         private void SetDefaultEquippedItems()
         {
             //BodyItems.Add(ItemBodyPossition.Helmet, new NonConsumableItem(ItemType.Helmet, 1));
-            BodyItems.Add(ItemBodyPossition.Helmet, null);
-            BodyItems.Add(ItemBodyPossition.Chest, null);
-            BodyItems.Add(ItemBodyPossition.Hands, null);
-            BodyItems.Add(ItemBodyPossition.Boots, null);
-            BodyItems.Add(ItemBodyPossition.Weapon,null);
+            BodyItems.Add(ItemType.Helmet, null);
+            BodyItems.Add(ItemType.Chest, null);
+            BodyItems.Add(ItemType.Hands, null);
+            BodyItems.Add(ItemType.Boots, null);
+            BodyItems.Add(ItemType.Weapon, null);
         }
 
         private void SetBodyItem(IItem item)
         {
-            switch (item.Type)
+            if (!this.BodyItems.ContainsKey(item.Type))
             {
-                case ItemType.Helmet:
-                    //Adding the item to helmet possition
-                    this.BodyItems[ItemBodyPossition.Helmet] = item;
-                    break;
-                case ItemType.Chest:
-                    //Adding the item to chest possition
-                    this.BodyItems[ItemBodyPossition.Chest] = item;
-                    break;
-                case ItemType.Hands:
-                    //Adding the item to hand possition
-                    this.BodyItems[ItemBodyPossition.Hands] = item;
-                    break;
-                case ItemType.Boots:
-                    //Adding the item to boots
-                    this.BodyItems[ItemBodyPossition.Boots] = item;
-                    break;
-                case ItemType.Weapon:
-                    //Adding the item to WEAPON possition
-                    this.BodyItems[ItemBodyPossition.Weapon] = item;
-                    break;
-                //case ItemType.Bag:
-                //    this.Inventory.Add(item);
-                //    break;
-                default:
-                    throw new ArgumentException("ItemCollect Method error!");
-
+                throw new IncorrectTypeException($"Invalid body item type {item.Type}");
             }
+
+            if (this.BodyItems[item.Type] != null)
+            {
+                var currItem = this.BodyItems[item.Type];
+                this.Inventory.Add(currItem);
+                ((INonConsumable)currItem).UnEquipItem(this);
+            }
+
+            this.BodyItems[item.Type] = item;
         }
 
         public override void UseItem(int i)
@@ -105,15 +89,15 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
                 this.Inventory[i].Type == ItemType.Weapon)
             {
                 SetBodyItem(this.Inventory[i]);
-                this.Inventory[i].UseItem(this.Health, this.Damage, this.Defence, this.Energy, this.Reflexes);
+                ((INonConsumable)this.Inventory[i]).UseItem(this);
                 this.Inventory.RemoveAt(i);
             }
-            else if(this.Inventory[i].Type == ItemType.PotionEnergy ||
-                this.Inventory[i].Type == ItemType.PotionHealth ||
-                this.Inventory[i].Type == ItemType.ScrollGuardian ||
-                    this.Inventory[i].Type == ItemType.ScrollDestruction)
+            else if (this.Inventory[i].Type == ItemType.PotionEnergy ||
+                     this.Inventory[i].Type == ItemType.PotionHealth ||
+                     this.Inventory[i].Type == ItemType.ScrollGuardian ||
+                     this.Inventory[i].Type == ItemType.ScrollDestruction)
             {
-                this.Inventory[i].UseItem(this.Health, this.Damage, this.Defence, this.Energy, this.Reflexes);
+                ((IConsumable)this.Inventory[i]).UseItem(this);
                 this.Inventory.RemoveAt(i);
             }
 
