@@ -737,7 +737,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
             StringBuilder screen = new StringBuilder();
 
-            screen.AppendLine("Equipped items: ");
+            screen.AppendLine("Equipped items: " + Environment.NewLine);
 
             //for (int i = 0; i < character.BodyItems.Keys.Count; i++)
             //{
@@ -749,17 +749,19 @@ namespace RPG_ConsoleGame.Core.Engines
                 screen.AppendLine($"{slot.Key}: {slot.Value}");
             }
 
-            screen.AppendLine("Inventory: ");
+            screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                "Inventory: "+ Environment.NewLine);
 
             for (int i = 0; i < character.Inventory.Count; i++)
             {
-                screen.AppendLine($"Item {i}: " + character.Inventory[i]);
+                screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level {character.Inventory[i].Level}");
             }
 
-            screen.AppendLine(Environment.NewLine + "Choose number to use item"
-                + Environment.NewLine + Environment.NewLine + "0. Return back");
+            screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to use item"
+                + Environment.NewLine );
 
             render.PrintScreen(screen);
+            RenderPlayerStats(character as IPlayer);
 
             string choice = reader.ReadLine();
 
@@ -778,14 +780,25 @@ namespace RPG_ConsoleGame.Core.Engines
                 render.WriteLine("Invalid choice, please re-enter.");
                 choice = reader.ReadLine();
             }
-
-            if (choice == "0")
+            
+            while (true)
             {
-                StateManager.Instance.StartState(StateConstants.SinglePlayer);
-            }
-            else
-            {
+                if (choice == "0")
+                {
+                    StateManager.Instance.StartState(StateConstants.SinglePlayer);
+                    break;
+                }
 
+                character.Inventory[Convert.ToInt32(choice) - 1].UseItem(
+                    character.Health, 
+                    character.Damage,
+                    character.Defence,
+                    character.Energy,
+                    character.Reflexes);
+
+                render.WriteLine($"item {choice}: {character.Inventory[Convert.ToInt32(choice) - 1].Type}" +
+                                 $" level {character.Inventory[Convert.ToInt32(choice) - 1].Level} used");
+                choice = reader.ReadLine();
             }
         }
     }

@@ -65,6 +65,7 @@
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IConsumable.cs" />
     <Compile Include="Interfaces\IItem.cs" />
+    <Compile Include="Interfaces\IItemFactory.cs" />
     <Compile Include="Interfaces\INonConsumable.cs" />
     <Compile Include="Interfaces\IShop.cs" />
     <Compile Include="Interfaces\IShopFactory.cs" />

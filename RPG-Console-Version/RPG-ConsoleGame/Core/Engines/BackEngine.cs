@@ -30,7 +30,7 @@ namespace RPG_ConsoleGame.Core.Engines
         private readonly ICreatureFactory creatureFactory = new CreatureFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
-
+        private readonly IItemFactory itemFactory = new ItemFactory();
         private readonly IGameDatabase database = new GameDatabase();
 
         private readonly IAbilitiesProcessor abilitiesProcessor = new AbilitiesProcessor();
@@ -92,7 +92,8 @@ namespace RPG_ConsoleGame.Core.Engines
             ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
             ViewEngine.Instance.DisplayMapDescription();
             
-            //database.Players[0].Inventory.Add();
+            database.Players[0].Inventory.Add(itemFactory.CreateNonConsumableItem(ItemType.Helmet, 1));
+            database.Players[0].Inventory.Add(itemFactory.CreateConsumableItem(ItemType.PotionHealth, 1));
 
             while (this.IsRunning)
             {
