@@ -26,7 +26,6 @@ namespace RPG_ConsoleGame.Core.Engines
     {
         private readonly IInputReader reader = new ConsoleInputReader();
         private readonly IRender render = new ConsoleRender();
-        private readonly IPlayerFactory playerFactory = new PlayerFactory();
         private readonly ICreatureFactory creatureFactory = new CreatureFactory();
         private readonly IBossFactory bossFactory = new BossFactory();
         private readonly IShopFactory shopFactory = new ShopFactory();
@@ -89,7 +88,7 @@ namespace RPG_ConsoleGame.Core.Engines
                     {
                         CheckForBattle(database.Players[0], "Boss");
                     }
-
+                    ResetIsEnteringBuilding(database.Players[0]);
                     CheckForShop(database.Players[0]);
 
                     RemoveDead();
@@ -105,11 +104,37 @@ namespace RPG_ConsoleGame.Core.Engines
             //}
         }
 
-        private void CheckForShop(ICharacter char1)
+        private void ResetIsEnteringBuilding(IPlayer char1)
+        {
+            if ((char1.Position.X + 1 == database.Shops[0].Position.X &&
+                char1.Position.Y == database.Shops[0].Position.Y) ||
+                (char1.Position.X == database.Shops[0].Position.X &&
+                char1.Position.Y + 1 == database.Shops[0].Position.Y) ||
+                (char1.Position.X - 1 == database.Shops[0].Position.X &&
+                char1.Position.Y == database.Shops[0].Position.Y) ||
+                (char1.Position.X == database.Shops[0].Position.X &&
+                char1.Position.Y - 1 == database.Shops[0].Position.Y) ||
+
+                (char1.Position.X + 1 == database.Shops[0].Position.X &&
+                char1.Position.Y + 1 == database.Shops[0].Position.Y) ||
+                (char1.Position.X - 1 == database.Shops[0].Position.X &&
+                char1.Position.Y - 1 == database.Shops[0].Position.Y) ||
+                (char1.Position.X + 1 == database.Shops[0].Position.X &&
+                char1.Position.Y - 1 == database.Shops[0].Position.Y) ||
+                (char1.Position.X - 1 == database.Shops[0].Position.X &&
+                char1.Position.Y + 1 == database.Shops[0].Position.Y))
+            {
+                char1.IsEnteringBuilding = true;
+            }
+        }
+
+        private void CheckForShop(IPlayer char1)
         {
             if (char1.Position.X == database.Shops[0].Position.X &&
-                char1.Position.Y == database.Shops[0].Position.Y)
+                char1.Position.Y == database.Shops[0].Position.Y &&
+                char1.IsEnteringBuilding)
             {
+                char1.IsEnteringBuilding = false;
                 render.Clear();
                 StartMusic(SoundEffects.EnterShop);
 
@@ -118,44 +143,44 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 render.Clear();
                 StartMusic(SoundEffects.ShopTheme);
-                
-                string choice = ViewEngine.Instance.RenderShop();
+
+                string choice = ViewEngine.Instance.RenderShop(database.Shops[0]);
 
                 var shop = database.Shops[0];
 
                 //while (choice != "return_back")
                 //{
-                    //if (choice == "buy_helmet")
-                    //{
-                    //    shop.RemoveItem(char1, choice);
+                //if (choice == "buy_helmet")
+                //{
+                //    shop.RemoveItem(char1, choice);
 
-                    //    choice = ViewEngine.Instance.RenderShop();
-                    //}
-                    //else if (choice == "buy_chest")
-                    //{
-                    //    shop.RemoveItem(char1, choice);
-                    //    choice = ViewEngine.Instance.RenderShop();
+                //    choice = ViewEngine.Instance.RenderShop();
+                //}
+                //else if (choice == "buy_chest")
+                //{
+                //    shop.RemoveItem(char1, choice);
+                //    choice = ViewEngine.Instance.RenderShop();
 
-                    //}
-                    //else if (choice == "buy_hands")
-                    //{
-                    //    shop.RemoveItem(char1, choice);
-                    //    choice = ViewEngine.Instance.RenderShop();
-                    //}
-                    //else if (choice == "buy_weapon")
-                    //{
-                    //    shop.RemoveItem(char1, choice);
-                    //    choice = ViewEngine.Instance.RenderShop();
-                    //}
-                    //else if (choice == "buy_boots")
-                    //{
-                    //    shop.RemoveItem(char1, choice);
-                    //    choice = ViewEngine.Instance.RenderShop();
-                    //}
-                    //else if (choice == "return_back")
-                    //{
-                    //    break;
-                    //}
+                //}
+                //else if (choice == "buy_hands")
+                //{
+                //    shop.RemoveItem(char1, choice);
+                //    choice = ViewEngine.Instance.RenderShop();
+                //}
+                //else if (choice == "buy_weapon")
+                //{
+                //    shop.RemoveItem(char1, choice);
+                //    choice = ViewEngine.Instance.RenderShop();
+                //}
+                //else if (choice == "buy_boots")
+                //{
+                //    shop.RemoveItem(char1, choice);
+                //    choice = ViewEngine.Instance.RenderShop();
+                //}
+                //else if (choice == "return_back")
+                //{
+                //    break;
+                //}
                 //}
             }
         }

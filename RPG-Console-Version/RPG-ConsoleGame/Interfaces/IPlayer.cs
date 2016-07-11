@@ -7,5 +7,6 @@
     {
         //PlayerClass Class { get; }
         IList<string> Abilities { get; set; }
+        bool IsEnteringBuilding { get; set; }
     }
 }

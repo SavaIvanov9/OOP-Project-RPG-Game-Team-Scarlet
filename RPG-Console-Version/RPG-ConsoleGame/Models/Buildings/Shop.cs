@@ -195,10 +195,6 @@ namespace RPG_ConsoleGame.Models.Buildings
                 this.Hands.Add(itemFactory.CreateNonConsumableItem(ItemType.Hands, 2));
                 this.Hands.Add(itemFactory.CreateNonConsumableItem(ItemType.Hands, 3));
 
-                this.Hands.Add(itemFactory.CreateNonConsumableItem(ItemType.Hands, 1));
-                this.Hands.Add(itemFactory.CreateNonConsumableItem(ItemType.Hands, 2));
-                this.Hands.Add(itemFactory.CreateNonConsumableItem(ItemType.Hands, 3));
-
                 this.Boots.Add(itemFactory.CreateNonConsumableItem(ItemType.Boots, 1));
                 this.Boots.Add(itemFactory.CreateNonConsumableItem(ItemType.Boots, 2));
                 this.Boots.Add(itemFactory.CreateNonConsumableItem(ItemType.Boots, 3));
@@ -207,7 +203,6 @@ namespace RPG_ConsoleGame.Models.Buildings
                 this.Weapons.Add(itemFactory.CreateNonConsumableItem(ItemType.Weapon, 2));
                 this.Weapons.Add(itemFactory.CreateNonConsumableItem(ItemType.Weapon, 3));
 
-                //this.Potions.Add(new ConsumableItem(ItemType.PotionEnergy, 1));
                 this.Potions.Add(itemFactory.CreateConsumableItem(ItemType.PotionEnergy, 1));
                 this.Potions.Add(itemFactory.CreateConsumableItem(ItemType.PotionEnergy, 2));
                 this.Potions.Add(itemFactory.CreateConsumableItem(ItemType.PotionEnergy, 3));
@@ -230,47 +225,45 @@ namespace RPG_ConsoleGame.Models.Buildings
         {
             StringBuilder screen = new StringBuilder();
 
-            screen.AppendLine("Helmets:");
-            for (int i = 0; i < this.Helmets.Count; i++)
-            {
-                screen.AppendLine($"{Helmets[i].Type} level {Helmets[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Chests:");
-            for (int i = 0; i < this.Chests.Count; i++)
-            {
-                screen.AppendLine($"{Chests[i].Type} level {Chests[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Hands:");
-            for (int i = 0; i < this.Hands.Count; i++)
-            {
-                screen.AppendLine($"{Hands[i].Type} level {Hands[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Boots:");
-            for (int i = 0; i < this.Boots.Count; i++)
-            {
-                screen.AppendLine($"{Boots[i].Type} level {Boots[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Weapons:");
-            for (int i = 0; i < this.Weapons.Count; i++)
-            {
-                screen.AppendLine($"{Weapons[i].Type} level {Weapons[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Potions:");
-            for (int i = 0; i < this.Potions.Count; i++)
-            {
-                screen.AppendLine($"{Potions[i].Type} level {Potions[i].Level}");
-            }
-
-            screen.AppendLine(Environment.NewLine + "Scrolls:");
-            for (int i = 0; i < this.Scrolls.Count; i++)
-            {
-                screen.AppendLine($"{Scrolls[i].Type} level {Scrolls[i].Level}");
-            }
+            screen.AppendLine($"Amount of Helmets level 1: {this.Helmets.Count(x => x.Level.Equals(1))}, " +
+                              $"level 2: {this.Helmets.Count(x => x.Level.Equals(2))}, " +
+                              $"level 3: {this.Helmets.Count(x => x.Level.Equals(3))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Chest level 1: {this.Chests.Count(x => x.Level.Equals(1))}, " +
+                              $"level 2: {this.Chests.Count(x => x.Level.Equals(2))}, " +
+                              $"level 3: {this.Chests.Count(x => x.Level.Equals(3))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Hands level 1: {this.Hands.Count(x => x.Level.Equals(1))}, " +
+                              $"level 2: {this.Hands.Count(x => x.Level.Equals(2))}, " +
+                              $"level 3: {this.Hands.Count(x => x.Level.Equals(3))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Boots level 1: {this.Boots.Count(x => x.Level.Equals(1))}, " +
+                              $"level 2: {this.Boots.Count(x => x.Level.Equals(2))}, " +
+                              $"level 3: {this.Boots.Count(x => x.Level.Equals(3))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Weapons level 1: {this.Weapons.Count(x => x.Level.Equals(1))}, " +
+                              $"level 2: {this.Weapons.Count(x => x.Level.Equals(2))}, " +
+                              $"level 3: {this.Weapons.Count(x => x.Level.Equals(3))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Health Potions level 1: " +
+                              $"{this.Potions.Count(x => x.Level.Equals(1) && x.Type.Equals(ItemType.PotionHealth))} " +
+                              $"level 2: {this.Potions.Count(x => x.Level.Equals(2) && x.Type.Equals(ItemType.PotionHealth))}, " +
+                              $"level 3: {this.Potions.Count(x => x.Level.Equals(3) && x.Type.Equals(ItemType.PotionHealth))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Energy Potions level 1: " +
+                             $"{this.Potions.Count(x => x.Level.Equals(1) && x.Type.Equals(ItemType.PotionEnergy))} " +
+                             $"level 2: {this.Potions.Count(x => x.Level.Equals(2) && x.Type.Equals(ItemType.PotionEnergy))}, " +
+                             $"level 3: {this.Potions.Count(x => x.Level.Equals(3) && x.Type.Equals(ItemType.PotionEnergy))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Guardian Scrollss level 1: " +
+                             $"{this.Scrolls.Count(x => x.Level.Equals(1) && x.Type.Equals(ItemType.ScrollGuardian))} " +
+                             $"level 2: {this.Scrolls.Count(x => x.Level.Equals(2) && x.Type.Equals(ItemType.ScrollGuardian))}, " +
+                             $"level 3: {this.Scrolls.Count(x => x.Level.Equals(3) && x.Type.Equals(ItemType.ScrollGuardian))}");
+            screen.AppendLine();
+            screen.AppendLine($"Amount of Destruction Scrolls level 1: " +
+                             $"{this.Scrolls.Count(x => x.Level.Equals(1) && x.Type.Equals(ItemType.ScrollDestruction))} " +
+                             $"level 2: {this.Scrolls.Count(x => x.Level.Equals(2) && x.Type.Equals(ItemType.ScrollDestruction))}, " +
+                             $"level 3: {this.Scrolls.Count(x => x.Level.Equals(3) && x.Type.Equals(ItemType.ScrollDestruction))}");
 
             return screen;
         }

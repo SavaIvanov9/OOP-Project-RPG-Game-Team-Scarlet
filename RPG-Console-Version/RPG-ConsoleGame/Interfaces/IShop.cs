@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Map;
     using Models.Items;
+    using System.Text;
 
     public interface IShop : IBuilding
     {
@@ -18,6 +19,7 @@
         Position Position { get; set; }
         void TransferItemToCharacter(ICharacter character, ItemType type, int level);
         void TransferItemToShop(ICharacter character, int index);
+        StringBuilder ShowAmounts();
         void PopulateShop();
     }
 }

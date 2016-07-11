@@ -51,7 +51,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public string RenderShop()
+        public string RenderShop(IShop shop)
         {
             render.Clear();
 
@@ -80,24 +80,29 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 render.Clear();
 
+                render.PrintScreen(shop.ShowAmounts());
+
                 StringBuilder screen2 = new StringBuilder();
 
                 screen2.AppendLine(
-                    "Enter number to make your choice:" + Environment.NewLine + Environment.NewLine +
-                    "1. Helmet" + Environment.NewLine + Environment.NewLine +
-                    "2. Chest" + Environment.NewLine + Environment.NewLine +
-                    "3. Hands" + Environment.NewLine + Environment.NewLine +
-                    "4. Weapon" + Environment.NewLine + Environment.NewLine +
-                    "5. Boots" + Environment.NewLine + Environment.NewLine +
-                    "6. Expand Inventory" + Environment.NewLine + Environment.NewLine +
-                    "7. Return back"
+                    "Enter number to make your choice:" + Environment.NewLine +
+                    "1. Helmet" + Environment.NewLine + 
+                    "2. Chest" + Environment.NewLine + 
+                    "3. Hands" + Environment.NewLine + 
+                    "4. Weapon" + Environment.NewLine + 
+                    "5. Boots" + Environment.NewLine + 
+                    "6. Health Potion" + Environment.NewLine + 
+                    "7. Energy Potion" + Environment.NewLine + 
+                    "8. Guardian Scroll" + Environment.NewLine + 
+                    "9. Destruction Scroll" + Environment.NewLine + 
+                    "0. Return back"
                     );
 
                 render.PrintScreen(screen2);
 
                 choice = reader.ReadLine();
 
-                string[] validChoises2 = { "1", "2", "3", "4", "5", "6", "7" };
+                string[] validChoises2 = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
                 while (!validChoises2.Contains(choice))
                 {
@@ -107,32 +112,46 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 if (choice == "1")
                 {
-                    choice = "buy_helmet";
+                    choice = "buy helmet";
                 }
                 else if (choice == "2")
                 {
-                    choice = "buy_chest";
+                    choice = "buy chest";
                 }
                 else if (choice == "3")
                 {
-                    choice = "buy_hands";
+                    choice = "buy hands";
                 }
                 else if (choice == "4")
                 {
-                    choice = "buy_weapon";
+                    choice = "buy weapon";
                 }
                 else if (choice == "5")
                 {
-                    choice = "buy_boots";
+                    choice = "buy boots";
                 }
                 else if (choice == "6")
                 {
-                    choice = "expand_inventory";
+                    choice = "buy health potion";
                 }
-                else if (choice == "7")
+                else if (choice == "6")
                 {
-                    RenderShop();
+                    choice = "buy energy potion";
                 }
+                else if (choice == "6")
+                {
+                    choice = "buy guardian scroll";
+                }
+                else if (choice == "6")
+                {
+                    choice = "buy destruction scroll";
+                }
+                else if (choice == "0")
+                {
+                    RenderShop(shop);
+                }
+
+                return choice;
             }
             else if (choice == "2")
             {
