@@ -51,7 +51,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public string RenderShop(IShop shop)
+        public string RenderShop(IShop shop, ICharacter character)
         {
             render.Clear();
 
@@ -86,15 +86,15 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 screen2.AppendLine(
                     "Enter number to make your choice:" + Environment.NewLine +
-                    "1. Helmet" + Environment.NewLine + 
-                    "2. Chest" + Environment.NewLine + 
-                    "3. Hands" + Environment.NewLine + 
-                    "4. Weapon" + Environment.NewLine + 
-                    "5. Boots" + Environment.NewLine + 
-                    "6. Health Potion" + Environment.NewLine + 
-                    "7. Energy Potion" + Environment.NewLine + 
-                    "8. Guardian Scroll" + Environment.NewLine + 
-                    "9. Destruction Scroll" + Environment.NewLine + 
+                    "1. Helmet" + Environment.NewLine +
+                    "2. Chest" + Environment.NewLine +
+                    "3. Hands" + Environment.NewLine +
+                    "4. Weapon" + Environment.NewLine +
+                    "5. Boots" + Environment.NewLine +
+                    "6. Health Potion" + Environment.NewLine +
+                    "7. Energy Potion" + Environment.NewLine +
+                    "8. Guardian Scroll" + Environment.NewLine +
+                    "9. Destruction Scroll" + Environment.NewLine +
                     "0. Return back"
                     );
 
@@ -148,14 +148,59 @@ namespace RPG_ConsoleGame.Core.Engines
                 }
                 else if (choice == "0")
                 {
-                    RenderShop(shop);
+                    RenderShop(shop, character);
                 }
 
                 return choice;
             }
             else if (choice == "2")
             {
+                render.Clear();
+                StringBuilder screen = new StringBuilder();
 
+                screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                "Inventory: " + Environment.NewLine);
+
+                for (int i = 0; i < character.Inventory.Count; i++)
+                {
+                    screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level {character.Inventory[i].Level}");
+                }
+
+                screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to sell item"
+                + Environment.NewLine);
+
+                render.PrintScreen(screen);
+                
+                List<string> validChoises2 = new List<string>();
+                
+                for (int i = 0; i <= character.Inventory.Count; i++)
+                {
+                    validChoises2.Add(i.ToString());
+                }
+                
+                choice = reader.ReadLine();
+                while (!validChoises2.Contains(choice))
+                {
+                    render.WriteLine("Invalid choice, please re-enter.");
+                    choice = reader.ReadLine();
+                }
+
+                if (choice == "0")
+                {
+                    StateManager.Instance.StartState(StateConstants.SinglePlayer);
+                }
+                else
+                {
+                    var item = character.Inventory[Convert.ToInt32(choice) - 1];
+
+                    shop.TransferItemToShop(character, Convert.ToInt32(choice) - 1);
+                    render.WriteLine($"item {choice}: {item.Type}" +
+                                     $" level {item.Level} sold");
+
+                    StartTimer(2);
+
+                    RenderShop(shop, character);
+                }
             }
             else if (choice == "3")
             {
@@ -886,12 +931,12 @@ namespace RPG_ConsoleGame.Core.Engines
 
             List<string> validChoises = new List<string>();
 
-            
+
             for (int i = 0; i <= character.Inventory.Count; i++)
             {
                 validChoises.Add(i.ToString());
             }
-            
+
 
             string choice = reader.ReadLine();
             while (!validChoises.Contains(choice))

@@ -60,48 +60,48 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            //try
-            //{
-            InitializeDefaultsSinglePlayer();
-
-            while (this.IsRunning)
+            try
             {
-                if (Console.KeyAvailable)
+                InitializeDefaultsSinglePlayer();
+
+                while (this.IsRunning)
                 {
-                    render.Clear();
-                    string command = reader.ReadKey();
-                    ReturnBack(command);
-                    SaveGame(command);
-                    OpenInventory(command, database.Players[0]);
-
-                    database.Players[0].Move(database.Maps[0], command);
-
-                    ViewEngine.Instance.RenderMap(database.Maps[0]);
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-                    ViewEngine.Instance.DisplayMapDescription();
-
-                    if (CheckForEnemies("Bot"))
+                    if (Console.KeyAvailable)
                     {
-                        CheckForBattle(database.Players[0], "Bot");
-                    }
-                    if (CheckForEnemies("Boss"))
-                    {
-                        CheckForBattle(database.Players[0], "Boss");
-                    }
-                    ResetIsEnteringBuilding(database.Players[0]);
-                    CheckForShop(database.Players[0]);
+                        render.Clear();
+                        string command = reader.ReadKey();
+                        ReturnBack(command);
+                        SaveGame(command);
+                        OpenInventory(command, database.Players[0]);
 
-                    RemoveDead();
+                        database.Players[0].Move(database.Maps[0], command);
+
+                        ViewEngine.Instance.RenderMap(database.Maps[0]);
+                        ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+                        ViewEngine.Instance.DisplayMapDescription();
+
+                        if (CheckForEnemies("Bot"))
+                        {
+                            CheckForBattle(database.Players[0], "Bot");
+                        }
+                        if (CheckForEnemies("Boss"))
+                        {
+                            CheckForBattle(database.Players[0], "Boss");
+                        }
+                        ResetIsEnteringBuilding(database.Players[0]);
+                        CheckForShop(database.Players[0]);
+
+                        RemoveDead();
+                    }
                 }
             }
-            //}
-            //catch (Exception)
-            //{
-            //    render.Clear();
-            //    render.WriteLine("Problem has occurred. Restart the game.");
-            //    ViewEngine.Instance.StartTimer(5);
-            //    Environment.Exit(0);
-            //}
+            catch (Exception)
+            {
+                render.Clear();
+                render.WriteLine("Problem has occurred. Restart the game.");
+                ViewEngine.Instance.StartTimer(5);
+                Environment.Exit(0);
+            }
         }
 
         private void ResetIsEnteringBuilding(IPlayer char1)
@@ -144,7 +144,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 render.Clear();
                 StartMusic(SoundEffects.ShopTheme);
 
-                string choice = ViewEngine.Instance.RenderShop(database.Shops[0]);
+                string choice = ViewEngine.Instance.RenderShop(database.Shops[0], char1);
 
                 var shop = database.Shops[0];
 
