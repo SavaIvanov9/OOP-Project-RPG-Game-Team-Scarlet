@@ -73,6 +73,7 @@
     <Compile Include="Interfaces\ISound.cs" />
     <Compile Include="Models\Buildings\Building.cs" />
     <Compile Include="Models\Buildings\Shop.cs" />
+    <Compile Include="Models\Characters\Abilities\AbilitiesDescription.cs" />
     <Compile Include="Models\Characters\Abilities\AbilitiesProcessor.cs" />
     <Compile Include="Models\Characters\AI\Boss\Boss.cs" />
     <Compile Include="Models\Characters\AI\Boss\BossRace.cs" />

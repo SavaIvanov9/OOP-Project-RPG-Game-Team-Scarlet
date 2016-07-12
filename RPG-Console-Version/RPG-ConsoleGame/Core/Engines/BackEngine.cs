@@ -65,7 +65,7 @@ namespace RPG_ConsoleGame.Core.Engines
                         ReturnBack(command);
                         SaveGame(command);
                         OpenInventory(command, database.Players[0]);
-
+                        ShowDescription(command);
                         database.Players[0].Move(database.Maps[0], command);
 
                         ViewEngine.Instance.RenderMap(database.Maps[0]);
@@ -131,6 +131,17 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 render.Clear();
                 render.WriteLine(ex.ToString());
+            }
+        }
+
+        private void ShowDescription(string command)
+        {
+            if (command == "Description")
+            {
+                render.Clear();
+                render.WriteLine(AbilitiesDescription.description);
+                ViewEngine.Instance.StartTimer(20);
+                render.Clear();
             }
         }
 
@@ -335,25 +346,25 @@ namespace RPG_ConsoleGame.Core.Engines
                     if (keyPressed.Key == ConsoleKey.D1)
                     {
                         turnsCount++;
-                        RegenerateStats(player1);
+                        //RegenerateStats(player1);
                         ExecutePlayerAbility(player1.Abilities[0], player1, player2, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D2)
                     {
                         turnsCount++;
-                        RegenerateStats(player1);
+                        //RegenerateStats(player1);
                         ExecutePlayerAbility(player1.Abilities[1], player1, player2, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D3)
                     {
                         turnsCount++;
-                        RegenerateStats(player1);
+                        //RegenerateStats(player1);
                         ExecutePlayerAbility(player1.Abilities[2], player1, player2, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D4)
                     {
                         turnsCount++;
-                        RegenerateStats(player1);
+                        //RegenerateStats(player1);
                         ExecutePlayerAbility(player1.Abilities[3], player1, player2, turnsCount, history);
                     }
 
@@ -368,25 +379,25 @@ namespace RPG_ConsoleGame.Core.Engines
                     if (keyPressed.Key == ConsoleKey.D1)
                     {
                         turnsCount++;
-                        RegenerateStats(player2);
+                        //RegenerateStats(player2);
                         ExecutePlayerAbility(player2.Abilities[0], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D2)
                     {
                         turnsCount++;
-                        RegenerateStats(player2);
+                        //RegenerateStats(player2);
                         ExecutePlayerAbility(player2.Abilities[1], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D3)
                     {
                         turnsCount++;
-                        RegenerateStats(player2);
+                        //RegenerateStats(player2);
                         ExecutePlayerAbility(player2.Abilities[2], player2, player1, turnsCount, history);
                     }
                     if (keyPressed.Key == ConsoleKey.D4)
                     {
                         turnsCount++;
-                        RegenerateStats(player2);
+                        //RegenerateStats(player2);
                         ExecutePlayerAbility(player2.Abilities[3], player2, player1, turnsCount, history);
                     }
                     ViewEngine.Instance.RenderBattleStats(player2, player1, history);
@@ -560,7 +571,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D1)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -572,7 +583,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D2)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -583,7 +594,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D3)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -594,7 +605,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D4)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -602,14 +613,14 @@ namespace RPG_ConsoleGame.Core.Engines
                                     //turnsCount++;
                                     //RegenerateStats(char2);
                                 }
-
+                                
                                 playerOnTurn = 2;
                             }
                             if (playerOnTurn == 2)
                             {
                                 //bot AI in action
                                 //turnsCount++;
-                                RegenerateStats(char2);
+                                //RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
                                 turnsCount++;
                                 playerOnTurn = 1;
@@ -748,7 +759,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D1)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[0], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -759,7 +770,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D2)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[1], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -770,7 +781,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D3)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[2], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -781,7 +792,7 @@ namespace RPG_ConsoleGame.Core.Engines
                                 if (keyPressed.Key == ConsoleKey.D4)
                                 {
                                     turnsCount++;
-                                    RegenerateStats(char1);
+                                    //RegenerateStats(char1);
                                     ExecutePlayerAbility(char1.Abilities[3], char1, char2, turnsCount, history);
 
                                     ////bot AI in action
@@ -796,7 +807,7 @@ namespace RPG_ConsoleGame.Core.Engines
                             {
                                 //bot AI in action
                                 //turnsCount++;
-                                RegenerateStats(char2);
+                                //RegenerateStats(char2);
                                 ExecuteBotDecision(turnsCount, char2, char1, history);
                                 turnsCount++;
 
@@ -884,10 +895,10 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void RegenerateStats(ICharacter player)
-        {
-            player.Reflexes += 5;
-        }
+        //private void RegenerateStats(ICharacter player)
+        //{
+        //    player.Reflexes += 5;
+        //}
 
         private void ExecuteBotDecision(int turnsCount, IBot char2, ICharacter char1, StringBuilder history)
         {

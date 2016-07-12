@@ -991,10 +991,9 @@ namespace RPG_ConsoleGame.Core.Engines
                               "B - Boss" + Environment.NewLine +
                               "S - Shop" + Environment.NewLine +
                               "W - Wall" + Environment.NewLine +
-                              "F - Regeneration Fountain" + Environment.NewLine +
-                              @"Press ""ESC"" key to return to the menu" + Environment.NewLine +
-                              @"Press ""I"" key to open the inventory" + Environment.NewLine);
-
+                              "D - Abilities description" + Environment.NewLine +
+                              @"Press ""I"" key to open the inventory" + Environment.NewLine +
+                              @"Press ""ESC"" key to return to the menu" + Environment.NewLine);
             render.PrintScreen(screen);
         }
 

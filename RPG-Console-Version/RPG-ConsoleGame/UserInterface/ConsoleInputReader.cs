@@ -47,7 +47,10 @@
             {
                 input = "inventory";
             }
-
+            if (keyPressed.Key == ConsoleKey.D)
+            {
+                input = "Description";
+            }
             return input;
         }
     }

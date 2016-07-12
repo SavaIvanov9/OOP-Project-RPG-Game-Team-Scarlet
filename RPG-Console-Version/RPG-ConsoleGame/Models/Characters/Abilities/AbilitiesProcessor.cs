@@ -150,6 +150,7 @@
         private void Enrage(ICharacter player)
         {
             player.Energy -= 10;
+            player.Health -= 50;
             player.Damage *= 2;
         }
 
