@@ -1,4 +1,6 @@
-﻿using RPG_ConsoleGame.Models.Items;
+﻿using RPG_ConsoleGame.Models.Characters.AI.Boss;
+using RPG_ConsoleGame.Models.Characters.PlayerControlled;
+using RPG_ConsoleGame.Models.Items;
 
 namespace RPG_ConsoleGame.Core.Engines
 {
@@ -54,48 +56,49 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            try
+            //try
+            //{
+            ViewEngine.Instance.InsideGame = true;
+            InitializeDefaultsSinglePlayer();
+
+            while (this.IsRunning)
             {
-                InitializeDefaultsSinglePlayer();
-
-                while (this.IsRunning)
+                if (Console.KeyAvailable)
                 {
-                    if (Console.KeyAvailable)
+                    render.Clear();
+                    string command = reader.ReadKey();
+                    ReturnBack(command);
+                    SaveGame(command);
+                    OpenInventory(command, database.Players[0]);
+
+                    database.Players[0].Move(database.Maps[0], command);
+
+                    ViewEngine.Instance.RenderMap(database.Maps[0]);
+                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+                    ViewEngine.Instance.DisplayMapDescription();
+
+                    if (CheckForEnemies("Bot"))
                     {
-                        render.Clear();
-                        string command = reader.ReadKey();
-                        ReturnBack(command);
-                        SaveGame(command);
-                        OpenInventory(command, database.Players[0]);
-
-                        database.Players[0].Move(database.Maps[0], command);
-
-                        ViewEngine.Instance.RenderMap(database.Maps[0]);
-                        ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-                        ViewEngine.Instance.DisplayMapDescription();
-
-                        if (CheckForEnemies("Bot"))
-                        {
-                            CheckForBattle(database.Players[0], "Bot");
-                        }
-                        if (CheckForEnemies("Boss"))
-                        {
-                            CheckForBattle(database.Players[0], "Boss");
-                        }
-                        ResetIsEnteringBuilding(database.Players[0]);
-                        CheckForShop(database.Players[0]);
-
-                        RemoveDead();
+                        CheckForBattle(database.Players[0], "Bot");
                     }
+                    if (CheckForEnemies("Boss"))
+                    {
+                        CheckForBattle(database.Players[0], "Boss");
+                    }
+                    ResetIsEnteringBuilding(database.Players[0]);
+                    CheckForShop(database.Players[0]);
+
+                    RemoveDead();
                 }
             }
-            catch (Exception)
-            {
-                render.Clear();
-                render.WriteLine("Problem has occurred. Restart the game.");
-                ViewEngine.Instance.StartTimer(5);
-                Environment.Exit(0);
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    render.Clear();
+            //    render.WriteLine("Problem has occurred. Restart the game.");
+            //    ViewEngine.Instance.StartTimer(5);
+            //    Environment.Exit(0);
+            //}
         }
 
         private void ResetIsEnteringBuilding(IPlayer char1)
@@ -186,9 +189,6 @@ namespace RPG_ConsoleGame.Core.Engines
         {
             if (!IsRunning)
             {
-                //database.ClearData();
-
-                //beshe if bez eksepshyna
                 while (database.Players.Count == 0)
                 {
                     try
@@ -204,10 +204,10 @@ namespace RPG_ConsoleGame.Core.Engines
                     }
                 }
 
-                //For testing purposes 
-                //**********************************************************************************
-                database.Players[0].Health += 100000;
-                //**********************************************************************************
+                ////For testing purposes 
+                ////**********************************************************************************
+                //database.Players[0].Health += 100000;
+                ////**********************************************************************************
 
                 this.IsRunning = true;
 
@@ -900,7 +900,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        private void StartMusic(SoundEffects stage)
+        public void StartMusic(SoundEffects stage)
         {
             sound.SFX(stage);
         }
@@ -925,24 +925,32 @@ namespace RPG_ConsoleGame.Core.Engines
 
         private void SaveData(IGameDatabase data, string slot)
         {
-            FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{slot}.xml", FileMode.Create);
-            BinaryFormatter formatter = new BinaryFormatter();
+            //FileStream fs = new FileStream($@"..\..\GameSavedData\Save-{slot}.xml", FileMode.Create);
+            //BinaryFormatter formatter = new BinaryFormatter();
+            
+            //try
+            //    {
+            //    data.IsLoaded = true;
+            //    formatter.Serialize(fs, data);
+            //    ViewEngine.Instance.DisplayMessage("Data Saved");
+            //    ViewEngine.Instance.StartTimer(5);
+            //}
+            //catch (SerializationException e)
+            //{
+            //    ViewEngine.Instance.DisplayMessage("Failed to serialize. Reason: " + e.Message);
+            //}
+            //finally
+            //{
+            //    fs.Close();
+            //}
 
-            try
+            using (Stream stream = File.Open($@"..\..\GameSavedData\Save-{slot}.xml", FileMode.Create))
             {
+                BinaryFormatter formatter = new BinaryFormatter();
                 data.IsLoaded = true;
-                formatter.Serialize(fs, data);
+                formatter.Serialize(stream, data);
                 ViewEngine.Instance.DisplayMessage("Data Saved");
                 ViewEngine.Instance.StartTimer(5);
-            }
-            catch (SerializationException e)
-            {
-                ViewEngine.Instance.DisplayMessage("Failed to serialize. Reason: " + e.Message);
-                //Console.WriteLine("Failed to serialize. Reason: " + e.Message);
-            }
-            finally
-            {
-                fs.Close();
             }
         }
 
@@ -991,6 +999,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartNewSinglePlayer()
         {
+            IsRunning = false;
             database.ClearData();
             StartSinglePlayer();
         }

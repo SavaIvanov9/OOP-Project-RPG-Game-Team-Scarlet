@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core.Factories
+﻿using System;
+
+namespace RPG_ConsoleGame.Core.Factories
 {
     using Interfaces;
     using Models.Items;
@@ -6,6 +8,7 @@
     using Models.Items.NonConsumables;
 
     //Factory Pattern
+    [Serializable()]
     public class ItemFactory : IItemFactory
     {
         public IItem CreateConsumableItem(ItemType type, int level)

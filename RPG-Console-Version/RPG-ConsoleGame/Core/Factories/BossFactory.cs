@@ -1,7 +1,6 @@
-﻿using RPG_ConsoleGame.Models.Characters.AI.Boss;
-
-namespace RPG_ConsoleGame.Core.Factories
+﻿namespace RPG_ConsoleGame.Core.Factories
 {
+    using Models.Characters.AI.Boss;
     using Interfaces;
     using Map;
 

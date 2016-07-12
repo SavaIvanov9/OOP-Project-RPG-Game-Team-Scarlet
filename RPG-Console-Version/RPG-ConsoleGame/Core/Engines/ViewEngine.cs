@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Core.Engines
+﻿using System.Linq.Expressions;
+
+namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;
@@ -465,7 +467,7 @@
                                       $"{i}. Game saved on {obj.Date}");
                     fs.Close();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
                 }
@@ -835,8 +837,26 @@
                 }
                 catch (Exception)
                 {
+
                     screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
                 }
+                //try
+                //{
+                //    using (Stream stream = File.Open($@"..\..\GameSavedData\Save-{i}.xml", FileMode.Open))
+                //    {
+                //        BinaryFormatter formatter = new BinaryFormatter();
+
+                //        IGameDatabase obj = (IGameDatabase)formatter.Deserialize(stream);
+
+                //        screen.AppendLine(Environment.NewLine + Environment.NewLine +
+                //                          $"{i}. Game saved on {obj.Date}");
+                //    }
+                //}
+                //catch (Exception)
+                //{
+
+                //    screen.AppendLine(Environment.NewLine + Environment.NewLine + $"{i}. Free Slot");
+                //}
             }
 
             screen.AppendLine(Environment.NewLine + Environment.NewLine +
@@ -973,7 +993,7 @@
                 }
             }
 
-            screen.AppendLine(Environment.NewLine + 
+            screen.AppendLine(Environment.NewLine +
                 $"Your gold: {character.Gold}" + Environment.NewLine +
                 Environment.NewLine + "Inventory: " + Environment.NewLine);
 
