@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RPG_ConsoleGame.Models.Characters.PlayerControlled;
+using RPG_ConsoleGame.Models.Items;
 
 namespace RPG_ConsoleGame.Core.Engines
 {
@@ -51,7 +52,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        public string RenderShop(IShop shop, ICharacter character)
+        public void RenderShop(IShop shop, ICharacter character)
         {
             render.Clear();
 
@@ -78,80 +79,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
             if (choice == "1")
             {
-                render.Clear();
-
-                render.PrintScreen(shop.ShowAmounts());
-
-                StringBuilder screen2 = new StringBuilder();
-
-                screen2.AppendLine(
-                    "Enter number to make your choice:" + Environment.NewLine +
-                    "1. Helmet" + Environment.NewLine +
-                    "2. Chest" + Environment.NewLine +
-                    "3. Hands" + Environment.NewLine +
-                    "4. Weapon" + Environment.NewLine +
-                    "5. Boots" + Environment.NewLine +
-                    "6. Health Potion" + Environment.NewLine +
-                    "7. Energy Potion" + Environment.NewLine +
-                    "8. Guardian Scroll" + Environment.NewLine +
-                    "9. Destruction Scroll" + Environment.NewLine +
-                    "0. Return back"
-                    );
-
-                render.PrintScreen(screen2);
-
-                choice = reader.ReadLine();
-
-                string[] validChoises2 = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
-                while (!validChoises2.Contains(choice))
-                {
-                    render.WriteLine("Invalid choice, please re-enter.");
-                    choice = reader.ReadLine();
-                }
-
-                if (choice == "1")
-                {
-                    choice = "buy helmet";
-                }
-                else if (choice == "2")
-                {
-                    choice = "buy chest";
-                }
-                else if (choice == "3")
-                {
-                    choice = "buy hands";
-                }
-                else if (choice == "4")
-                {
-                    choice = "buy weapon";
-                }
-                else if (choice == "5")
-                {
-                    choice = "buy boots";
-                }
-                else if (choice == "6")
-                {
-                    choice = "buy health potion";
-                }
-                else if (choice == "6")
-                {
-                    choice = "buy energy potion";
-                }
-                else if (choice == "6")
-                {
-                    choice = "buy guardian scroll";
-                }
-                else if (choice == "6")
-                {
-                    choice = "buy destruction scroll";
-                }
-                else if (choice == "0")
-                {
-                    RenderShop(shop, character);
-                }
-
-                return choice;
+                RenderBuyItemMenu(shop, character);
             }
             else if (choice == "2")
             {
@@ -187,7 +115,8 @@ namespace RPG_ConsoleGame.Core.Engines
 
                 if (choice == "0")
                 {
-                    StateManager.Instance.StartState(StateConstants.SinglePlayer);
+                    //StateManager.Instance.StartState(StateConstants.SinglePlayer);
+                    RenderShop(shop, character);
                 }
                 else
                 {
@@ -206,8 +135,131 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 BackEngine.Instance.StartSinglePlayer();
             }
+        }
 
-            return choice;
+        private void RenderBuyItemMenu(IShop shop, ICharacter character)
+        {
+            render.Clear();
+
+            render.PrintScreen(shop.ShowAmounts());
+
+            StringBuilder screen2 = new StringBuilder();
+
+            screen2.AppendLine(
+                "Enter number to make your choice:" + Environment.NewLine +
+                "1. Helmet" + Environment.NewLine +
+                "2. Chest" + Environment.NewLine +
+                "3. Hands" + Environment.NewLine +
+                "4. Weapon" + Environment.NewLine +
+                "5. Boots" + Environment.NewLine +
+                "6. Health Potion" + Environment.NewLine +
+                "7. Energy Potion" + Environment.NewLine +
+                "8. Guardian Scroll" + Environment.NewLine +
+                "9. Destruction Scroll" + Environment.NewLine +
+                "0. Return back"
+                );
+
+            render.PrintScreen(screen2);
+
+            string choice = reader.ReadLine();
+
+            string[] validChoises2 = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+            while (!validChoises2.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            if (choice == "1")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.Helmet);
+            }
+            else if (choice == "2")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.Hands);
+            }
+            else if (choice == "3")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.Weapon);
+            }
+            else if (choice == "4")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.Boots);
+            }
+            else if (choice == "5")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.PotionHealth);
+            }
+            else if (choice == "6")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.PotionEnergy);
+            }
+            else if (choice == "6")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.ScrollDestruction);
+            }
+            else if (choice == "6")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.ScrollGuardian);
+            }
+            else if (choice == "6")
+            {
+                ChooseLvlItemToBuy(shop, character, ItemType.ScrollDestruction);
+            }
+            else if (choice == "0")
+            {
+                RenderShop(shop, character);
+            }
+        }
+
+        private void ChooseLvlItemToBuy(IShop shop, ICharacter character, ItemType type)
+        {
+            StringBuilder lvlItemScreen = new StringBuilder();
+
+            lvlItemScreen.AppendLine(Environment.NewLine + "Choose level of item:"
+                                     + Environment.NewLine + "1. Item level 1"
+                                     + Environment.NewLine + "2. Item level 2"
+                                     + Environment.NewLine + "3. Item level 3"
+                                     + Environment.NewLine + "0. Return back");
+
+            render.PrintScreen(lvlItemScreen);
+
+            string[] validChoises3 = { "0", "1", "2", "3" };
+
+            string choice = reader.ReadLine();
+
+            while (!validChoises3.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            if (choice == "1")
+            {
+                shop.TransferItemToCharacter(character, type, 1);
+                render.WriteLine($"You have bought {type} lvl 1");
+                StartTimer(3);
+                RenderBuyItemMenu(shop, character);
+            }
+            else if (choice == "2")
+            {
+                shop.TransferItemToCharacter(character, type, 2);
+                render.WriteLine($"You have bought {type} lvl 2");
+                StartTimer(3);
+                RenderBuyItemMenu(shop, character);
+            }
+            else if (choice == "3")
+            {
+                shop.TransferItemToCharacter(character, type, 3);
+                render.WriteLine($"You have bought {type} lvl 3");
+                StartTimer(3);
+                RenderBuyItemMenu(shop, character);
+            }
+            else if (choice == "0")
+            {
+                RenderBuyItemMenu(shop, character);
+            }
         }
 
         public void RenderMenu()
@@ -743,13 +795,16 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartTimer(int seconds)
         {
-            for (int i = 0; i < seconds * 4; i++)
+            for (int i = 0; i < seconds * 40; i++)
             {
-                Thread.Sleep(250);
+                Thread.Sleep(25);
 
-                if (reader.ReadKey() == "skip")
+                if (Console.KeyAvailable)
                 {
-                    break;
+                    if (reader.ReadKey() == "skip")
+                    {
+                        break;
+                    }
                 }
             }
         }

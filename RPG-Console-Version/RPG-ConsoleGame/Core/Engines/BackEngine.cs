@@ -144,44 +144,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 render.Clear();
                 StartMusic(SoundEffects.ShopTheme);
 
-                string choice = ViewEngine.Instance.RenderShop(database.Shops[0], char1);
-
-                var shop = database.Shops[0];
-
-                //while (choice != "return_back")
-                //{
-                //if (choice == "buy_helmet")
-                //{
-                //    shop.RemoveItem(char1, choice);
-
-                //    choice = ViewEngine.Instance.RenderShop();
-                //}
-                //else if (choice == "buy_chest")
-                //{
-                //    shop.RemoveItem(char1, choice);
-                //    choice = ViewEngine.Instance.RenderShop();
-
-                //}
-                //else if (choice == "buy_hands")
-                //{
-                //    shop.RemoveItem(char1, choice);
-                //    choice = ViewEngine.Instance.RenderShop();
-                //}
-                //else if (choice == "buy_weapon")
-                //{
-                //    shop.RemoveItem(char1, choice);
-                //    choice = ViewEngine.Instance.RenderShop();
-                //}
-                //else if (choice == "buy_boots")
-                //{
-                //    shop.RemoveItem(char1, choice);
-                //    choice = ViewEngine.Instance.RenderShop();
-                //}
-                //else if (choice == "return_back")
-                //{
-                //    break;
-                //}
-                //}
+                ViewEngine.Instance.RenderShop(database.Shops[0], char1);
             }
         }
 

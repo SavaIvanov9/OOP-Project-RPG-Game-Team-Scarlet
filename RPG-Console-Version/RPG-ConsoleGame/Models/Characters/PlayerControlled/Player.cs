@@ -15,8 +15,9 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
     {
         private int currentRow = 1;
         private int currentCol = 1;
-        private bool insideBuilding = false;
+        private bool insideBuilding;
         private char inBuildingSymbol;
+        private bool isEnteringBuilding;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
@@ -25,12 +26,14 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             this.SetPlayerStats();
             this.CurrentCol = currentCol;
             this.CurrentRow = currentRow;
+            this.IsEnteringBuilding = isEnteringBuilding;
             SetDefaultEquippedItems();
         }
 
         public int CurrentCol { get; set; }
         public int CurrentRow { get; set; }
-
+        public bool IsEnteringBuilding { get; set; }
+       
         public PlayerRace Race { get; private set; }
 
         public void Move(char[,] map, string command)
@@ -425,6 +428,5 @@ namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
             //    position.Y = currentCol;
             //}
         }
-
     }
 }
