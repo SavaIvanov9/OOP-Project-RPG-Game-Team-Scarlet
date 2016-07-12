@@ -1,6 +1,4 @@
-﻿using RPG_ConsoleGame.Models.Items.NonConsumables;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Characters
 {
     using System;
     using System.Collections.Generic;

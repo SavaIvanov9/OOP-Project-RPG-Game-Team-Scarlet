@@ -1,32 +1,20 @@
 ﻿namespace RPG_ConsoleGame.Models.Characters.AI.Creature
 {
     using System;
-    using RPG_ConsoleGame.Characters;
     using Interfaces;
     using Map;
     using Items;
-                          
+    using PlayerControlled;
+
     [Serializable()]
     public class Creature: Bot, ICreature
     {
-        //private readonly List<Item> inventory;
-
-        //public int currentRow = 1;
-        //public int currentCol = 1;
-
         public Creature(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
         {
             this.Race = race;
-            //this.inventory = new List<Item>();
             this.SetPlayerStats();
-            //this.CurrentCol = currentCol;
-            //this.CurrentRow = currentRow;
-
         }
-
-        //public int CurrentCol { get; set; }
-        //public int CurrentRow { get; set; }
 
         public PlayerRace Race { get; private set; }
         
@@ -34,19 +22,6 @@
         {
             Inventory.Add(item);
         }
-
-        //public void Heal()
-        //{
-        //    var beer = this.inventory.FirstOrDefault() as Beer;
-
-        //    if (beer == null)
-        //    {
-        //        throw new NotEnoughBeerException("Not enough beer!!!");
-        //    }
-
-        //    this.Health += beer.HealthRestore;
-        //    this.inventory.Remove(beer);
-        //}
 
         public override string ToString()
         {

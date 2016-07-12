@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Interfaces
+﻿using RPG_ConsoleGame.Models.Characters.PlayerControlled;
+
+namespace RPG_ConsoleGame.Interfaces
 {
     using Characters;
     using Map;

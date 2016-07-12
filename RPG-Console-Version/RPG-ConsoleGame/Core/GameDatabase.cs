@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Interfaces;
-    using Extensions;
 
     [Serializable()]
     public class GameDatabase : IGameDatabase

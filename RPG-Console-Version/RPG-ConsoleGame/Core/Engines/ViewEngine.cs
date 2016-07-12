@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using RPG_ConsoleGame.Models.Characters.PlayerControlled;
-using RPG_ConsoleGame.Models.Items;
-
-namespace RPG_ConsoleGame.Core.Engines
+﻿namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;
     using System.Text;
     using System.Threading;
+    using System.Collections.Generic;
+    using Models.Characters.PlayerControlled;
+    using Models.Items;
+    using Sound;
     using Characters;
     using Interfaces;
     using Map;
@@ -87,6 +87,7 @@ namespace RPG_ConsoleGame.Core.Engines
             }
             else if (choice == "3")
             {
+                BackEngine.Instance.StartMusic(SoundEffects.DefaultTheme);
                 BackEngine.Instance.StartSinglePlayer();
             }
         }
@@ -343,7 +344,7 @@ namespace RPG_ConsoleGame.Core.Engines
                 }
                 else if (choice == "2")
                 {
-                    InsideGame = true;
+                    //InsideGame = true;
                     choice = StateConstants.LoadGame;
                 }
                 else if (choice == "3")
@@ -482,7 +483,7 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 if (choice == "6")
                 {
-                    InsideGame = false;
+                    //InsideGame = false;
                     choice = "exit";
                     return choice;
                 }
@@ -757,6 +758,7 @@ namespace RPG_ConsoleGame.Core.Engines
             screen.AppendLine("Teleric Software Academy");
             screen.AppendLine();
             screen.AppendLine("Team Scarlet");
+            screen.AppendLine("https://github.com/SavaIvanov9/Skarlet/");
             screen.AppendLine();
             screen.AppendLine("OOP Team Project - C# RPG Game");
             render.PrintScreen(screen);
@@ -793,11 +795,6 @@ namespace RPG_ConsoleGame.Core.Engines
 
             StartTimer(time);
         }
-
-        //public void NoMoreInGame()
-        //{
-        //    this.InsideGame = false;
-        //}
 
         public void StartTimer(int seconds)
         {

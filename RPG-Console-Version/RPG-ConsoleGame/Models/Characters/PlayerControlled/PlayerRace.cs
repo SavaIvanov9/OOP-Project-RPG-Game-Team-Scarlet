@@ -1,4 +1,4 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
     public enum PlayerRace
     {

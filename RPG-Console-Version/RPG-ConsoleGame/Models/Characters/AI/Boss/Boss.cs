@@ -1,13 +1,10 @@
-﻿
-using RPG_ConsoleGame.Models.Characters.AI;
-
-namespace RPG_ConsoleGame.Models.Characters.Bots.Boss
+﻿namespace RPG_ConsoleGame.Models.Characters.AI.Boss
 {
     using System;
     using Interfaces;
     using Map;
-    using RPG_ConsoleGame.Characters;
-    using Models.Items;
+    using Items;
+    using AI;
 
     [Serializable()]
     public class Boss : Bot, IBoss

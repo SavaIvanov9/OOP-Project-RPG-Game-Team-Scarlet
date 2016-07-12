@@ -1,9 +1,9 @@
-﻿namespace RPG_ConsoleGame.Core.Factories
+﻿using RPG_ConsoleGame.Models.Characters.AI.Boss;
+
+namespace RPG_ConsoleGame.Core.Factories
 {
-    using Characters;
     using Interfaces;
     using Map;
-    using Models.Characters.Bots.Boss;
 
     //Factory Pattern
     public class BossFactory : IBossFactory

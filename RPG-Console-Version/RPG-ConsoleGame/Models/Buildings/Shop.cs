@@ -1,6 +1,4 @@
-﻿using RPG_ConsoleGame.Models.Items.Consumables;
-
-namespace RPG_ConsoleGame.Models.Buildings
+﻿namespace RPG_ConsoleGame.Models.Buildings
 {
     using System;
     using Interfaces;

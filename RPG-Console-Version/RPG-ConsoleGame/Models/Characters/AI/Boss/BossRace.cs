@@ -1,4 +1,4 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Models.Characters.AI.Boss
 {
     public enum BossRace
     {
