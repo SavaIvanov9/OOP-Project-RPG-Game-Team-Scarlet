@@ -33,11 +33,6 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public bool IsRunning { get; private set; }
 
-        //static Map mapMatrix = new Map();
-
-        //char[,] map = mapMatrix.ReadMap("../../../Map1.txt");
-
-
         //Singleton pattern
         private static BackEngine instance;
 
@@ -56,49 +51,87 @@ namespace RPG_ConsoleGame.Core.Engines
 
         public void StartSinglePlayer()
         {
-            //try
-            //{
-            ViewEngine.Instance.InsideGame = true;
-            InitializeDefaultsSinglePlayer();
-
-            while (this.IsRunning)
+            try
             {
-                if (Console.KeyAvailable)
+                ViewEngine.Instance.InsideGame = true;
+                InitializeDefaultsSinglePlayer();
+
+                while (this.IsRunning)
                 {
-                    render.Clear();
-                    string command = reader.ReadKey();
-                    ReturnBack(command);
-                    SaveGame(command);
-                    OpenInventory(command, database.Players[0]);
-
-                    database.Players[0].Move(database.Maps[0], command);
-
-                    ViewEngine.Instance.RenderMap(database.Maps[0]);
-                    ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
-                    ViewEngine.Instance.DisplayMapDescription();
-
-                    if (CheckForEnemies("Bot"))
+                    if (Console.KeyAvailable)
                     {
-                        CheckForBattle(database.Players[0], "Bot");
-                    }
-                    if (CheckForEnemies("Boss"))
-                    {
-                        CheckForBattle(database.Players[0], "Boss");
-                    }
-                    ResetIsEnteringBuilding(database.Players[0]);
-                    CheckForShop(database.Players[0]);
+                        render.Clear();
+                        string command = reader.ReadKey();
+                        ReturnBack(command);
+                        SaveGame(command);
+                        OpenInventory(command, database.Players[0]);
 
-                    RemoveDead();
+                        database.Players[0].Move(database.Maps[0], command);
+
+                        ViewEngine.Instance.RenderMap(database.Maps[0]);
+                        ViewEngine.Instance.RenderPlayerStats(database.Players[0]);
+                        ViewEngine.Instance.DisplayMapDescription();
+
+                        if (CheckForEnemies("Bot"))
+                        {
+                            CheckForBattle(database.Players[0], "Bot");
+                        }
+                        if (CheckForEnemies("Boss"))
+                        {
+                            CheckForBattle(database.Players[0], "Boss");
+                        }
+                        ResetIsEnteringBuilding(database.Players[0]);
+                        CheckForShop(database.Players[0]);
+
+                        RemoveDead();
+                    }
                 }
             }
-            //}
-            //catch (Exception)
-            //{
-            //    render.Clear();
-            //    render.WriteLine("Problem has occurred. Restart the game.");
-            //    ViewEngine.Instance.StartTimer(5);
-            //    Environment.Exit(0);
-            //}
+            catch (IncorrectNameException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (IncorrectChoiceException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (IncorrectLevelException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (IncorrectRaceException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (IncorrectTypeException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (NotExistingFileException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (ObjectOutOfBoundsException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (OutOfAmountException ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                render.Clear();
+                render.WriteLine(ex.ToString());
+            }
         }
 
         private void ResetIsEnteringBuilding(IPlayer char1)
@@ -145,7 +178,6 @@ namespace RPG_ConsoleGame.Core.Engines
             }
         }
 
-        //StartMultiPlayer
         public void StartMultiPlayer()
         {
             try
@@ -194,13 +226,14 @@ namespace RPG_ConsoleGame.Core.Engines
                     try
                     {
                         database.Players.Add(ViewEngine.Instance.GetPlayer());
-                        database.AddMap(new Map().ReadMap("../../../Map1.txt"));
+                        
+                        database.AddMap(new Map().ReadMap("../../../Map.txt"));
+                        database.Players[0].SetPosition(database.Maps[0]);
                         PopulateMap(database.Maps[0]);
                     }
                     catch (IncorrectNameException exception)
                     {
                         render.WriteLine(exception.Message + Environment.NewLine);
-                        //database.Players.Add(ViewEngine.Instance.GetPlayer());
                     }
                 }
 
@@ -251,7 +284,6 @@ namespace RPG_ConsoleGame.Core.Engines
             //**********************************************************************************
         }
 
-        //MultiplayerBattle
         private void StartMultiplayerBattle()
         {
             IPlayer player1 = database.Players[0];

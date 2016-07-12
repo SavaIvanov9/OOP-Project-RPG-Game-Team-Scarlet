@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Models.Buildings
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace RPG_ConsoleGame.Models.Buildings
 {
     using System;
     using Interfaces;
@@ -87,53 +89,126 @@
 
         public void TransferItemToCharacter(ICharacter character, ItemType type, int level)
         {
+
             switch (type)
             {
                 case ItemType.Helmet:
-                    character.Inventory.Add(this.Helmets.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Helmets.First(x => x.Level.Equals(level)).Gold;
-                    this.Helmets.Remove(this.Helmets.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Helmets.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Helmets.First(x => x.Level.Equals(level)).Gold;
+                        this.Helmets.Remove(this.Helmets.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.Chest:
-                    character.Inventory.Add(this.Chests.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Chests.First(x => x.Level.Equals(level)).Gold;
-                    this.Chests.Remove(this.Chests.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Chests.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Chests.First(x => x.Level.Equals(level)).Gold;
+                        this.Chests.Remove(this.Chests.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.Hands:
-                    character.Inventory.Add(this.Hands.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Hands.First(x => x.Level.Equals(level)).Gold;
-                    this.Hands.Remove(this.Hands.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Hands.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Hands.First(x => x.Level.Equals(level)).Gold;
+                        this.Hands.Remove(this.Hands.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.Boots:
-                    character.Inventory.Add(this.Boots.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Boots.First(x => x.Level.Equals(level)).Gold;
-                    this.Boots.Remove(this.Boots.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Boots.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Boots.First(x => x.Level.Equals(level)).Gold;
+                        this.Boots.Remove(this.Boots.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.Weapon:
-                    character.Inventory.Add(this.Weapons.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Weapons.First(x => x.Level.Equals(level)).Gold;
-                    this.Weapons.Remove(this.Weapons.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Weapons.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Weapons.First(x => x.Level.Equals(level)).Gold;
+                        this.Weapons.Remove(this.Weapons.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.PotionHealth:
-                    character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
-                    this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
+                        this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.PotionEnergy:
-                    character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
-                    this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
+                        this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.ScrollGuardian:
-                    character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
-                    this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
+                        this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 case ItemType.ScrollDestruction:
-                    character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
-                    character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
-                    this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
-                    break;
+                    //try
+                    //{
+                        character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
+                        character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
+                        this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
+                        break;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex);
+                    //    break;
+                    //}
                 default:
                     throw new IncorrectTypeException("Incorrect item type in shop");
                     break;

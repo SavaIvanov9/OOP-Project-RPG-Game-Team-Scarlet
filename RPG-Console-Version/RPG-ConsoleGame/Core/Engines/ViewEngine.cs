@@ -246,24 +246,54 @@ namespace RPG_ConsoleGame.Core.Engines
 
             if (choice == "1")
             {
-                shop.TransferItemToCharacter(character, type, 1);
-                render.WriteLine($"You have bought {type} lvl 1");
-                StartTimer(3);
-                RenderBuyItemMenu(shop, character);
+                try
+                {
+                    shop.TransferItemToCharacter(character, type, 1);
+                    render.WriteLine($"You have bought {type} lvl 1");
+                }
+                catch (Exception ex)
+                {
+                    render.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    StartTimer(3);
+                    RenderBuyItemMenu(shop, character);
+                }
             }
             else if (choice == "2")
             {
-                shop.TransferItemToCharacter(character, type, 2);
-                render.WriteLine($"You have bought {type} lvl 2");
-                StartTimer(3);
-                RenderBuyItemMenu(shop, character);
+                try
+                {
+                    shop.TransferItemToCharacter(character, type, 2);
+                    render.WriteLine($"You have bought {type} lvl 2");
+                }
+                catch (Exception ex)
+                {
+                    render.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    StartTimer(3);
+                    RenderBuyItemMenu(shop, character);
+                }
             }
             else if (choice == "3")
             {
-                shop.TransferItemToCharacter(character, type, 3);
-                render.WriteLine($"You have bought {type} lvl 3");
-                StartTimer(3);
-                RenderBuyItemMenu(shop, character);
+                try
+                {
+                    shop.TransferItemToCharacter(character, type, 3);
+                    render.WriteLine($"You have bought {type} lvl 3");
+                }
+                catch (Exception ex)
+                {
+                    render.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    StartTimer(3);
+                    RenderBuyItemMenu(shop, character);
+                }
             }
             else if (choice == "0")
             {

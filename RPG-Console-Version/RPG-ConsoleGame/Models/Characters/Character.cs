@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Characters
+﻿using RPG_ConsoleGame.Exceptions;
+
+namespace RPG_ConsoleGame.Characters
 {
     using System;
     using System.Collections.Generic;
@@ -120,7 +122,15 @@
         public int Gold
         {
             get { return this.gold; }
-            set { this.gold = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    value = 0;
+                    throw new OutOfAmountException("Not enoуgh gold");
+                }
+                this.gold = value;
+            }
         }
 
         public IList<string> Abilities

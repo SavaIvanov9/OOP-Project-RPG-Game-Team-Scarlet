@@ -11,8 +11,8 @@
     [Serializable()]
     public class Player : Character, IPlayer
     {
-        private int currentRow = 1;
-        private int currentCol = 1;
+        private int currentRow;
+        private int currentCol;
         private bool insideBuilding;
         private char inBuildingSymbol;
         private bool isEnteringBuilding;
@@ -42,6 +42,21 @@
         public bool IsEnteringBuilding { get; set; }
        
         public PlayerRace Race { get; private set; }
+
+        public void SetPosition(char[,] matrix)
+        {
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    if (matrix[row, col] == 'P')
+                    {
+                        this.currentRow = row;
+                        this.currentCol = col;
+                    }
+                }
+            }
+        }
 
         public void Move(char[,] map, string command)
         {
