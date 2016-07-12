@@ -83,57 +83,62 @@ namespace RPG_ConsoleGame.Core.Engines
             }
             else if (choice == "2")
             {
-                render.Clear();
-                StringBuilder screen = new StringBuilder();
-
-                screen.AppendLine(Environment.NewLine + Environment.NewLine +
-                "Inventory: " + Environment.NewLine);
-
-                for (int i = 0; i < character.Inventory.Count; i++)
-                {
-                    screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level {character.Inventory[i].Level}");
-                }
-
-                screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to sell item"
-                + Environment.NewLine);
-
-                render.PrintScreen(screen);
-                
-                List<string> validChoises2 = new List<string>();
-                
-                for (int i = 0; i <= character.Inventory.Count; i++)
-                {
-                    validChoises2.Add(i.ToString());
-                }
-                
-                choice = reader.ReadLine();
-                while (!validChoises2.Contains(choice))
-                {
-                    render.WriteLine("Invalid choice, please re-enter.");
-                    choice = reader.ReadLine();
-                }
-
-                if (choice == "0")
-                {
-                    //StateManager.Instance.StartState(StateConstants.SinglePlayer);
-                    RenderShop(shop, character);
-                }
-                else
-                {
-                    var item = character.Inventory[Convert.ToInt32(choice) - 1];
-
-                    shop.TransferItemToShop(character, Convert.ToInt32(choice) - 1);
-                    render.WriteLine($"item {choice}: {item.Type}" +
-                                     $" level {item.Level} sold");
-
-                    StartTimer(2);
-
-                    RenderShop(shop, character);
-                }
+                SellItemMenu(shop, character);
             }
             else if (choice == "3")
             {
                 BackEngine.Instance.StartSinglePlayer();
+            }
+        }
+
+        private void SellItemMenu(IShop shop, ICharacter character)
+        {
+            render.Clear();
+            StringBuilder screen = new StringBuilder();
+
+            screen.AppendLine(Environment.NewLine + Environment.NewLine +
+            "Inventory: " + Environment.NewLine);
+
+            for (int i = 0; i < character.Inventory.Count; i++)
+            {
+                screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level {character.Inventory[i].Level}");
+            }
+
+            screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to sell item"
+            + Environment.NewLine);
+
+            render.PrintScreen(screen);
+
+            List<string> validChoises2 = new List<string>();
+
+            for (int i = 0; i <= character.Inventory.Count; i++)
+            {
+                validChoises2.Add(i.ToString());
+            }
+
+            string choice = reader.ReadLine();
+            while (!validChoises2.Contains(choice))
+            {
+                render.WriteLine("Invalid choice, please re-enter.");
+                choice = reader.ReadLine();
+            }
+
+            if (choice == "0")
+            {
+                //StateManager.Instance.StartState(StateConstants.SinglePlayer);
+                RenderShop(shop, character);
+            }
+            else
+            {
+                var item = character.Inventory[Convert.ToInt32(choice) - 1];
+
+                shop.TransferItemToShop(character, Convert.ToInt32(choice) - 1);
+                render.WriteLine($"item {choice}: {item.Type}" +
+                                 $" level {item.Level} sold");
+
+                StartTimer(2);
+
+                SellItemMenu(shop, character);
             }
         }
 
