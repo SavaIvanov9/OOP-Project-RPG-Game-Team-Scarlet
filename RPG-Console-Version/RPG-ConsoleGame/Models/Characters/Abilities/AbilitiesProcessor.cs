@@ -261,15 +261,8 @@ namespace RPG_ConsoleGame.Models.Characters.Abilities
 
         private void SharpenBlades(ICharacter player)
         {
-            if (player.Energy >= 20)
-            {
                 player.Energy += 20;
                 player.Damage += 50;
-            }
-            else
-            {
-                throw new OutOfAmountException("Energy not enough to cast ability");
-            }
         }
 
         private void Execute(ICharacter player, ICharacter enemy)
