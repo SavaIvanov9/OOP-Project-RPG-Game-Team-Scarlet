@@ -67,81 +67,87 @@
             {
                 case PlayerRace.Mage:
                     //abilities
-                    Abilities.Add("Fireball");
-                    Abilities.Add("Hellfire");
-                    Abilities.Add("Reflect");
+                    Abilities.Add("Arcane Blast"); //direct dmg
+                    Abilities.Add("Hellfire"); //DOT dmg
+                    Abilities.Add("Mana Shield"); //shield + some hp
+                    Abilities.Add("Recharge energy"); //add mana
                     //passives
                     //stats
-                    this.Health = 600;
-                    this.Damage = 100;
-                    this.Defence = 10;
+                    this.Health = 300;
+                    this.Damage = 75;
+                    this.Defence = 0;
                     this.Energy = 100;
-                    this.Reflexes = 50;
+                    this.Reflexes = 80;
                     break;
                 case PlayerRace.Warrior:
                     //abilities
-                    Abilities.Add("Slash");
-                    Abilities.Add("Enrage");
-                    Abilities.Add("ShieldWall");
+                    Abilities.Add("Slash"); //direct dmg
+                    Abilities.Add("Bleeding Wounds"); //dot dmg
+                    Abilities.Add("Enrage"); //add dmg
+                    Abilities.Add("Regenerate"); //recover some hp + some energy
                     //passeives
                     //stats
-                    this.Health = 800;
-                    this.Damage = 50;
-                    this.Defence = 10;
+                    this.Health = 750;
+                    this.Damage = 25;
+                    this.Defence = 0;
                     this.Energy = 100;
-                    this.Reflexes = 60;
+                    this.Reflexes = 50;
                     break;
                 case PlayerRace.Archer:
                     //abilities
-                    Abilities.Add("MarkTarget");
-                    Abilities.Add("Heavyshot");
-                    Abilities.Add("Venomousarrow");
+                    Abilities.Add("Heavyshot"); //direct dmg
+                    Abilities.Add("Venomous Arrow"); //dot dmg
+                    Abilities.Add("Aim"); //add dmg
+                    Abilities.Add("Activate Critical Shot"); //add chance to do 1.5x dmg
                     //passives
                     //stats
-                    this.Health = 500;
-                    this.Damage = 100;
-                    this.Defence = 10;
+                    this.Health = 400;
+                    this.Damage = 50;
+                    this.Defence = 0;
                     this.Energy = 100;
                     this.Reflexes = 70;
                     break;
                 case PlayerRace.Rogue:
                     //abilities
-                    Abilities.Add("Backstab");
-                    Abilities.Add("SharpenBlades");
-                    Abilities.Add("Execute");
+                    Abilities.Add("Backstab"); //direct dmg
+                    Abilities.Add("SharpenBlades"); //add dmg + energy
+                    Abilities.Add("Execute"); //if enemy under 50% hp, deal dmg x2
+                    Abilities.Add("Disable"); //enemy deal -30% dmg
                     //passive                   
                     //stats
-                    this.Health = 600;
-                    this.Damage = 90;
-                    this.Defence = 10;
+                    this.Health = 450;
+                    this.Damage = 40;
+                    this.Defence = 0;
                     this.Energy = 100;
-                    this.Reflexes = 100;
+                    this.Reflexes = 70;
                     break;
                 case PlayerRace.Paladin:
                     //abilities
-                    Abilities.Add("Smite");
-                    Abilities.Add("Exorcism");
-                    Abilities.Add("Heal");
+                    Abilities.Add("Smite"); //direct dmg
+                    Abilities.Add("Righteous Strike"); //direct dmg + heal
+                    Abilities.Add("Heal"); //heal
+                    Abilities.Add("Divine Shield"); //add a lot hp for 1 turn
                     //passive                   
                     //stats
-                    this.Health = 800;
-                    this.Damage = 50;
-                    this.Defence = 10;
+                    this.Health = 500;
+                    this.Damage = 25;
+                    this.Defence = 0;
                     this.Energy = 100;
                     this.Reflexes = 60;
                     break;
                 case PlayerRace.Warlock:
                     //abilities
-                    Abilities.Add("LifeDrain");
-                    Abilities.Add("LifeTap");
-                    Abilities.Add("ShadowBolt");
+                    Abilities.Add("ShadowBolt"); //direct dmg, -hp, -en
+                    Abilities.Add("Shadow Curse"); //dot
+                    Abilities.Add("LifeDrain"); //dmg + heal
+                    Abilities.Add("LifeTap"); //convert hp to en
                     //passive                   
                     //stats
-                    this.Health = 500;
-                    this.Damage = 100;
-                    this.Defence = 10;
+                    this.Health = 600;
+                    this.Damage = 25;
+                    this.Defence = 0;
                     this.Energy = 100;
-                    this.Reflexes = 50;
+                    this.Reflexes = 60;
                     break;
 
                 default:

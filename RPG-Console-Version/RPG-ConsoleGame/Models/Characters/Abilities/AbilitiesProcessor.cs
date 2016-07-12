@@ -9,36 +9,45 @@
             switch (command)
             {
                 //Mage abilities
-                case "Fireball":
-                    this.Fireball(player, enemy);
+                case "Arcane Blast":
+                    this.ArcaneBlast(player, enemy);
                     break;
                 case "Hellfire":
                     this.Hellfire(player, enemy);
                     break;
-                case "Reflect":
-                    this.Reflect(player, enemy);
+                case "Mana Shield":
+                    this.ManaShield(player, enemy);
+                    break;
+                case "Recharge energy":
+                    this.RechargeEnergy();
                     break;
 
                 //Warrior abilities
                 case "Slash":
                     this.Slash(player, enemy);
                     break;
+                case "Bleeding Wounds":
+                    this.BleedingWounds();
+                    break;
                 case "Enrage":
                     this.Enrage(player);
                     break;
-                case "ShieldWall":
-                    this.ShieldWall(player);
+                case "Regenerate":
+                    this.Regenerate(player);
                     break;
 
                 //Archer abilities
-                case "Firearrows":
-                    this.MarkTarget(enemy);
-                    break;
                 case "Heavyshot":
                     this.Heavyshot(player, enemy);
                     break;
-                case "Venomousarrow":
-                    this.Venomousarrow(player, enemy);
+                case "Venomous Arrow":
+                    this.VenomousArrow(player, enemy);
+                    break;
+                case "Aim":
+                    this.Aim(enemy);
+                    break;
+                case "Activate Critical Shot":
+                    this.ActivateCriticalShot();
                     break;
 
                 //Rogue abilities
@@ -51,27 +60,36 @@
                 case "Execute":
                     this.Execute(player, enemy);
                     break;
+                case "Disable":
+                    this.Disable();
+                    break;
 
-                    //Paladin abilities
+                //Paladin abilities
                 case "Smite":
                     this.Smite(player, enemy);
                     break;
-                case "Exorcism":
-                    this.Exorcism(player, enemy);
+                case "Righteous Strike":
+                    this.RighteousStrike(player, enemy);
                     break;
                 case "Heal":
                     this.Heal(player);
                     break;
+                case "Divine Shield":
+                    this.DivineShield();
+                    break;
 
-                    //Warlock abilities
+                //Warlock abilities
+                case "ShadowBolt":
+                    this.ShadowBolt(player, enemy);
+                    break;
+                case "Shadow Curse":
+                    ShadowCurse();
+                    break;
                 case "LifeDrain":
                     this.LifeDrain(player, enemy);
                     break;
                 case "LifeTap":
                     this.LifeTap(player);
-                    break;
-                case "ShadowBolt":
-                    this.ShadowBolt(player, enemy);
                     break;
 
                 //BOSS1 abilities
@@ -90,8 +108,9 @@
                     break;
             }
         }
+
         //Mage
-        private void Fireball(ICharacter player, ICharacter enemy)
+        private void ArcaneBlast(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
             enemy.Health -= (player.Damage + 40);
@@ -101,16 +120,19 @@
         {
             player.Energy -= 20;
             enemy.Health -= (player.Damage + 15);
-            // TO ADD BURN EFFECT
         }
 
-        private void Reflect(ICharacter player, ICharacter enemy)
+        private void ManaShield(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
             enemy.Health -= enemy.Damage;
             player.Health += enemy.Damage;
         }
-        //TO ADD MAGE PASSIVE(MANA SHIELD)
+
+        private void RechargeEnergy()
+        {
+
+        }
 
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
@@ -119,23 +141,26 @@
             enemy.Health -= player.Damage + 10 - enemy.Defence;
         }
 
+        private void BleedingWounds()
+        {
+
+        }
+
         private void Enrage(ICharacter player)
         {
             player.Energy -= 10;
             player.Damage *= 2;
         }
 
-        private void ShieldWall(ICharacter player)
+        private void Regenerate(ICharacter player)
         {
             player.Energy -= 10;
             player.Defence += 10;
         }
         //TO ADD WARRIOR PASSIVE(LAST STAND)
+
         //Archer
-        private void MarkTarget(ICharacter enemy)
-        {
-            enemy.Defence -= 15;
-        }
+
 
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
@@ -143,13 +168,24 @@
             enemy.Health -= (player.Damage + 10);
         }
 
-        private void Venomousarrow(ICharacter player, ICharacter enemy)
+        private void VenomousArrow(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 15;
             enemy.Health -= player.Damage;
             //TO DO POISON EFFECT
         }
+
+        private void Aim(ICharacter enemy)
+        {
+            enemy.Defence -= 15;
+        }
+
+        private void ActivateCriticalShot()
+        {
+
+        }
         //TO ADD ARCHER PASSIVE(HEADSHOT)
+
         // Rogue
         private void Backstab(ICharacter player, ICharacter enemy)
         {
@@ -167,6 +203,11 @@
         {
             //enemy.Health -= player.Damage*Round;
         }
+
+        private void Disable()
+        {
+
+        }
         //TO ADD ROGUE PASSIVE (POISON)
 
         //Paladin
@@ -179,7 +220,7 @@
 
             player.Energy -= 20;
         }
-        private void Exorcism(ICharacter player, ICharacter enemy)
+        private void RighteousStrike(ICharacter player, ICharacter enemy)
         {
             //Aura spell
             enemy.Health -= (player.Damage / 2 + 5);
@@ -193,6 +234,11 @@
 
             player.Energy -= 20;
         }
+
+        private void DivineShield()
+        {
+
+        }
         //TO ADD PASSIVE ABILITY(HolyRegeneration)
 
         //Warlock
@@ -200,18 +246,30 @@
         {
             //PER ROUND ENEMY DAMAGE AND SELF HEAL
         }
+
+        private void ShadowBolt(ICharacter player, ICharacter enemy)
+        {
+            enemy.Health -= (player.Damage + 40);
+
+            player.Energy -= 20;
+        }
+
+        private void ShadowCurse()
+        {
+
+        }
+
+        private void LifeDrain()
+        {
+
+        }
+
         private void LifeTap(ICharacter player)
         {
             player.Health -= 10;
             //TO ADD Reflexes REGEN
 
             player.Energy += 50;
-        }
-        private void ShadowBolt(ICharacter player, ICharacter enemy)
-        {
-            enemy.Health -= (player.Damage + 40);
-
-            player.Energy -= 20;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
 
