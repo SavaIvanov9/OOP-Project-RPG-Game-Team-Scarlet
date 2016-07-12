@@ -1,7 +1,6 @@
 ﻿namespace RPG_ConsoleGame.Models.Characters.AI
 {
     using System;
-    using RPG_ConsoleGame.Characters;
     using Interfaces;
     using Map;
 
@@ -16,8 +15,16 @@
 
         public virtual string MakeDecision()
         {
-            string decision = "";
-            return decision;
+            
+            if (this.Energy <= 40)
+            {
+                return this.Abilities[3];
+            }
+            else if (this.Health < 200)
+            {
+                return this.Abilities[1];
+            }
+            return this.Abilities[0];
         }
     }
 }

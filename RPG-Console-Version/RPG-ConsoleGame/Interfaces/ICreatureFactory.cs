@@ -2,7 +2,6 @@
 
 namespace RPG_ConsoleGame.Interfaces
 {
-    using Characters;
     using Map;
 
     public interface ICreatureFactory 

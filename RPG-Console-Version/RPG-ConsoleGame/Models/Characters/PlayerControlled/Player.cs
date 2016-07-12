@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using RPG_ConsoleGame.Characters;
     using Interfaces;
     using Map;
     using Items;
@@ -146,8 +145,8 @@
                 case PlayerRace.Mage:
                     //abilities
                     Abilities.Add("Arcane Blast"); //direct dmg
-                    Abilities.Add("Hellfire"); //DOT dmg
                     Abilities.Add("Mana Shield"); //shield + some hp
+                    Abilities.Add("Hellfire"); //DOT dmg
                     Abilities.Add("Recharge energy"); //add mana
                     //passives
                     //stats
@@ -160,8 +159,8 @@
                 case PlayerRace.Warrior:
                     //abilities
                     Abilities.Add("Slash"); //direct dmg
-                    Abilities.Add("Bleeding Wounds"); //dot dmg
                     Abilities.Add("Enrage"); //add dmg
+                    Abilities.Add("Bleeding Wounds"); //dot dmg
                     Abilities.Add("Regenerate"); //recover some hp + some energy
                     //passeives
                     //stats
@@ -175,8 +174,8 @@
                     //abilities
                     Abilities.Add("Heavyshot"); //direct dmg
                     Abilities.Add("Venomous Arrow"); //dot dmg
-                    Abilities.Add("Aim"); //add dmg
                     Abilities.Add("Activate Critical Shot"); //add chance to do 1.5x dmg
+                    Abilities.Add("Aim"); //add dmg + energy
                     //passives
                     //stats
                     this.Health = 800;
@@ -188,9 +187,9 @@
                 case PlayerRace.Rogue:
                     //abilities
                     Abilities.Add("Backstab"); //direct dmg
-                    Abilities.Add("SharpenBlades"); //add dmg + energy
                     Abilities.Add("Execute"); //if enemy under 50% hp, deal dmg x3
                     Abilities.Add("Disable"); //enemy deal -30% dmg
+                    Abilities.Add("SharpenBlades"); //add dmg + energy
                     //passive                   
                     //stats
                     this.Health = 900;
@@ -202,9 +201,9 @@
                 case PlayerRace.Paladin:
                     //abilities
                     Abilities.Add("Smite"); //direct dmg
-                    Abilities.Add("Righteous Strike"); //direct dmg + energy
                     Abilities.Add("Heal"); //heal
                     Abilities.Add("Divine Shield"); //add a lot hp for 1 turn
+                    Abilities.Add("Righteous Strike"); //direct dmg + energy
                     //passive                   
                     //stats
                     this.Health = 1000;
@@ -216,8 +215,8 @@
                 case PlayerRace.Warlock:
                     //abilities
                     Abilities.Add("ShadowBolt"); //direct dmg, -hp, -en
-                    Abilities.Add("Shadow Curse"); //dot
                     Abilities.Add("LifeDrain"); //dmg + heal
+                    Abilities.Add("Shadow Curse"); //dot
                     Abilities.Add("LifeTap"); //convert hp to en
                     //passive                   
                     //stats

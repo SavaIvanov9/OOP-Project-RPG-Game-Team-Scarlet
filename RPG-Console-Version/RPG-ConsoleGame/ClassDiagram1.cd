@@ -3,7 +3,7 @@
   <Class Name="RPG_ConsoleGame.Core.Engines.BackEngine" Collapsed="true">
     <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEIQAQAAAAGQkAHAASoAQAEUAABEiBAAQUQAAAEQEAE=</HashCode>
+      <HashCode>AEIQAQAAAAGQgAHIASoAQAEUAABEiBAAQUQAAAEQEAE=</HashCode>
       <FileName>Core\Engines\BackEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -208,7 +208,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="RPG_ConsoleGame.Characters.Character" Collapsed="true">
+  <Class Name="RPG_ConsoleGame.Models.Characters.Character" Collapsed="true">
     <Position X="3" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACQSAAAACgAQAAgAEAAQAAIAEEAACABAAAgAAAAs=</HashCode>
@@ -219,7 +219,7 @@
   <Class Name="RPG_ConsoleGame.Models.Characters.PlayerControlled.Player" Collapsed="true">
     <Position X="1.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>UAEABAQAAIQAAAREAAQAgAAEAAAAAAAISEAAAEAAAAA=</HashCode>
+      <HashCode>UAEABAQAAIQAAAREAAQAgAAEAAAAAgAISEAAAEAAAAA=</HashCode>
       <FileName>Models\Characters\PlayerControlled\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -439,7 +439,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAQAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IPlayer.cs</FileName>
     </TypeIdentifier>
   </Interface>

@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace RPG_ConsoleGame.Core.Engines
+﻿namespace RPG_ConsoleGame.Core.Engines
 {
     using System;
     using System.Linq;
@@ -10,7 +8,6 @@ namespace RPG_ConsoleGame.Core.Engines
     using Models.Characters.PlayerControlled;
     using Models.Items;
     using Sound;
-    using Characters;
     using Interfaces;
     using Map;
     using UserInterface;
@@ -986,6 +983,7 @@ namespace RPG_ConsoleGame.Core.Engines
             StringBuilder screen = new StringBuilder();
 
             screen.AppendLine(Environment.NewLine +
+                              "Move with arrow keys" + Environment.NewLine +
                               "P - Player" + Environment.NewLine +
                               "E - Enemy" + Environment.NewLine +
                               "B - Boss" + Environment.NewLine +

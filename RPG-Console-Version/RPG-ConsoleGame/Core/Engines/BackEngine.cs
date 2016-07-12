@@ -1,10 +1,7 @@
-﻿using RPG_ConsoleGame.Models.Characters.AI.Boss;
-using RPG_ConsoleGame.Models.Characters.PlayerControlled;
-using RPG_ConsoleGame.Models.Items;
+﻿using System.Runtime.InteropServices;
 
 namespace RPG_ConsoleGame.Core.Engines
 {
-    using Characters;
     using Factories;
     using Map;
     using System;
@@ -17,6 +14,10 @@ namespace RPG_ConsoleGame.Core.Engines
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
     using Exceptions;
+    using Models.Characters.AI.Boss;
+    using Models.Characters.PlayerControlled;
+    using Models.Items;
+
 
     public class BackEngine
     {
@@ -140,6 +141,7 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 render.Clear();
                 render.WriteLine(AbilitiesDescription.description);
+                render.WriteLine(Environment.NewLine + @"Press ""Enter"" to continiue");
                 ViewEngine.Instance.StartTimer(20);
                 render.Clear();
             }
@@ -908,9 +910,16 @@ namespace RPG_ConsoleGame.Core.Engines
 
         private void ExecutePlayerAbility(string ability, ICharacter player, ICharacter enemy, int turn, StringBuilder history)
         {
-            abilitiesProcessor.ProcessCommand(ability, player, enemy);
+            try
+            {
+                abilitiesProcessor.ProcessCommand(ability, player, enemy);
 
-            history.AppendLine($"{turn}. {player.Name} used ability {ability}");
+                history.AppendLine($"{turn}. {player.Name} used ability {ability}");
+            }
+            catch (Exception ex)
+            {
+                render.WriteLine(ex.ToString());
+            }
         }
 
         void RemoveDead()

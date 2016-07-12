@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
-using RPG_ConsoleGame.Interfaces;
-
-namespace RPG_ConsoleGame.Models.Characters.Abilities
+﻿namespace RPG_ConsoleGame.Models.Characters.Abilities
 {
+    using System;
+                                                             
     public static class AbilitiesDescription
     {
         public static string description = "ArcaneBlast = Energy cost: 20, deals character's dmg +50." + Environment.NewLine +

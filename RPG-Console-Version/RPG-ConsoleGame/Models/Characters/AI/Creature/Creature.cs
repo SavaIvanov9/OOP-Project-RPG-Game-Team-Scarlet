@@ -130,10 +130,10 @@
             }
         }
 
-        public override string MakeDecision()
-        {
-            return this.Abilities[0];
-        }
+        //public override string MakeDecision()
+        //{
+        //    return this.Abilities[0];
+        //}
 
         public override void UseItem(int i)
         {

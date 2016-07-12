@@ -1,13 +1,12 @@
-﻿using RPG_ConsoleGame.Exceptions;
-
-namespace RPG_ConsoleGame.Characters
+﻿namespace RPG_ConsoleGame.Models.Characters
 {
     using System;
     using System.Collections.Generic;
     using Map;
     using Interfaces;
     using Items;
-    using Models.Items;
+    using Exceptions;
+    using RPG_ConsoleGame.Items;
 
     [Serializable()]
     public abstract class Character : GameObject, ICharacter
@@ -109,7 +108,14 @@ namespace RPG_ConsoleGame.Characters
         public int Energy
         {
             get { return energy; }
-            set { energy = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+                energy = value;
+            }
         }
 
         public int Reflexes

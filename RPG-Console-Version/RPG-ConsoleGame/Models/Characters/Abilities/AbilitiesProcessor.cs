@@ -1,4 +1,6 @@
-﻿namespace RPG_ConsoleGame.Models.Characters.Abilities
+﻿using RPG_ConsoleGame.Exceptions;
+
+namespace RPG_ConsoleGame.Models.Characters.Abilities
 {
     using Interfaces;
 
@@ -112,20 +114,41 @@
         //Mage
         private void ArcaneBlast(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= (player.Damage + 50);
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= (player.Damage + 50);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= (player.Damage + 25);
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= (player.Damage + 25);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void ManaShield(ICharacter player)
         {
-            player.Energy -= 20;
-            player.Health += 100;
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                player.Health += 100;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void RechargeEnergy(ICharacter character)
@@ -136,22 +159,43 @@
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= player.Damage + 25;
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= player.Damage + 25;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void BleedingWounds(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= player.Damage / 2;
-            //TO DO add dot dmg
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= player.Damage / 2;
+                //TO DO add dot dmg
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Enrage(ICharacter player)
         {
-            player.Energy -= 10;
-            player.Health -= 50;
-            player.Damage *= 2;
+            if (player.Energy >= 10)
+            {
+                player.Energy -= 10;
+                player.Health -= 50;
+                player.Damage *= 2;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Regenerate(ICharacter player)
@@ -164,20 +208,35 @@
         //Archer
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= (player.Damage + 100);
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= (player.Damage + 100);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void VenomousArrow(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= player.Damage / 2;
-            //TO DO POISON EFFECT
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= player.Damage / 2;
+                //TO DO POISON EFFECT
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Aim(ICharacter character)
         {
-            character.Damage += 100;
+            character.Energy += 50;
+            character.Damage += 50;
         }
 
         private void ActivateCriticalShot()
@@ -189,44 +248,78 @@
         // Rogue
         private void Backstab(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 40;
-            enemy.Health -= (player.Damage * 2);
+            if (player.Energy >= 40)
+            {
+                player.Energy -= 40;
+                enemy.Health -= (player.Damage * 2);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void SharpenBlades(ICharacter player)
         {
-            player.Energy += 20;
-            player.Damage += 50;
+            if (player.Energy >= 20)
+            {
+                player.Energy += 20;
+                player.Damage += 50;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Execute(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-
-            if (enemy.Health <= 300)
+            if (player.Energy >= 20)
             {
-                enemy.Health -= player.Damage*3;
+                player.Energy -= 20;
+
+                if (enemy.Health <= 300)
+                {
+                    enemy.Health -= player.Damage * 3;
+                }
+                else
+                {
+                    enemy.Health -= player.Damage;
+                }
             }
             else
             {
-                enemy.Health -= player.Damage;
+                throw new OutOfAmountException("Energy not enough to cast ability");
             }
         }
 
         private void Disable(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            //TODO add -30% debuff on enemy
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                //TODO add -30% debuff on enemy
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
         //TO ADD ROGUE PASSIVE (POISON)
 
         //Paladin
         private void Smite(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
 
-            enemy.Health -= (player.Damage + 50);
-            
+                enemy.Health -= (player.Damage + 50);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void RighteousStrike(ICharacter player, ICharacter enemy)
@@ -238,9 +331,16 @@
 
         private void Heal(ICharacter player)
         {
-            player.Health += player.Damage * 2;
+            if (player.Energy >= 30)
+            {
+                player.Health += player.Damage * 2;
 
-            player.Energy -= 30;
+                player.Energy -= 30;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void DivineShield()
@@ -252,20 +352,34 @@
         //Warlock
         private void LifeDrain(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
 
-            player.Health += player.Damage;
+                player.Health += player.Damage;
 
-            enemy.Health -= player.Damage;
+                enemy.Health -= player.Damage;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
-            enemy.Health -= (player.Damage + 200);
+            if (player.Energy >= 20)
+            {
+                enemy.Health -= (player.Damage + 200);
 
-            player.Health -= player.Damage;
+                player.Health -= player.Damage;
 
-            player.Energy -= 20;
+                player.Energy -= 20;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void ShadowCurse()
@@ -284,22 +398,42 @@
         //Boss1
         private void Ability1(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= (player.Damage + 40);
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= (player.Damage + 40);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Ability2(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= (player.Damage + 15);
-
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= (player.Damage + 15);
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
 
         private void Ability3(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 20;
-            enemy.Health -= enemy.Damage;
-            player.Health += enemy.Damage;
+            if (player.Energy >= 20)
+            {
+                player.Energy -= 20;
+                enemy.Health -= enemy.Damage;
+                player.Health += enemy.Damage;
+            }
+            else
+            {
+                throw new OutOfAmountException("Energy not enough to cast ability");
+            }
         }
     }
 }
