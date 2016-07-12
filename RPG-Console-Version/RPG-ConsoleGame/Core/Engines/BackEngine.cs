@@ -16,12 +16,6 @@ namespace RPG_ConsoleGame.Core.Engines
     using System.Runtime.Serialization.Formatters.Binary;
     using Exceptions;
 
-    //***********************************************
-    //ima eksepshyn za fiksvane, no sa mi se spi.
-    //1. ne se regenerira energy-to. izmisli mu logika
-    //2. level manager sy6to trqbva da se napravi
-    //************************************************
-
     public class BackEngine
     {
         private readonly IInputReader reader = new ConsoleInputReader();
@@ -882,6 +876,7 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 if (database.Creatures[index].Health <= 0)
                 {
+                    database.Players[0].Gold += database.Creatures[index].Gold;
                     database.Creatures.Remove(database.Creatures[index]);
                 }
             }
@@ -890,6 +885,7 @@ namespace RPG_ConsoleGame.Core.Engines
             {
                 if (database.Bosses[index].Health <= 0)
                 {
+                    database.Players[0].Gold += database.Creatures[index].Gold;
                     database.Bosses.Remove(database.Bosses[index]);
                 }
             }

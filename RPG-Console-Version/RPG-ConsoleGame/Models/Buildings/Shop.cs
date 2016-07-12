@@ -93,38 +93,47 @@ namespace RPG_ConsoleGame.Models.Buildings
             {
                 case ItemType.Helmet:
                     character.Inventory.Add(this.Helmets.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Helmets.First(x => x.Level.Equals(level)).Gold;
                     this.Helmets.Remove(this.Helmets.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.Chest:
                     character.Inventory.Add(this.Chests.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Chests.First(x => x.Level.Equals(level)).Gold;
                     this.Chests.Remove(this.Chests.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.Hands:
                     character.Inventory.Add(this.Hands.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Hands.First(x => x.Level.Equals(level)).Gold;
                     this.Hands.Remove(this.Hands.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.Boots:
                     character.Inventory.Add(this.Boots.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Boots.First(x => x.Level.Equals(level)).Gold;
                     this.Boots.Remove(this.Boots.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.Weapon:
                     character.Inventory.Add(this.Weapons.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Weapons.First(x => x.Level.Equals(level)).Gold;
                     this.Weapons.Remove(this.Weapons.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.PotionHealth:
                     character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
                     this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.PotionEnergy:
                     character.Inventory.Add(this.Potions.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Potions.First(x => x.Level.Equals(level)).Gold;
                     this.Potions.Remove(this.Potions.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.ScrollGuardian:
                     character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
                     this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
                     break;
                 case ItemType.ScrollDestruction:
                     character.Inventory.Add(this.Scrolls.First(x => x.Level.Equals(level)));
+                    character.Gold -= this.Scrolls.First(x => x.Level.Equals(level)).Gold;
                     this.Scrolls.Remove(this.Scrolls.First(x => x.Level.Equals(level)));
                     break;
                 default:
@@ -139,38 +148,47 @@ namespace RPG_ConsoleGame.Models.Buildings
             {
                 case ItemType.Helmet:
                     this.Helmets.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.Chest:
                     this.Chests.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.Hands:
                     this.Hands.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.Boots:
                     this.Boots.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.Weapon:
                     this.Weapons.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.PotionHealth:
                     this.Potions.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.PotionEnergy:
                     this.Potions.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.ScrollGuardian:
                     this.Scrolls.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 case ItemType.ScrollDestruction:
                     this.Scrolls.Add(character.Inventory[index]);
+                    character.Gold += character.Inventory[index].Gold;
                     character.Inventory.RemoveAt(index);
                     break;
                 default:

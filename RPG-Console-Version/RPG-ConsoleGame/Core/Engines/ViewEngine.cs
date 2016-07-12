@@ -97,11 +97,12 @@ namespace RPG_ConsoleGame.Core.Engines
             StringBuilder screen = new StringBuilder();
 
             screen.AppendLine(Environment.NewLine + Environment.NewLine +
-            "Inventory: " + Environment.NewLine);
+                $"Your gold: {character.Gold}" + Environment.NewLine +
+                "Inventory: " + Environment.NewLine);
 
             for (int i = 0; i < character.Inventory.Count; i++)
             {
-                screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level {character.Inventory[i].Level}");
+                screen.AppendLine($"{i + 1}. Item {i + 1}: {character.Inventory[i].Type} level: {character.Inventory[i].Level}, price: {character.Inventory[i].Gold}");
             }
 
             screen.AppendLine("0. Return back" + Environment.NewLine + Environment.NewLine + "Choose number to sell item"
@@ -150,17 +151,17 @@ namespace RPG_ConsoleGame.Core.Engines
 
             StringBuilder screen2 = new StringBuilder();
 
-            screen2.AppendLine(
+            screen2.AppendLine($"Your gold is: {character.Gold}" + Environment.NewLine +
                 "Enter number to make your choice:" + Environment.NewLine +
-                "1. Helmet" + Environment.NewLine +
-                "2. Chest" + Environment.NewLine +
-                "3. Hands" + Environment.NewLine +
-                "4. Weapon" + Environment.NewLine +
-                "5. Boots" + Environment.NewLine +
-                "6. Health Potion" + Environment.NewLine +
-                "7. Energy Potion" + Environment.NewLine +
-                "8. Guardian Scroll" + Environment.NewLine +
-                "9. Destruction Scroll" + Environment.NewLine +
+                $"1. Helmet lvl 1 price: 20 gold, lvl 2 price: 30 gold, lvl 3 price: 40 gold" + Environment.NewLine +
+                "2. Chest lvl 1 price: 20 gold, lvl 2 price: 30 gold, lvl 3 price: 40 gold" + Environment.NewLine +
+                "3. Hands lvl 1 price: 20 gold, lvl 2 price: 30 gold, lvl 3 price: 40 gold" + Environment.NewLine +
+                "4. Weapon lvl 1 price: 20 gold, lvl 2 price: 30 gold, lvl 3 price: 40 gold" + Environment.NewLine +
+                "5. Boots lvl 1 price: 20 gold, lvl 2 price: 30 gold, lvl 3 price: 40 gold" + Environment.NewLine +
+                "6. Health Potion lvl 1 price: 10 gold, lvl 2 price: 20 gold, lvl 3 price: 30 gold" + Environment.NewLine +
+                "7. Energy Potion lvl 1 price: 10 gold, lvl 2 price: 20 gold, lvl 3 price: 30 gold" + Environment.NewLine +
+                "8. Guardian Scroll lvl 1 price: 10 gold, lvl 2 price: 20 gold, lvl 3 price: 30 gold" + Environment.NewLine +
+                "9. Destruction Scroll lvl 1 price: 10 gold, lvl 2 price: 20 gold, lvl 3 price: 30 gold" + Environment.NewLine +
                 "0. Return back"
                 );
 
@@ -168,7 +169,7 @@ namespace RPG_ConsoleGame.Core.Engines
 
             string choice = reader.ReadLine();
 
-            string[] validChoises2 = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+            string[] validChoises2 = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
             while (!validChoises2.Contains(choice))
             {
@@ -975,8 +976,9 @@ namespace RPG_ConsoleGame.Core.Engines
                 }
             }
 
-            screen.AppendLine(Environment.NewLine + Environment.NewLine +
-                "Inventory: " + Environment.NewLine);
+            screen.AppendLine(Environment.NewLine + 
+                $"Your gold: {character.Gold}" + Environment.NewLine +
+                Environment.NewLine + "Inventory: " + Environment.NewLine);
 
             for (int i = 0; i < character.Inventory.Count; i++)
             {

@@ -1,6 +1,7 @@
 ﻿namespace RPG_ConsoleGame.Models.Characters.PlayerControlled
 {
     using System;
+    using System.Collections.Generic;
     using RPG_ConsoleGame.Characters;
     using Interfaces;
     using Map;
@@ -15,6 +16,7 @@
         private bool insideBuilding;
         private char inBuildingSymbol;
         private bool isEnteringBuilding;
+       private Dictionary<string, int> effects;
 
         public Player(Position position, char objectSymbol, string name, PlayerRace race)
             : base(position, objectSymbol, name, 0, 0, 0, 0, 0)
@@ -25,10 +27,18 @@
             this.CurrentRow = currentRow;
             this.IsEnteringBuilding = isEnteringBuilding;
             SetDefaultEquippedItems();
+            this.Effects = new Dictionary<string, int>();
         }
 
+        public Dictionary<string, int> Effects
+        {
+            get { return this.effects; }
+            set { this.effects = value; }
+        }
         public int CurrentCol { get; set; }
+
         public int CurrentRow { get; set; }
+
         public bool IsEnteringBuilding { get; set; }
        
         public PlayerRace Race { get; private set; }
@@ -164,7 +174,7 @@
                     //abilities
                     Abilities.Add("Backstab"); //direct dmg
                     Abilities.Add("SharpenBlades"); //add dmg + energy
-                    Abilities.Add("Execute"); //if enemy under 50% hp, deal dmg x2
+                    Abilities.Add("Execute"); //if enemy under 50% hp, deal dmg x3
                     Abilities.Add("Disable"); //enemy deal -30% dmg
                     //passive                   
                     //stats
@@ -177,7 +187,7 @@
                 case PlayerRace.Paladin:
                     //abilities
                     Abilities.Add("Smite"); //direct dmg
-                    Abilities.Add("Righteous Strike"); //direct dmg + heal
+                    Abilities.Add("Righteous Strike"); //direct dmg + energy
                     Abilities.Add("Heal"); //heal
                     Abilities.Add("Divine Shield"); //add a lot hp for 1 turn
                     //passive                   

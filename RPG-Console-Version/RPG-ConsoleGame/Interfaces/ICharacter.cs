@@ -12,6 +12,7 @@
         int Defence { get; set; }
         int Energy { get; set; }
         int Reflexes { get; set; }
+        int Gold { get; set; }
         IList<string> Abilities { get; set; }
         IList<IItem> Inventory { get; set; }
         Dictionary<ItemType, IItem> BodyItems { get; }

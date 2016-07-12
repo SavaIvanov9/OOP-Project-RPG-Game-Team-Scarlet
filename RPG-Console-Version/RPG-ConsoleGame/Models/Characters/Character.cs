@@ -21,6 +21,7 @@ namespace RPG_ConsoleGame.Characters
         private IList<string> abilities;
         private IList<IItem> inventory;
         private Dictionary<ItemType, IItem> bodyItems;
+        private int gold;
 
         protected Character(Position position, char objectSymbol, string name,
             int health, int damage, int defence, int energy, int reflexes)
@@ -35,6 +36,7 @@ namespace RPG_ConsoleGame.Characters
             this.Abilities = new List<string>();
             this.Inventory = new List<IItem>();
             this.BodyItems = new Dictionary<ItemType, IItem>();
+            this.Gold = 100;
         }
 
         public Dictionary<ItemType, IItem> BodyItems
@@ -114,6 +116,13 @@ namespace RPG_ConsoleGame.Characters
         {
             get { return reflexes; }
             set { reflexes = value; }
+        }
+
+
+        public int Gold
+        {
+            get { return this.gold; }
+            set { this.gold = value; }
         }
 
         public IList<string> Abilities

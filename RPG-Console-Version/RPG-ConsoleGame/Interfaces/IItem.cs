@@ -12,5 +12,6 @@ namespace RPG_ConsoleGame.Interfaces
         ItemType Type { get; set; }
         int Level { get; set; }
         void UseItem(ICharacter character);
+        int Gold { get; }
     }
 }

@@ -17,6 +17,7 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
             this.Initializelevel();
         }
 
+
         private void InitializeItem()
         {
             switch (this.Type)
@@ -73,6 +74,7 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
             switch (this.Level)
             {
                 case 1:
+                    this.Gold = 20;
                     this.health *= 1;
                     this.damage *= 1;
                     this.defence *= 1;
@@ -80,6 +82,7 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
                     this.reflexes *= 1;
                     break;
                 case 2:
+                    this.Gold = 30;
                     this.health *= 2;
                     this.damage *= 2;
                     this.defence *= 2;
@@ -87,6 +90,7 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
                     this.reflexes *= 2;
                     break;
                 case 3:
+                    this.Gold = 40;
                     this.health *= 3;
                     this.damage *= 3;
                     this.defence *= 3;
@@ -100,11 +104,11 @@ namespace RPG_ConsoleGame.Models.Items.NonConsumables
 
         public override void UseItem(ICharacter character)
         {
-                character.Damage += this.damage;
-                character.Defence += this.defence;
-                character.Energy += this.energy;
-                character.Health += this.health;
-                character.Reflexes += this.reflexes;
+            character.Damage += this.damage;
+            character.Defence += this.defence;
+            character.Energy += this.energy;
+            character.Health += this.health;
+            character.Reflexes += this.reflexes;
         }
 
         public void UnEquipItem(ICharacter character)

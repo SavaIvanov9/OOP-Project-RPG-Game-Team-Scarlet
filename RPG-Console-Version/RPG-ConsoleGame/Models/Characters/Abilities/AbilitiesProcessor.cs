@@ -16,10 +16,10 @@
                     this.Hellfire(player, enemy);
                     break;
                 case "Mana Shield":
-                    this.ManaShield(player, enemy);
+                    this.ManaShield(player);
                     break;
                 case "Recharge energy":
-                    this.RechargeEnergy();
+                    this.RechargeEnergy(player);
                     break;
 
                 //Warrior abilities
@@ -27,7 +27,7 @@
                     this.Slash(player, enemy);
                     break;
                 case "Bleeding Wounds":
-                    this.BleedingWounds();
+                    this.BleedingWounds(player, enemy);
                     break;
                 case "Enrage":
                     this.Enrage(player);
@@ -61,7 +61,7 @@
                     this.Execute(player, enemy);
                     break;
                 case "Disable":
-                    this.Disable();
+                    this.Disable(player, enemy);
                     break;
 
                 //Paladin abilities
@@ -113,37 +113,38 @@
         private void ArcaneBlast(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
-            enemy.Health -= (player.Damage + 40);
+            enemy.Health -= (player.Damage + 50);
         }
 
         private void Hellfire(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
-            enemy.Health -= (player.Damage + 15);
+            enemy.Health -= (player.Damage + 25);
         }
 
-        private void ManaShield(ICharacter player, ICharacter enemy)
+        private void ManaShield(ICharacter player)
         {
             player.Energy -= 20;
-            enemy.Health -= enemy.Damage;
-            player.Health += enemy.Damage;
+            player.Health += 100;
         }
 
-        private void RechargeEnergy()
+        private void RechargeEnergy(ICharacter character)
         {
-
+            character.Energy += 100;
         }
 
         //Warrior
         private void Slash(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
-            enemy.Health -= player.Damage + 10 - enemy.Defence;
+            enemy.Health -= player.Damage + 25;
         }
 
-        private void BleedingWounds()
+        private void BleedingWounds(ICharacter player, ICharacter enemy)
         {
-
+            player.Energy -= 20;
+            enemy.Health -= player.Damage / 2;
+            //TO DO add dot dmg
         }
 
         private void Enrage(ICharacter player)
@@ -154,35 +155,33 @@
 
         private void Regenerate(ICharacter player)
         {
-            player.Energy -= 10;
-            player.Defence += 10;
+            player.Energy += 50;
+            player.Health += 100;
         }
         //TO ADD WARRIOR PASSIVE(LAST STAND)
 
         //Archer
-
-
         private void Heavyshot(ICharacter player, ICharacter enemy)
         {
             player.Energy -= 20;
-            enemy.Health -= (player.Damage + 10);
+            enemy.Health -= (player.Damage + 100);
         }
 
         private void VenomousArrow(ICharacter player, ICharacter enemy)
         {
-            player.Energy -= 15;
-            enemy.Health -= player.Damage;
+            player.Energy -= 20;
+            enemy.Health -= player.Damage / 2;
             //TO DO POISON EFFECT
         }
 
-        private void Aim(ICharacter enemy)
+        private void Aim(ICharacter character)
         {
-            enemy.Defence -= 15;
+            character.Damage += 100;
         }
 
         private void ActivateCriticalShot()
         {
-
+            //TODO: add crit buff
         }
         //TO ADD ARCHER PASSIVE(HEADSHOT)
 
@@ -195,81 +194,89 @@
 
         private void SharpenBlades(ICharacter player)
         {
-            player.Energy -= 20;
-            player.Damage += 15;
+            player.Energy += 20;
+            player.Damage += 50;
         }
 
         private void Execute(ICharacter player, ICharacter enemy)
         {
-            //enemy.Health -= player.Damage*Round;
+            player.Energy -= 20;
+
+            if (enemy.Health <= 300)
+            {
+                enemy.Health -= player.Damage*3;
+            }
+            else
+            {
+                enemy.Health -= player.Damage;
+            }
         }
 
-        private void Disable()
+        private void Disable(ICharacter player, ICharacter enemy)
         {
-
+            player.Energy -= 20;
+            //TODO add -30% debuff on enemy
         }
         //TO ADD ROGUE PASSIVE (POISON)
 
         //Paladin
         private void Smite(ICharacter player, ICharacter enemy)
         {
-            player.Health += 20;
-            enemy.Health -= (player.Damage + 10);
-            if (player.Health > 180)
-                player.Health = 180;
-
             player.Energy -= 20;
+
+            enemy.Health -= (player.Damage + 50);
+            
         }
+
         private void RighteousStrike(ICharacter player, ICharacter enemy)
         {
-            //Aura spell
-            enemy.Health -= (player.Damage / 2 + 5);
-            //TO ADD SELF DMG PER ROUND(To nullify the effect of the passive aura)
+            enemy.Health -= (player.Damage / 2);
+
+            player.Energy += player.Damage;
         }
+
         private void Heal(ICharacter player)
         {
-            player.Health += 70;
-            if (player.Health > 180)
-                player.Health = 180;
+            player.Health += player.Damage * 2;
 
-            player.Energy -= 20;
+            player.Energy -= 30;
         }
 
         private void DivineShield()
         {
-
+            //TODO add buff
         }
         //TO ADD PASSIVE ABILITY(HolyRegeneration)
 
         //Warlock
         private void LifeDrain(ICharacter player, ICharacter enemy)
         {
-            //PER ROUND ENEMY DAMAGE AND SELF HEAL
+            player.Energy -= 20;
+
+            player.Health += player.Damage;
+
+            enemy.Health -= player.Damage;
         }
 
         private void ShadowBolt(ICharacter player, ICharacter enemy)
         {
-            enemy.Health -= (player.Damage + 40);
+            enemy.Health -= (player.Damage + 200);
+
+            player.Health -= player.Damage;
 
             player.Energy -= 20;
         }
 
         private void ShadowCurse()
         {
-
-        }
-
-        private void LifeDrain()
-        {
-
+            //todo add dot dmg
         }
 
         private void LifeTap(ICharacter player)
         {
-            player.Health -= 10;
-            //TO ADD Reflexes REGEN
+            player.Health -= player.Damage;
 
-            player.Energy += 50;
+            player.Energy += player.Damage * 2;
         }
         //TO ADD PASSIVE ABILITY (ImmortalImp)
 
