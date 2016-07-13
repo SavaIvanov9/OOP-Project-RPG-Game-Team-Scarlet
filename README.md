@@ -1,4 +1,4 @@
-#Telerik Academy OOP Project - RPG game, Team: Skarlet
+#Telerik Academy OOP Project - RPG game, Team: Scarlet
 
 # CSharp OOP Teamwork Assignment June 2016
 
