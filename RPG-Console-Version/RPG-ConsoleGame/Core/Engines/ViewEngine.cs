@@ -15,6 +15,7 @@
     using System.Runtime.Serialization.Formatters.Binary;
     using StateManager;
     using Exceptions;
+    using Constants;
 
     public delegate void OnMenuClickHandler(string selectedValue);
 
@@ -725,23 +726,7 @@
 
         private PlayerRace GetPlayerRace()
         {
-            StringBuilder screen = new StringBuilder();
-            screen.AppendLine("Choose a race:"
-                + Environment.NewLine);
-            screen.AppendLine("1. Mage (Health: 600, Damage: 100, Defense: 10, Energy: 100, Reflexes: 50)"
-                + Environment.NewLine);
-            screen.AppendLine("2. Warrior (Health: 800, Damage: 50, Defense: 10, Energy: 100, Reflexes: 60)"
-                + Environment.NewLine);
-            screen.AppendLine("3. Archer (Health: 500, Damage: 100, Defense: 10, Energy: 100, Reflexes: 70)"
-                + Environment.NewLine);
-            screen.AppendLine("4. Rogue (Health: 600, Damage: 90, Defense: 10, Energy: 100, Reflexes: 100)"
-                + Environment.NewLine);
-            screen.AppendLine("5. Paladin (Health: 800, Damage: 50, Defense: 10, Energy: 100, Reflexes: 60)"
-                + Environment.NewLine);
-            screen.AppendLine("6. Warlock (Health: 500, Damage: 100, Defense: 10, Energy: 100, Reflexes: 50)"
-                + Environment.NewLine);
-
-            render.PrintScreen(screen);
+            render.WriteLine(Constants.PlayerRaceDescription + Environment.NewLine);
 
             string choice = reader.ReadLine();
 

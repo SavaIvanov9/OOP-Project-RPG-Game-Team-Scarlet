@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace RPG_ConsoleGame.Core.Engines
+﻿namespace RPG_ConsoleGame.Core.Engines
 {
     using Factories;
     using Map;
@@ -17,7 +15,7 @@ namespace RPG_ConsoleGame.Core.Engines
     using Models.Characters.AI.Boss;
     using Models.Characters.PlayerControlled;
     using Models.Items;
-
+    using Constants;
 
     public class BackEngine
     {
@@ -140,7 +138,7 @@ namespace RPG_ConsoleGame.Core.Engines
             if (command == "Description")
             {
                 render.Clear();
-                render.WriteLine(AbilitiesDescription.description);
+                render.WriteLine(Constants.AbilitiesDescription);
                 render.WriteLine(Environment.NewLine + @"Press ""Enter"" to continiue");
                 ViewEngine.Instance.StartTimer(20);
                 render.Clear();
